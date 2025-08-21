@@ -1,0 +1,56 @@
+.shop-banner {
+  position: relative;
+  background-color: #f5f5f5;
+  background-image: url('/images/banner2.jpg');
+  background-size: cover;
+  padding: 110px 0px 115px;
+  margin-bottom: 48px;
+}
+
+.shop-banner h3 {
+  position: relative;
+  font-size: 50px;
+  line-height: 1.2em;
+  margin-bottom: 0px;
+}
+
+.shop-banner .sale-percent {
+  position: relative;
+  font-size: 60px;
+  font-weight: 700;
+  color: goldenrod;
+}
+
+.shop-banner .sale-percent span {
+  position: relative;
+  font-size: 24px;
+  line-height: 1.1em;
+  color: #004c49;
+  font-weight: 400;
+  text-align: center;
+  margin-right: 10px;
+  display: inline-block;
+}
+.cart-btn {
+    display: inline-block;
+    background-color: goldenrod;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    
+}
+.cart-btn:hover {
+    background-color: #004c49;
+    color: goldenrod;
+}
+
+@media only screen and (max-width: 767px) {
+    .shop-banner h3 {
+        font-size: 34px;
+    }
+}

@@ -1,0 +1,28 @@
+.breadcrumb-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+
+    .link {
+        cursor: pointer;
+        color: var(--text-color);
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 28px;
+
+        &:hover {
+            transition: all 0.3s;
+        }
+
+        &.active {
+            pointer-events: none;
+        }
+    }
+
+    .breadcrumb-seperator {
+        color: #8a8aa0;
+        display: inline-block;
+        font-size: 1.6rem;
+        margin: 0 0.8rem;
+    }
+}

@@ -1,0 +1,106 @@
+.footerArea {
+    background-color: #004c49;
+    color: #fff;
+    padding: 150px 0;
+}
+@media only screen and (max-width: 767px) {
+    .footerArea {
+        padding: 80px 0;
+    }
+}
+
+.footerBox {
+   
+    margin-bottom: 30px;
+    p,ul li,a {
+        font-family: "Play", sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        letter-spacing: 0.1px;
+        color: #fff;
+        opacity: 0.7;
+        line-height: 1.8;
+    }
+}
+.pages ul li {
+    position: relative;
+    padding-left: 20px;
+    :hover{
+        color: goldenrod;
+    }
+}
+.pages ul li:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: goldenrod;
+}
+.widgetTitle {
+    font-size: 24px;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 20px;
+    color: #fff;
+    margin: 0 0 1.25rem 0;
+}
+ .widgetTitle:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 20px;
+    height: 2px;
+    background-color: goldenrod;
+    content: "";
+}
+
+.copyright {
+    background-color: #004c49;
+    border-top: 1px solid #1f685f;
+    p {
+        margin: 0;
+        color: #fff;
+        opacity: 0.7;
+        padding: 16px 0;
+        font-size: 15px;
+        font-family: "Play", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.1px;
+        line-height: 1.8;
+    }
+    a{
+        color: #daa520;
+        font-weight: 700;
+        
+    }
+    a:hover{
+            color: #ffc430;
+            text-decoration: none;
+        }
+    .socialIcons li:hover a{
+        color: goldenrod;
+    }
+    .socialIcons a {
+        font-size: 16px;
+        color: #fff;
+        opacity: 0.7;
+        padding: 16px 10px;
+        display: block;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .copyright  {
+        p{
+            text-align: center;
+            padding-bottom: 0;
+        }
+    }
+    .socialIcons {
+        justify-content: center;
+        display: flex;
+        text-align: center;
+        width: 100%;
+    }
+}

@@ -1,0 +1,10 @@
+.root {
+    margin: auto;
+    width: min(var(--max-width, var(--container-width)), 100% - (var(--margin, 1.6rem) * 2));
+}
+
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1140px;
+    }
+}

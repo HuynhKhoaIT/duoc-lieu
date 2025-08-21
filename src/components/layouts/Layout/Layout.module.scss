@@ -1,0 +1,9 @@
+.master-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+    background-color: #f7f8fa;
+    .content {
+        flex: 1;
+    }
+}
