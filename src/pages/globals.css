@@ -85,6 +85,12 @@
 .container{
   max-width: 1140px;
 }
+@media screen and (min-width: 992px){
+  .container{
+    max-width: 960px;
+  }
+}
+
 
 :root {
   --radius: 0.625rem;

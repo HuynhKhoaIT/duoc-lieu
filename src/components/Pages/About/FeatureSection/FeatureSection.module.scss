@@ -1,22 +1,25 @@
 .feature-bg {
   position: relative;
 }
-
-.feature-bg:after {
-  background-image: url('/images/feature-bg.jpg');
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 40%;
-  height: 100%;
-  content: "";
-  background-size: cover;
-  background-position: center;
-  border-top-left-radius: 5px;
-  -webkit-box-shadow: 0 0 20px #cacaca;
-  box-shadow: 0 0 20px #cacaca;
-  border-bottom-left-radius: 5px;
+@media (min-width: 991px) {
+  .feature-bg:after {
+    background-image: url('/images/feature-bg.jpg');
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    content: "";
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 5px;
+    -webkit-box-shadow: 0 0 20px #cacaca;
+    box-shadow: 0 0 20px #cacaca;
+    border-bottom-left-radius: 5px;
+  }
 }
+
+
 
 .list-box .content h3 {
     display: block;
