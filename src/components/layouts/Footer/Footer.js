@@ -89,20 +89,20 @@ export default function Footer() {
                         <div>
                             <p>
                                 Bản quyền © 2025 -{" "}
-                                <a
+                                <Link
                                     href="https://duoclieuxanh.com/"
                                     className="text-blue-600 hover:underline"
                                 >
                                     Duoclieuxanh.net
-                                </a>
+                                </Link>
                                 <br />
                                 Thiết kế bởi{" "}
-                                <a
+                                <Link
                                     href="https://duoclieuxanh.com/"
                                     className="text-blue-600 hover:underline"
                                 >
                                     KitaGroup
-                                </a>
+                                </Link>
                             </p>
                         </div>
 
@@ -112,36 +112,36 @@ export default function Footer() {
                                 className={`${styles.socialIcons} flex space-x-4`}
                             >
                                 <li>
-                                    <a
+                                    <Link
                                         href="/"
                                         target="_blank"
                                     >
                                         <i className="fab fa-facebook-f"></i>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href="/"
                                         target="_blank"
                                     >
                                         <i className="fab fa-twitter"></i>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href="/"
                                         target="_blank"
                                     >
                                         <i className="fab fa-instagram"></i>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href="/"
                                         target="_blank"
                                     >
                                         <i className="fab fa-linkedin"></i>
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import paths from "@/constants/paths";
 
 import styles from "./Header.module.scss";
 
 export default function Header() {
-    const [isSticky, setIsSticky] = useState(false);
-    const [isShowMenu, setIsShowMenu] = useState(false);
+    const [ isSticky, setIsSticky ] = useState(false);
+    const [ isShowMenu, setIsShowMenu ] = useState(false);
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,6 +27,16 @@ export default function Header() {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
+    const isActive = (href) => {
+        if (!pathname) {
+            return false;
+        }
+        if (href === "/") {
+            return pathname === "/";
+        }
+        return pathname.startsWith(href);
+    };
 
     return (
         <div
@@ -43,7 +57,7 @@ export default function Header() {
                             <div className={styles.mainMenuWrap}>
                                 {/* logo */}
                                 <div className={styles.siteLogo}>
-                                    <Link href="/">
+                                    <Link href={paths.home}>
                                         <img
                                             src="/images/logo.png"
                                             alt="Logo"
@@ -56,25 +70,71 @@ export default function Header() {
                                 {/* menu start */}
                                 <nav className={styles.mainMenu}>
                                     <ul>
-                                        <li className={styles.currentListItem}>
-                                            <Link href="/">Trang Chủ</Link>
+                                        <li
+                                            className={
+                                                isActive(paths.home)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.home}>
+                                                Trang Chủ
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/about">
+                                        <li
+                                            className={
+                                                isActive(paths.about)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.about}>
                                                 Giới thiệu
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/shop">Sản Phẩm</Link>
+                                        <li
+                                            className={
+                                                isActive(paths.shop)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.shop}>
+                                                Sản Phẩm
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/combo">Đặt Hàng</Link>
+                                        <li
+                                            className={
+                                                isActive(paths.combo)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.combo}>
+                                                Đặt Hàng
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/news">Bài Viết</Link>
+                                        <li
+                                            className={
+                                                isActive(paths.news)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.news}>
+                                                Bài Viết
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/contact">Liên Hệ</Link>
+                                        <li
+                                            className={
+                                                isActive(paths.contact)
+                                                    ? styles.currentListItem
+                                                    : ""
+                                            }
+                                        >
+                                            <Link href={paths.contact}>
+                                                Liên Hệ
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -93,7 +153,7 @@ export default function Header() {
                                     </Link>
                                     <Link
                                         className={`${styles.iconLink} ${styles.mobileHide}`}
-                                        href="/login"
+                                        href={paths.login}
                                     >
                                         <i className="fas fa-sign-in-alt"></i>
                                     </Link>
@@ -133,23 +193,23 @@ export default function Header() {
                     >
                         <nav className={styles["mean-nav"]}>
                             <ul className="block">
-                                <li>
-                                    <Link href="/">Trang Chủ</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.home}>Trang Chủ</Link>
                                 </li>
-                                <li>
-                                    <Link href="/about">Giới thiệu</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.about}>Giới thiệu</Link>
                                 </li>
-                                <li>
-                                    <Link href="/shop">Sản Phẩm</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.shop}>Sản Phẩm</Link>
                                 </li>
-                                <li>
-                                    <Link href="/combo">Đặt Hàng</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.combo}>Đặt Hàng</Link>
                                 </li>
-                                <li>
-                                    <Link href="/news">Bài Viết</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.news}>Bài Viết</Link>
                                 </li>
-                                <li>
-                                    <Link href="/contact">Liên Hệ</Link>
+                                <li onClick={() => setIsShowMenu(false)}>
+                                    <Link href={paths.contact}>Liên Hệ</Link>
                                 </li>
                             </ul>
                         </nav>
@@ -158,4 +218,4 @@ export default function Header() {
             </div>
         </div>
     );
-}   
+}

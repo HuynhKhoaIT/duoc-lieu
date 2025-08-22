@@ -1,11 +1,11 @@
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 
 import Container from "@/components/Common/Container";
 
 import styles from "./Breadcrumb.module.scss";
-import Link from "next/link";
 
 function Breadcrumb({ data = [], className }) {
     const router = useRouter();
@@ -14,10 +14,13 @@ function Breadcrumb({ data = [], className }) {
     return (
         <Container maxWidth="var(--container-width)">
             {data.length > 1 && (
-                <div className={classNames(styles.breadcrumbWrapper, className)}>
+                <div
+                    className={classNames(styles.breadcrumbWrapper, className)}
+                >
                     {data.map((item, index) => {
                         const activeLink =
-                            pathname === item.link || pathname === item.link?.pathname;
+                            pathname === item.link ||
+                            pathname === item.link?.pathname;
                         const Component = activeLink
                             ? "div"
                             : (props) => <Link href={item.link} {...props} />;
@@ -25,7 +28,13 @@ function Breadcrumb({ data = [], className }) {
                             <Component key={index}>
                                 <>
                                     {index !== 0 ? (
-                                        <span className={styles.breadcrumbSeperator}>/</span>
+                                        <span
+                                            className={
+                                                styles.breadcrumbSeperator
+                                            }
+                                        >
+                                            /
+                                        </span>
                                     ) : (
                                         <></>
                                     )}

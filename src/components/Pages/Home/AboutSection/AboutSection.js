@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+import paths from "@/constants/paths";
+
 import styles from "./AboutSection.module.scss";
 
 export default function AboutSection() {
@@ -6,9 +10,7 @@ export default function AboutSection() {
             <div className="container mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Left side */}
-                    <div
-                        className={styles["abt-bg"]}
-                    >
+                    <div className={styles["abt-bg"]}>
                         <a
                             href="https://www.youtube.com/watch?v=LYdT8bNDm24"
                             className={`${styles["video-play-btn"]} popup-youtube`}
@@ -37,12 +39,9 @@ export default function AboutSection() {
                             chương trình Quốc gia mỗi xã một sản phẩm (OCOP)
                             tỉnh Hậu Giang năm 2022.
                         </p>
-                        <a
-                            href="/about"
-                            className={`boxed-btn mt-4`}
-                        >
+                        <Link href={paths.about} className={`boxed-btn mt-4`}>
                             Xem thêm
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

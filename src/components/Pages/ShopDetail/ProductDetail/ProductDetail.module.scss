@@ -1,0 +1,10 @@
+.single-product-img img {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 20px #ddd;
+    box-shadow: 0 0 20px #ddd;
+    max-width: 100%;
+}
+
+.fa-check-double:before {
+    content: "\f560";
+}

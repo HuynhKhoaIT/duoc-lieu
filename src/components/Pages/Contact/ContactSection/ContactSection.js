@@ -5,7 +5,7 @@ export default function ContactSection() {
         <div className={`${styles["contact-from-section"]} py-[48px]`}>
             <div className="container">
                 <div className="flex justify-center items-center">
-                    <div className="w-full lg:w-8/12 px-[15px]">
+                    <div className="w-full lg:w-8/12 px-0 lg:px-[15px]">
                         <div
                             className={`${styles["contact-form-wrap"]} ${styles["breadcrumb-bg"]}`}
                         >

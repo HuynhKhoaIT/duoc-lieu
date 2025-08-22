@@ -1,0 +1,42 @@
+.productSection{
+    margin: 32px 0;
+    h6{
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.5rem;
+    }
+}
+.section-title h3 {
+    font-size: 40px;
+    position: relative;
+    padding-bottom: 15px;
+    color: #004c49;
+    font-weight: 700;
+    line-height: 2.25rem;
+    text-align: center;
+}
+
+.section-title h3:after {
+    position: absolute;
+    content: '';
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 50px;
+    height: 2px;
+    background-color: goldenrod;
+    margin: 0 auto;
+}
+
+.section-title p {
+    font-size: 15px;
+    width: 530px;
+    margin: 0 auto;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.8;
+}
+
+.section-title {
+  margin-bottom: 80px;
+}

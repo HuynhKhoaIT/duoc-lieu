@@ -6,9 +6,9 @@ import { storageKeys } from "./constants";
 const publicPaths = [
     "/",
     "/about",
-    "/shop",
+    "/shop/*",
     "/combo",
-    "/news",
+    "/news/*",
     "/contact",
     "/login",
     "/register",

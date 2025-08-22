@@ -36,6 +36,9 @@
                 ul>li{
                     position: relative;
                 }
+                ul li.current-list-item > a {
+                    color: goldenrod;
+                }
                 ul li{
                     display: inline-block;
                     a{

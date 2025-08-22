@@ -1,6 +1,8 @@
 import React from "react";
 
 import styles from "./Hero.module.scss";
+import Link from "next/link";
+import paths from "@/constants/paths";
 export default function Hero() {
     return (
         <div className={`${styles.heroArea} ${styles.heroBg}`}>
@@ -16,15 +18,15 @@ export default function Hero() {
                                     Dược Liệu Xanh N22
                                 </h1>
                                 <div className="flex gap-4 justify-center">
-                                    <a href="/shop" className={styles.mainBtn}>
+                                    <Link href={paths.shop} className={styles.mainBtn}>
                                         Sản Phẩm
-                                    </a>
-                                    <a
-                                        href="/combo"
+                                    </Link>
+                                    <Link
+                                        href={paths.combo}
                                         className={styles.borderedBtn}
                                     >
                                         Đặt Hàng
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -27,3 +27,9 @@
     color: goldenrod;
     top: 2px;
 }
+
+@media only screen and (max-width: 767px) {
+    .contact-form-box h4 i {
+        left: -20%;
+    }
+}

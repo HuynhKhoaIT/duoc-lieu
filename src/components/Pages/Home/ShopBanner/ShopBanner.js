@@ -1,10 +1,12 @@
+import Link from "next/link";
+
+import paths from "@/constants/paths";
+
 import styles from "./ShopBanner.module.scss";
 
 export default function ShopBanner() {
     return (
-        <section
-            className={`${styles.shopBanner} mb-5`}
-        >
+        <section className={`${styles.shopBanner} mb-5`}>
             <div className="container mx-auto px-4">
                 <h3>
                     Nhiều chương trình <br />
@@ -19,9 +21,9 @@ export default function ShopBanner() {
                     53% <span>Cực hot</span>
                 </div>
 
-                <a href="/shop" className={styles.cartBtn}>
+                <Link href={paths.shop} className={styles.cartBtn}>
                     Xem thêm
-                </a>
+                </Link>
             </div>
         </section>
     );
