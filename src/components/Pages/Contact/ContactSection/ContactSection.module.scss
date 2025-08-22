@@ -1,0 +1,29 @@
+.contact-form-wrap {
+    background-color: #FBFBFB;
+    padding: 45px 30px;
+    border-radius: 5px;
+    .contact-form-box {
+        padding-left: 40px;
+        margin-bottom: 30px;
+        h4 {
+            font-size: 20px;
+            font-weight: 600;
+            position: relative;
+            margin-bottom: 10px;
+        }
+    }
+}
+.contact-form-wrap .contact-form-box:last-child {
+    margin: 0;
+}
+
+
+.breadcrumb-bg {
+    background-image: url('/images/breadcrumb-bg.jpg');
+}
+.contact-form-box h4 i {
+    position: absolute;
+    left: -13%;
+    color: goldenrod;
+    top: 2px;
+}

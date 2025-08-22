@@ -10,7 +10,7 @@ const publicPaths = [
     "/combo",
     "/news",
     "/contact",
-    "/account/login",
+    "/login",
     "/register",
     "/manifest.json",
     "/favicon.ico",
@@ -40,7 +40,7 @@ export function middleware(request) {
     if (isPublicPath(pathname)) {
         if (
             isAuthenticated &&
-            (pathname === "/account/login" || pathname === "/register")
+            (pathname === "/login" || pathname === "/register")
         ) {
             return NextResponse.redirect(new URL("/", request.url));
         }
@@ -48,7 +48,7 @@ export function middleware(request) {
     }
 
     if (!isAuthenticated) {
-        const redirectUrl = new URL("/account/login", request.url);
+        const redirectUrl = new URL("/login", request.url);
         return NextResponse.redirect(redirectUrl);
     }
 

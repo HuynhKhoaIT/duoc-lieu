@@ -1,9 +1,8 @@
-"use client";
+import React from "react";
 
+import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import NewsCardItem from "@/components/Common/Card/NewsCardItem";
-
-import styles from "./LatestNews.module.scss";
-
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 const newsList = [
     {
         id: 1,
@@ -27,26 +26,33 @@ const newsList = [
         date: "06/04/2025",
         excerpt: "“Lửa thử vàng, gian nan thử sức” thành quả sau 22 năm mi...",
     },
+    {
+        id: 4,
+        title: "Tâm huyết với N22",
+        img: "/images/news/n22THHG.png",
+        date: "06/04/2025",
+        excerpt: "“Lửa thử vàng, gian nan thử sức” thành quả sau 22 năm mi...",
+    },
+    {
+        id: 5,
+        title: "Tâm huyết với N22",
+        img: "/images/news/n22THHG.png",
+        date: "06/04/2025",
+        excerpt: "“Lửa thử vàng, gian nan thử sức” thành quả sau 22 năm mi...",
+    },
 ];
-
-export default function LatestNews() {
+export default function NewsPage() {
     return (
-        <div className={`py-8 ${styles.latestNews}`}>
-            <div className="container mx-auto px-4">
-                {/* Section Title */}
-                <div className={`${styles.sectionTitle} mb-[48px]`}>
-                    <h3>
-                        <span>Bài Viết</span> Tham Khảo
-                    </h3>
-                </div>
-
-                {/* News Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <>
+            <Breadcrumb title={"Bài viết"} />
+            <div className="container">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-[48px] mb-4">
                     {newsList.map((news) => (
                         <NewsCardItem key={news.id} news={news} />
                     ))}
                 </div>
             </div>
-        </div>
+            <LogoCarousel />
+        </>
     );
 }

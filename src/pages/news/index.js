@@ -1,15 +1,15 @@
 import Layout from "@/components/layouts/Layout";
-import AboutPage from "@/components/Pages/About/About";
+import NewsPage from "@/components/Pages/News/News";
 
-function About() {
+function News() {
 
     return (
-        <AboutPage/>
+        <NewsPage/>
     );
 }
 
-About.getLayout = function getLayout(page) {
+News.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default About;
+export default News;

@@ -7,15 +7,15 @@ import useEmblaCarousel from "embla-carousel-react";
 import styles from "./LogoCarousel.module.scss";
 
 const logos = [
-    "images/slide/bangkhen9.jpg",
-    "images/slide/bangkhen8.jpg",
-    "images/slide/bangkhen7.jpg",
-    "images/slide/bangkhen6.jpg",
-    "images/slide/bangkhen5.jpg",
-    "images/slide/bangkhen4.jpg",
-    "images/slide/bangkhen3.jpg",
-    "images/slide/bangkhen2.png",
-    "images/slide/bangkhen.png",
+    "/images/slide/bangkhen9.jpg",
+    "/images/slide/bangkhen8.jpg",
+    "/images/slide/bangkhen7.jpg",
+    "/images/slide/bangkhen6.jpg",
+    "/images/slide/bangkhen5.jpg",
+    "/images/slide/bangkhen4.jpg",
+    "/images/slide/bangkhen3.jpg",
+    "/images/slide/bangkhen2.png",
+    "/images/slide/bangkhen.png",
 ];
 
 export default function LogoCarousel() {

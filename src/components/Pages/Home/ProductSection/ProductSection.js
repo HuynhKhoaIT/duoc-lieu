@@ -1,3 +1,5 @@
+import ProductCardItem from "@/components/Common/Card/ProductCardItem";
+
 import styles from "./ProductSection.module.scss";
 
 const products = [
@@ -54,34 +56,7 @@ export default function ProductSection() {
                 {/* Danh sách sản phẩm */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map((p) => (
-                        <div key={p.id} className="text-center">
-                            <div className={styles.singleProductItem}>
-                                <a href={`/shop/${p.id}`}>
-                                    <img
-                                        src={p.img}
-                                        alt={p.name}
-                                        className={styles.productImage}
-                                    />
-                                </a>
-                                <h6 className={`${styles.goldBg} ${styles.blueText} p-2 !mb-0`}>{p.name}</h6>
-                                <div className={`${styles.blueBg} p-3 m-0 flex justify-between align-end`}>
-                                    <a href="/combo">
-                                        <button
-                                            className={`${styles.borderedBtn} ${styles.btnSm} w-[110px]`}
-                                        >
-                                            Đặt hàng
-                                        </button>
-                                    </a>
-                                    <a href={`/shop/${p.id}`}>
-                                        <button
-                                            className={`${styles.borderedBtn} ${styles.btnSm}`}
-                                        >
-                                            Xem thêm
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <ProductCardItem p={p} key={p.id} />
                     ))}
                 </div>
             </div>

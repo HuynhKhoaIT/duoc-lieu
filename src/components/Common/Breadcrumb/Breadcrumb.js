@@ -1,7 +1,7 @@
 "use client";
 import styles from "./Breadcrumb.module.scss";
 
-export default function Breadcrumb() {
+export default function Breadcrumb({ title }) {
     return (
         <div className={`${styles.breadcrumbSection} ${styles.breadcrumbBg}`}>
             <div className="container mx-auto px-4">
@@ -11,7 +11,7 @@ export default function Breadcrumb() {
                             <p>
                                 Dược Liệu Xanh <br /> An lành cho Sức khỏe
                             </p>
-                            <h1>Giới Thiệu</h1>
+                            <h1>{title}</h1>
                         </div>
                     </div>
                 </div>

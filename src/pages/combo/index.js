@@ -1,10 +1,10 @@
 import Layout from "@/components/layouts/Layout";
-import AboutPage from "@/components/Pages/About/About";
+import ComboPage from "@/components/Pages/Combo/ComboPage";
 
 function About() {
 
     return (
-        <AboutPage/>
+        <ComboPage/>
     );
 }
 

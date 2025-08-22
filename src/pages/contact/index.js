@@ -1,15 +1,15 @@
 import Layout from "@/components/layouts/Layout";
-import AboutPage from "@/components/Pages/About/About";
+import ContactPage from "@/components/Pages/Contact/Contact";
 
-function About() {
+function Contact() {
 
     return (
-        <AboutPage/>
+        <ContactPage/>
     );
 }
 
-About.getLayout = function getLayout(page) {
+Contact.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default About;
+export default Contact;

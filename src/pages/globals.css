@@ -85,12 +85,6 @@
 .container{
   max-width: 1140px;
 }
-@media screen and (min-width: 992px){
-  .container{
-    max-width: 960px;
-  }
-}
-
 
 :root {
   --radius: 0.625rem;
@@ -308,8 +302,9 @@ p:last-child {
   color: #fff;
   padding: 10px 20px;
   -webkit-transition: 0.3s;
--o-transition: 0.3s;
+  -o-transition: 0.3s;
   transition: 0.3s;
+  cursor: pointer;
 }
 .boxed-btn:hover {
   background-color: #004c49;
@@ -324,6 +319,7 @@ p:last-child {
   background-color: #004c49;
   border: 2px solid goldenrod;
   padding: 7px 20px;
+  cursor: pointer;
 }
 .bordered-btn {
   -webkit-transition: 0.3s;
@@ -359,3 +355,19 @@ p:last-child {
   border-radius: 50px;
 }
 
+
+.gold-text {
+  color: goldenrod;
+}
+
+.blue-bg {
+  background-color: #004c49;
+}
+
+.gold-bg {
+  background-color: goldenrod;
+}
+
+.blue-text {
+  color: #004c49;
+}

@@ -1,15 +1,15 @@
 import Layout from "@/components/layouts/Layout";
-import AboutPage from "@/components/Pages/About/About";
+import ShopPage from "@/components/Pages/Shop/ShopPage";
 
-function About() {
+function Shop() {
 
     return (
-        <AboutPage/>
+        <ShopPage/>
     );
 }
 
-About.getLayout = function getLayout(page) {
+Shop.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default About;
+export default Shop;

@@ -1,10 +1,11 @@
 import React from "react";
 
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+
 import AboutSection from "./AboutSection/AboutSection";
 import Hero from "./Hero/Hero";
 import LatestNews from "./LatestNews/LatestNews";
 import ListSection from "./ListSection/ListSection";
-import LogoCarousel from "./LogoCarousel/LogoCarousel";
 import ProductSection from "./ProductSection/ProductSection";
 import ShopBanner from "./ShopBanner/ShopBanner";
 

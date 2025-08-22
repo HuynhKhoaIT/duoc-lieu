@@ -157,7 +157,9 @@ nav.mean-nav > ul > li:first-child > a {
 @media only screen  and (max-width: 991px) {
     .stickyWrapper{
         .topHeaderArea{
-            position: relative;
+           position: absolute !important;
+            background-color: transparent;
+            padding: 25px 0;
         }
     }
      

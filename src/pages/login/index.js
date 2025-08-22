@@ -1,15 +1,15 @@
 import Layout from "@/components/layouts/Layout";
-import AboutPage from "@/components/Pages/About/About";
+import LoginPage from "@/components/Pages/Login/Login";
 
-function About() {
+function Login() {
 
     return (
-        <AboutPage/>
+        <LoginPage/>
     );
 }
 
-About.getLayout = function getLayout(page) {
+Login.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default About;
+export default Login;

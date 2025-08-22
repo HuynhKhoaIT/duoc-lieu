@@ -1,6 +1,6 @@
-import LogoCarousel from "../Home/LogoCarousel/LogoCarousel";
+import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 
-import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import FeatureSection from "./FeatureSection/FeatureSection";
 import LatestNews from "./LatestNews/LatestNews";
 import ShopBanner from "./ShopBanner/ShopBanner";
@@ -8,7 +8,7 @@ import ShopBanner from "./ShopBanner/ShopBanner";
 export default function AboutPage() {
     return (
         <>
-            <Breadcrumb />
+            <Breadcrumb title={"Giới thiệu"} />
             <FeatureSection />
             <ShopBanner />
             <LatestNews />
