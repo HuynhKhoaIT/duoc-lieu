@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./ProductComboCard.module.scss";
@@ -7,12 +8,21 @@ export default function ProductComboCard({ p }) {
         <div className={`w-full  text-center mb-1 p-2 ${styles.pro1}`}>
             <div className={styles.card}>
                 <Link href="/user/order/3">
-                    <div
+                    {/* <div
                         className="h-[220px] bg-cover bg-no-repeat bg-[center_top_70%]"
                         style={{
-                            backgroundImage: `url(${p.img})`,
+                            backgroundImage: `url(${p.thumbnail})`,
                         }}
-                    />
+                    /> */}
+                    <div className="relative w-full aspect-[3/3]">
+                        <Image
+                            src={p.thumbnail}
+                            alt={p.slug}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                    </div>
 
                     <div className={`p-2 blue-bg`}>
                         <div className="flex justify-between items-end px-1">

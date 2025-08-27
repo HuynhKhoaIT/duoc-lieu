@@ -37,12 +37,12 @@ const apiConfig = {
     },
     products:{
         getList: {
-            url: `${apiUrl}api/v1/products`,
+            url: `${apiUrl}api/v2/products`,
             method: 'GET',
             headers: baseHeader,
         },
         getDetail: {
-            url: `${apiUrl}api/v1/products/:id`,
+            url: `${apiUrl}api/v2/products/:id`,
             method: 'GET',
             headers: baseHeader,
         },
@@ -87,6 +87,25 @@ const apiConfig = {
             headers: baseHeader,
             isAuth:true,
         },
-    }
+    },
+    news:{
+        getList: {
+            url: `${apiUrl}api/v2/news`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        getDetail: {
+            url: `${apiUrl}api/v2/news/:id`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    slide:{
+        getList: {
+            url: `${apiUrl}api/v2/slides`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
 };
 export default apiConfig;

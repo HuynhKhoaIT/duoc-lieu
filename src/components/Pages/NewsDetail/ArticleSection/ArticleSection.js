@@ -1,8 +1,10 @@
 import Link from "next/link";
 
+import { formatDateString } from "@/utils";
+
 import styles from "./ArticleSection.module.scss";
 
-export default function ArticleSection() {
+export default function ArticleSection({ dataDetail, newsList }) {
     return (
         <div className="my-[48px]">
             <div className="container mx-auto px-4">
@@ -13,8 +15,7 @@ export default function ArticleSection() {
                                 <div
                                     className={styles.singleArticleBg}
                                     style={{
-                                        backgroundImage:
-                                            "url(/images/news/n22news2.png)",
+                                        backgroundImage: `url(${dataDetail?.thumbnail})`,
                                     }}
                                 ></div>
                                 <p className={styles.blogMeta}>
@@ -23,17 +24,19 @@ export default function ArticleSection() {
                                     </span>
                                     <span className={styles.date}>
                                         <i className="fas fa-calendar"></i>{" "}
-                                        05/04/2025
+                                        {formatDateString(
+                                            dataDetail?.created_at,
+                                        )}
                                     </span>
                                 </p>
                                 <h2 className="text-2xl font-bold mb-4">
-                                    Hành trình với N22
+                                    {dataDetail?.title}
                                 </h2>
-                                <p>
-                                    Gầy dựng thành công sản phẩm dầu gội đầu
-                                    dược liệu N22 từ những nguyên liệu sẵn có
-                                    tại địa phương
-                                </p>
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: dataDetail?.content,
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -44,40 +47,17 @@ export default function ArticleSection() {
                                     Bài viết gần đây
                                 </h4>
                                 <ul className="list-none">
-                                    <li>
-                                        <Link
-                                            href="/posts/1"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            Khởi Nghiệp Với N22
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/posts/3"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            Tâm huyết với N22
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/posts/5"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            MỘT SỐ SỞ THÍCH VÀ THÓI QUEN TAI HẠI
-                                            KH...
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/posts/12"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            CHƯƠNG TRÌNH SIÊU KHUYẾN MÃI CHÀO
-                                            ĐẠI LỄ...
-                                        </Link>
-                                    </li>
+                                    {newsList?.data?.map((item, index) => (
+                                        <li key={item.id}>
+                                            <Link
+                                                href="/posts/1"
+                                                //max 2 line
+                                                className="text-blue-600 hover:underline line-clamp-2"
+                                            >
+                                                {item.title}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>

@@ -1,10 +1,23 @@
 import Layout from "@/components/layouts/Layout";
 import NewsPage from "@/components/Pages/News/News";
+import apiConfig from "@/constants/apiConfig";
+import useListData from "@/hooks/useListData";
 
 function News() {
+    const {
+        data: news,
+        loading,
+        error,
+        refetch,
+    } = useListData(apiConfig.news.getList);
 
     return (
-        <NewsPage/>
+        <NewsPage
+            data={news}
+            loading={loading}
+            error={error}
+            onReload={refetch}
+        />
     );
 }
 

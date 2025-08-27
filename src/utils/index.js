@@ -1,5 +1,12 @@
 import CryptoJS from "crypto-js";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
+import { DATE_FORMAT_VALUE } from "@/constants";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 export function generatePath(originalPath, params = {}) {
     let path = originalPath;
     if (path.endsWith("*") && path !== "*" && !path.endsWith("/*")) {
@@ -97,7 +104,7 @@ export const formatPrice = (value) => {
 };
 // const SECRET_KEY = CryptoJS.enc.Base64.parse(process.env.AES_KEY);
 
-export const decryptLaravelData = (encryptedData,SECRET_KEY) => {
+export const decryptLaravelData = (encryptedData, SECRET_KEY) => {
     try {
         if (!encryptedData) {
             throw new Error("Dữ liệu mã hóa không tồn tại");
@@ -143,7 +150,6 @@ export const decryptLaravelData = (encryptedData,SECRET_KEY) => {
     }
 };
 
-
 export const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString("vi-VN", {
@@ -175,7 +181,25 @@ export function timeAgo(timestamp) {
         return `${Math.floor(diffInSeconds / secondsInDay)} ngày trước`;
     } else {
         const months = Math.floor(diffInSeconds / secondsInMonth);
-        const days = Math.floor((diffInSeconds % secondsInMonth) / secondsInDay);
+        const days = Math.floor(
+            (diffInSeconds % secondsInMonth) / secondsInDay,
+        );
         return `${months} tháng ${days} ngày trước`;
     }
+}
+
+export function formatDateString(dateString, format = DATE_FORMAT_VALUE) {
+    if (!dateString) return "";
+
+    return dayjs.utc(dateString).local().format(format);
+}
+export function getPreviewFromHTML(html, maxLength = 100) {
+    if (!html) return "";
+    // Tạo element tạm để parse HTML
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const text = div.textContent || div.innerText || "";
+    return text.length > maxLength
+        ? text.substring(0, maxLength) + "..."
+        : text;
 }

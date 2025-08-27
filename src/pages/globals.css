@@ -371,3 +371,10 @@ p:last-child {
 .blue-text {
   color: #004c49;
 }
+
+
+ol, ul {
+  color: #004c49 !important;
+  list-style: auto !important;
+  padding: revert !important;
+}

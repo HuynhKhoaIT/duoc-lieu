@@ -9,7 +9,12 @@
         font-size: 20px;
         line-height: 1.25em;
         font-weight: 600;
-        }
+        display: -webkit-box; 
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
     &:hover {
         -webkit-box-shadow: 0 0 0;
         box-shadow: 0 0 0;

@@ -4,46 +4,7 @@ import ProductComboCard from "@/components/Common/Card/ProductComboCard";
 
 import styles from "./ProductSection.module.scss";
 
-const products = [
-    {
-        id: 1,
-        name: "Dầu Gội Dược Liệu N22 250ml",
-        img: "/images/products/n223.png",
-        category: "pro1",
-    },
-    {
-        id: 2,
-        name: "Dầu Gội Dược Liệu N22 500ml",
-        img: "/images/products/n225.png",
-        category: "pro1",
-    },
-    {
-        id: 3,
-        name: "Dầu Gội Dược Liệu N22 1000ml",
-        img: "/images/products/n224.png",
-        category: "pro1",
-    },
-    {
-        id: 4,
-        name: "Dầu Gội Kích Mọc Tóc N22 200ml",
-        img: "/images/products/n222.png",
-        category: "pro1",
-    },
-    {
-        id: 5,
-        name: "Dầu Gội Bộ Đặc Biệt N22",
-        img: "/images/products/n226.png",
-        category: "pro1",
-    },
-    {
-        id: 6,
-        name: "Dầu Gội Bộ Ngăn Bạc N22",
-        img: "/images/products/n227.png",
-        category: "pro1",
-    },
-];
-
-export default function ProductSection() {
+export default function ProductSection({productsData}) {
     return (
         <div className={styles.productSection}>
             <div className="container mx-auto mt-5 mb-4">
@@ -91,7 +52,7 @@ export default function ProductSection() {
 
                 {/* Danh sách sản phẩm */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {products.map((p) => (
+                    {productsData?.data?.map((p) => (
                         <ProductComboCard key={p.id} p={p} />
                     ))}
                 </div>

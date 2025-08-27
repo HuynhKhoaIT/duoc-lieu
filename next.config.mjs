@@ -6,7 +6,7 @@ const nextConfig = {
         // ignoreDuringBuilds: true,
     },
     images: {
-        domains: [ "datlichbaoduong.vcos.cloudstorage.com.vn" ],
+        domains: [ "n22.re1.vn" ],
     },
     webpack: (config) => {
         const rules = config.module.rules

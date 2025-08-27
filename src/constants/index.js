@@ -5,6 +5,19 @@ export const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 export const appName = 'duoc-lieu-xanh';
 export const DEFAULT_LOCALE = 'vi';
 
+export const DATE_DISPLAY_FORMAT = 'DD-MM-YYYY HH:mm';
+export const DATE_SHORT_MONTH_FORMAT = 'DD MMM YYYY';
+export const TIME_FORMAT_DISPLAY = 'HH:mm';
+export const DATE_FORMAT_VALUE = 'DD/MM/YYYY';
+export const DATE_FORMAT_DISPLAY = 'DD/MM/YYYY';
+export const DEFAULT_FORMAT = 'DD/MM/YYYY HH:mm:ss';
+export const DATE_FORMAT_ZERO_TIME = 'DD/MM/YYYY 00:00:00';
+export const DATE_FORMAT_END_OF_DAY_TIME = 'DD/MM/YYYY 23:59:59';
+export const DEFAULT_EXCEL_DATE = 'DDMMYYHHmmss';
+export const DEFAULT_FORMAT_DAY_OFF_LOG = 'DD/MM/YYYY HH:mm:00';
+export const DEFAULT_FORMAT_ZERO_SECOND = 'DD/MM/YYYY HH:mm:00';
+
+
 export const storageKeys = {
     TOKEN: `${appName}-token`,
     PROFILE: `${appName}-profile`,

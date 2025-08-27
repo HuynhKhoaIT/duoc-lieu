@@ -11,15 +11,15 @@ import ShopBanner from "./ShopBanner/ShopBanner";
 
 import styles from "./Home.module.scss";
 
-export default function HomePage() {
+export default function HomePage({ newsData,productsData }) {
     return (
         <div className={styles.homeWrapper}>
             <Hero />
             <ListSection />
-            <ProductSection />
+            <ProductSection productsData={productsData} />
             <ShopBanner />
             <AboutSection />
-            <LatestNews />
+            <LatestNews newsData={newsData} />
             <LogoCarousel />
         </div>
     );

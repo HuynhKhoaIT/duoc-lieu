@@ -4,32 +4,7 @@ import NewsCardItem from "@/components/Common/Card/NewsCardItem";
 
 import styles from "./LatestNews.module.scss";
 
-const newsList = [
-    {
-        id: 1,
-        title: "Khởi Nghiệp Với N22",
-        img: "/images/news/n22news.png",
-        date: "05/04/2025",
-        excerpt: "Rời thành thị về nông thôn khởi nghiệp từ bàn tay trắng",
-    },
-    {
-        id: 2,
-        title: "Hành trình với N22",
-        img: "/images/news/n22news2.png",
-        date: "05/04/2025",
-        excerpt:
-            "Gầy dựng thành công sản phẩm dầu gội đầu dược liệu N22 từ những nguyê...",
-    },
-    {
-        id: 3,
-        title: "Tâm huyết với N22",
-        img: "/images/news/n22THHG.png",
-        date: "06/04/2025",
-        excerpt: "“Lửa thử vàng, gian nan thử sức” thành quả sau 22 năm mi...",
-    },
-];
-
-export default function LatestNews() {
+export default function LatestNews({ newsData }) {
     return (
         <div className={`py-8 ${styles.latestNews}`}>
             <div className="container mx-auto px-4">
@@ -42,9 +17,11 @@ export default function LatestNews() {
 
                 {/* News Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {newsList.map((news) => (
-                        <NewsCardItem key={news.id} news={news} />
-                    ))}
+                    {newsData?.data?.map((news, index) => {
+                        if (index < 3) {
+                            return <NewsCardItem key={news.id} news={news} />;
+                        }
+                    })}
                 </div>
             </div>
         </div>
