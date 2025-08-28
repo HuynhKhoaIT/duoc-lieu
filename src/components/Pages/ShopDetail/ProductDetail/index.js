@@ -1,6 +1,7 @@
 import styles from "./ProductDetail.module.scss";
 
-export default function ProductDetail() {
+export default function ProductDetail({dataDetail}) {
+    console.log(dataDetail);
     return (
         <div className="my-20">
             <div className="container mx-auto px-4">
@@ -15,7 +16,7 @@ export default function ProductDetail() {
                             <h4
                                 className={`gold-bg text-center p-3 mb-4 text-blue-600 text-lg font-semibold`}
                             >
-                                Dầu Gội Dược Liệu N22 250ml
+                                {dataDetail.name}
                             </h4>
                         </div>
                     </div>

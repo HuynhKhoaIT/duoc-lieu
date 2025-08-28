@@ -50,7 +50,7 @@ export default function ArticleSection({ dataDetail, newsList }) {
                                     {newsList?.data?.map((item, index) => (
                                         <li key={item.id}>
                                             <Link
-                                                href="/posts/1"
+                                                href={`/news/${item.id}`}
                                                 //max 2 line
                                                 className="text-blue-600 hover:underline line-clamp-2"
                                             >

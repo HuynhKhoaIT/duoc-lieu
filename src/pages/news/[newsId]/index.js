@@ -15,7 +15,7 @@ function NewsDetail({ news, newsList, error, errorList }) {
 
 export async function getStaticProps({ params }) {
     try {
-        const [res, resList] = await Promise.all([
+        const [ res, resList ] = await Promise.all([
             fetch(apiConfig.news.getDetail.url.replace(":id", params.newsId), {
                 cache: "force-cache", // hoặc "no-store" nếu muốn luôn lấy mới
             }),

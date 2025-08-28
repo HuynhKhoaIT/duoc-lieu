@@ -1,4 +1,3 @@
-"use client";
 import styles from "./Breadcrumb.module.scss";
 
 export default function Breadcrumb({ title }) {
