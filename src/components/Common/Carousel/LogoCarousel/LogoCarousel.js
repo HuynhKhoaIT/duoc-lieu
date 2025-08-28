@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";

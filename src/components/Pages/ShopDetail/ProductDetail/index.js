@@ -1,18 +1,23 @@
+import Image from "next/image";
+
 import styles from "./ProductDetail.module.scss";
 
-export default function ProductDetail({dataDetail}) {
-    console.log(dataDetail);
+export default function ProductDetail({ dataDetail }) {
     return (
         <div className="my-20">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row gap-6 pt-5 pb-5">
                     <div className="md:w-5/12">
                         <div className={styles.singleProductImg}>
-                            <img
-                                src="/images/products/n223.png"
-                                alt="Dầu Gội Dược Liệu N22 250ml"
-                                className="w-full rounded-lg"
-                            />
+                            <div className="w-full">
+                                <Image
+                                    src={dataDetail?.thumbnail}
+                                    alt={dataDetail.name}
+                                    width={800}
+                                    height={600}
+                                    className="w-full h-auto rounded-lg object-contain"
+                                />
+                            </div>
                             <h4
                                 className={`gold-bg text-center p-3 mb-4 text-blue-600 text-lg font-semibold`}
                             >

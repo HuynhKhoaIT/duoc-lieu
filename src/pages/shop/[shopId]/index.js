@@ -2,33 +2,52 @@ import Layout from "@/components/layouts/Layout";
 import ShopDetailPage from "@/components/Pages/ShopDetail/ShopDetailPage";
 import apiConfig from "@/constants/apiConfig";
 
-function ShopDetail({ shop, error }) {
-    return <ShopDetailPage dataDetail={shop} error={error} />;
+function ShopDetail({ products, productsList, error, errorList }) {
+    return (
+        <ShopDetailPage
+            dataDetail={products}
+            productsList={productsList}
+            error={error}
+            errorList={errorList}
+        />
+    );
 }
 
 export async function getStaticProps({ params }) {
     try {
-        const res = await fetch(
-            apiConfig.products.getDetail.url.replace(":id", params.shopId),
-            { cache: "force-cache" }
-        );
+        const [ res, resList ] = await Promise.all([
+            fetch(
+                apiConfig.products.getDetail.url.replace(":id", params.shopId),
+                {
+                    cache: "force-cache", 
+                },
+            ),
+            fetch(apiConfig.products.getList.url, {
+                cache: "force-cache",
+            }),
+        ]);
 
-        const shop = res.ok ? await res.json() : null;
+        const products = res.ok ? await res.json() : null;
+        const productsList = resList.ok ? await resList.json() : [];
 
         return {
             props: {
-                shop: shop?.data || null,
+                products: products?.data || null,
+                productsList,
                 error: res.ok ? null : `Error ${res.status}`,
+                errorList: resList.ok ? null : `Error ${resList.status}`,
             },
-            revalidate: 300, // 5 phút regenerate lại
+            revalidate: 300, // sau 300s sẽ build lại
         };
     } catch (err) {
         return {
             props: {
-                shop: null,
+                products: null,
+                productsList: [],
                 error: err.message,
+                errorList: err.message,
             },
-            revalidate: 60, // thử regenerate nhanh hơn nếu lỗi
+            revalidate: 60, // fallback nhanh hơn nếu lỗi
         };
     }
 }

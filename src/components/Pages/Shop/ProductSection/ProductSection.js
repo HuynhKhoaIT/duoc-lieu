@@ -50,7 +50,6 @@ export default function ProductSection({ productsData }) {
                     </div>
                 </div>
 
-                {/* Danh sách sản phẩm */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {productsData?.data?.map((p) => (
                         <ProductCardItem key={p.id} p={p} />
