@@ -13,37 +13,44 @@ function NewsDetail({ news, newsList, error, errorList }) {
     );
 }
 
-// SSR
-export async function getServerSideProps(context) {
-    const { newsId } = context.params;
-
-    let news = null;
-    let newsList = [];
-    let error = null;
-    let errorList = null;
-
+export async function getStaticProps({ params }) {
     try {
-        const res = await fetch(apiConfig.news.getDetail.url.replace(":id", newsId));
-        news = await res.json();
-    } catch (err) {
-        error = err.message;
-    }
+        const [res, resList] = await Promise.all([
+            fetch(apiConfig.news.getDetail.url.replace(":id", params.newsId), {
+                cache: "force-cache", // hoặc "no-store" nếu muốn luôn lấy mới
+            }),
+            fetch(apiConfig.news.getList.url, {
+                cache: "force-cache",
+            }),
+        ]);
 
-    try {
-        const resList = await fetch(apiConfig.news.getList.url);
-        newsList = await resList.json();
-    } catch (err) {
-        errorList = err.message;
-    }
+        const news = res.ok ? await res.json() : null;
+        const newsList = resList.ok ? await resList.json() : [];
 
-    return {
-        props: {
-            news: news?.data,
-            newsList,
-            error,
-            errorList,
-        },
-    };
+        return {
+            props: {
+                news: news?.data || null,
+                newsList,
+                error: res.ok ? null : `Error ${res.status}`,
+                errorList: resList.ok ? null : `Error ${resList.status}`,
+            },
+            revalidate: 300, // sau 300s sẽ build lại
+        };
+    } catch (err) {
+        return {
+            props: {
+                news: null,
+                newsList: [],
+                error: err.message,
+                errorList: err.message,
+            },
+            revalidate: 60, // fallback nhanh hơn nếu lỗi
+        };
+    }
+}
+
+export async function getStaticPaths() {
+    return { paths: [], fallback: "blocking" };
 }
 
 NewsDetail.getLayout = function getLayout(page) {
