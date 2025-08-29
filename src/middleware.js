@@ -35,7 +35,6 @@ const isPublicPath = (pathname) => {
 export function middleware(request) {
     const { pathname, searchParams } = request.nextUrl;
     const token = request.cookies.get(storageKeys.TOKEN)?.value; 
-    console.log("token",token);
     const isAuthenticated = !!token; 
 
     if (isPublicPath(pathname)) {

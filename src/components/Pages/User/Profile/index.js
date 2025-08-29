@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 import apiConfig from "@/constants/apiConfig";
 import fetcher from "@/services/fetcher";
 
 import styles from "./Profile.module.scss";
-import { toast } from "sonner";
 
 export default function ProfileForm({ profileData }) {
     const [ showModal, setShowModal ] = useState(false);

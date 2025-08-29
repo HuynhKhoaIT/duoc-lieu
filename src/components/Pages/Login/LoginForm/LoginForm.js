@@ -41,6 +41,7 @@ export default function LoginForm() {
             setError(err.message);
         } finally {
             setLoading(false);
+            window.location.reload();
         }
     };
 
