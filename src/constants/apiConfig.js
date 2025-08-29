@@ -1,110 +1,115 @@
-import { apiUrl } from '.';
+import { apiUrl } from ".";
 
 const baseHeader = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
 };
 
 const apiConfig = {
     account: {
-        sendOtp: {
-            url: `${apiUrl}api/v1/send-otp`,
-            method: 'POST',
-            headers: baseHeader,
-        },
         loginBasic: {
             url: `${apiUrl}api/v2/login`,
-            method: 'POST',
+            method: "POST",
             headers: baseHeader,
         },
     },
-    request:{
-        getList: {
-            url: `${apiUrl}api/v1/job-requests`,
-            method: 'GET',
+    profile:{
+        getDetail:{
+            url: `${apiUrl}api/v2/my-profile`,
+            method: "GET",
             headers: baseHeader,
+            isAuth: true,
         },
-        getDetail: {
-            url: `${apiUrl}api/v1/job-requests/:id`,
-            method: 'GET',
+        update:{
+            url: `${apiUrl}api/v2/my-profile`,
+            method: "PUT",
             headers: baseHeader,
-        },
-        applyRequest:{
-            url: `${apiUrl}api/v1/requests/:requestId/apply`,
-            method: 'POST',
-            headers: baseHeader,
-            isAuth:true,
+            isAuth: true,
         },
     },
-    products:{
+    products: {
         getList: {
             url: `${apiUrl}api/v2/products`,
-            method: 'GET',
+            method: "GET",
             headers: baseHeader,
         },
         getDetail: {
             url: `${apiUrl}api/v2/products/:id`,
-            method: 'GET',
+            method: "GET",
             headers: baseHeader,
         },
     },
-    category:{
+    category: {
         getList: {
-            url: `${apiUrl}api/v1/categories`,
-            method: 'GET',
+            url: `${apiUrl}api/v2/categories`,
+            method: "GET",
             headers: baseHeader,
         },
     },
-    cart: {
+    carts: {
         getList: {
-            url: `${apiUrl}api/v1/cart`,
-            method: 'GET',
+            url: `${apiUrl}api/v2/carts`,
+            method: "GET",
             headers: baseHeader,
-            isAuth:true,
+            isAuth: true,
         },
-        add: {
-            url: `${apiUrl}api/v1/cart/add`,
-            method: 'POST',
+        getById: {
+            url: `${apiUrl}api/v2/carts/:id`,
+            method: "GET",
             headers: baseHeader,
-            isAuth:true,
+            isAuth: true,
+        },
+        create: {
+            url: `${apiUrl}api/v2/carts`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
         },
         update: {
-            url: `${apiUrl}api/v1/cart/update`,
-            method: 'PUT',
+            url: `${apiUrl}api/v2/carts/:id`,
+            method: "PUT",
             headers: baseHeader,
-            isAuth:true,
+            isAuth: true,
         },
-        remove: {
-            url: `${apiUrl}api/v1/cart/remove`,
-            method: 'DELETE',
+        delete: {
+            url: `${apiUrl}api/v2/carts/:id`,
+            method: "DELETE",
             headers: baseHeader,
-            isAuth:true,
-        },
-    },
-    order:{
-        add: {
-            url: `${apiUrl}api/v1/order`,
-            method: 'POST',
-            headers: baseHeader,
-            isAuth:true,
+            isAuth: true,
         },
     },
-    news:{
+    news: {
         getList: {
             url: `${apiUrl}api/v2/news`,
-            method: 'GET',
+            method: "GET",
             headers: baseHeader,
         },
         getDetail: {
             url: `${apiUrl}api/v2/news/:id`,
-            method: 'GET',
+            method: "GET",
             headers: baseHeader,
         },
     },
-    slide:{
+    slide: {
         getList: {
             url: `${apiUrl}api/v2/slides`,
-            method: 'GET',
+            method: "GET",
             headers: baseHeader,
+        },
+    },
+    checkOut:{
+        create: {
+            url: `${apiUrl}api/v2/orders/create-from-cart`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
+    order:{
+        getList:{
+            url: `${apiUrl}api/v2/orders`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
         },
     },
 };

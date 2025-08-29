@@ -3,28 +3,32 @@ import { Fragment } from "react";
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
-import CartPage from "@/components/Pages/User/Cart";
+import CheckoutForm from "@/components/Pages/User/Checkout";
 import apiConfig from "@/constants/apiConfig";
 import useListData from "@/hooks/useListData";
-function OrderPage() {
+function CheckOutPage() {
     const {
-        data: carts,
-        loading: loadingCarts,
+        data: cartsData,
+        loading: loadingCart,
         error: errorCart,
-        refetch: refetchCarts,
+        refetch: refetchCart,
     } = useListData(apiConfig.carts.getList);
 
     return (
         <Fragment>
-            <Breadcrumb title={"Giỏ hàng"} />
-            <CartPage cartsData={carts?.data} refetch={refetchCarts} />
+            <Breadcrumb title={"Đặt hàng"} />
+            <CheckoutForm
+                cartsData={cartsData?.data}
+                loadingCart={loadingCart}
+                errorCart={errorCart}
+            />
             <LogoCarousel />
         </Fragment>
     );
 }
 
-OrderPage.getLayout = function getLayout(page) {
+CheckOutPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default OrderPage;
+export default CheckOutPage;

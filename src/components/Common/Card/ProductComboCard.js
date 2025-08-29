@@ -1,16 +1,43 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import apiConfig from "@/constants/apiConfig";
+import paths from "@/constants/paths";
+import { useGlobalContext } from "@/contexts/GlobalContext";
+import useAuth from "@/hooks/useAuth";
+import fetcher from "@/services/fetcher";
 
 import styles from "./ProductComboCard.module.scss";
 
 export default function ProductComboCard({ p }) {
-    const handleAddToCart = ({ item }) => {
-        console.log(item);
+    const { setCart, cart } = useGlobalContext();
+
+    const { isAuthenticated } = useAuth();
+    const { push } = useRouter();
+    const handleAddToCart = async ({ item }) => {
+        try {
+            const res = await fetcher(apiConfig.carts.create, {
+                data: {
+                    product_id: item.id,
+                    quantity: 1,
+                },
+            });
+            setCart(cart + 1);
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <div className={`w-full  text-center mb-1 p-2 ${styles.pro1}`}>
             <div
                 className={styles.card}
-                onClick={() => handleAddToCart({ item: p })}
+                onClick={() => {
+                    if (isAuthenticated) {
+                        handleAddToCart({ item: p });
+                    } else {
+                        push(paths.login);
+                    }
+                }}
             >
                 <div>
                     {/* <div

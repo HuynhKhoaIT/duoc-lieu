@@ -1,24 +1,58 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
+
+import { storageKeys } from "@/constants";
+import apiConfig from "@/constants/apiConfig";
+import { getCookie } from "@/utils/cookie";
 
 const GlobalContext = createContext({
-    userId: '',
-    setUserId: () => '',
     data: [],
     setData: () => [],
     cart: 0,
     setCart: () => 0,
-    noti: false,
-    setNoti: () => false,
 });
 
 export const GlobalContextProvider = ({ children }) => {
-    const [ userId, setUserId ] = useState('');
     const [ data, setData ] = useState([]);
     const [ cart, setCart ] = useState(0);
-    const [ noti, setNoti ] = useState(false);
+
+    useEffect(() => {
+        const token = getCookie(storageKeys.TOKEN); // chỉ chạy client
+        if (!token) return;
+
+        async function fetchCart() {
+            try {
+                const res = await fetch(apiConfig.carts.getList.url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                        method: "GET",
+                    },
+                });
+
+                if (!res.ok) throw new Error("API lỗi");
+
+                const json = await res.json();
+                const cartData = json?.data || [];
+
+                const totalQuantity = Array.isArray(cartData)
+                    ? cartData.reduce(
+                        (acc, item) => acc + (item?.quantity || 0),
+                        0,
+                    )
+                    : 0;
+
+                setCart(totalQuantity);
+                setData(cartData);
+            } catch (err) {
+                console.error("Lỗi khi load cart:", err);
+            }
+        }
+
+        fetchCart();
+    }, []);
 
     return (
-        <GlobalContext.Provider value={{ userId, setUserId, data, setData, cart, setCart, noti, setNoti }}>
+        <GlobalContext.Provider value={{ data, setData, cart, setCart }}>
             {children}
         </GlobalContext.Provider>
     );

@@ -1,25 +1,31 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
-import ProductOrderPage from "@/components/Pages/User/Order/ProductOrderPage";
+import ProfileForm from "@/components/Pages/User/Profile";
 import apiConfig from "@/constants/apiConfig";
-import useListData from "@/hooks/useListData";
+import fetcher from "@/services/fetcher";
 function ProfilePage() {
-    const {
-        data: products,
-        loading: loadingProducts,
-        error: errorProducts,
-        refetch: refetchProducts,
-    } = useListData(apiConfig.products.getList);
-
+    const [ profile, setProfile ] = useState({});
+    const fetchProfile = async () => {
+        try {
+            const res = await fetcher(apiConfig.profile.getDetail);
+            console.log(res);
+            if (res.status === 201 && res.data) {
+                setProfile(res.data.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        fetchProfile();
+    }, []);
     return (
         <Fragment>
             <Breadcrumb title={"Đặt hàng"} />
-            <ProductOrderPage
-                productsData={products}
-            />
+            <ProfileForm profileData={profile} />
             <LogoCarousel />
         </Fragment>
     );

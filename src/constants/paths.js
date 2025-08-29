@@ -17,6 +17,8 @@ const paths = {
     gtable:"/user/gtable",
     cart:"/user/cart",
     order:"/user/order",
+    checkOut:"/user/checkout",
+    payment:"/user/payment",
 
 };
 

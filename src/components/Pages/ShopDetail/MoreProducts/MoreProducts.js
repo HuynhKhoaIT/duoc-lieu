@@ -7,7 +7,6 @@ export default function MoreProducts({productsList}) {
     return (
         <div className={styles.productSection}>
             <div className="container px-4 mx-auto">
-                {/* Tiêu đề */}
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 lg:col-span-8 lg:col-start-3">
                         <div className={styles.sectionTitle}>
@@ -21,7 +20,6 @@ export default function MoreProducts({productsList}) {
                     </div>
                 </div>
 
-                {/* Danh sách sản phẩm */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {productsList?.data?.map((p) => (
                         <ProductCardItem p={p} key={p.id} />

@@ -1,0 +1,205 @@
+
+td.product-quantity input {
+  margin-bottom: 0;
+}
+
+td.product-remove a {
+  color: #004c49;
+}
+
+.total-section table.total-table {
+  border: 1px solid #efefef;
+  width: 100%;
+}
+
+tr.table-total-row {
+  background-color: #efefef;
+  color: #004c49;
+}
+
+tr.table-total-row th {
+  font-weight: 500;
+  font-size: 15px;
+  padding: 15px;
+}
+
+table.total-table tbody tr.total-data td {
+  border: 1px solid #efefef;
+  padding: 19px 15px;
+}
+
+tr.total-data td strong {
+  margin-right: 32px;
+}
+
+.cart-buttons {
+  margin-top: 30px;
+}
+
+.cart-buttons a:first-child {
+  margin-right: 20px;
+}
+.collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.collapse.show {
+  max-height: 1000px; /* Điều chỉnh giá trị này dựa trên nội dung */
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex
+;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    color: #004c49;
+}
+.card.single-accordion {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #EFEFEF !important;
+}
+
+.card.single-accordion .card-header {
+  background-color: #fff;
+  border: none;
+  padding: 0;
+}
+
+.card.single-accordion:last-child {
+  margin-bottom: 0;
+}
+.breadcrumb-bg {
+    background-image: url("/images/breadcrumb-bg.jpg");
+}
+
+.card.single-accordion .card-header h5 button {
+  color: #004c49;
+  font-size: 15px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 20px;
+  text-decoration: none;
+  border: none;
+  background-color: #EFEFEF;
+  position: relative;
+  padding-left: 50px;
+  font-weight: 600;
+}
+
+
+
+.billing-address-form {
+  padding: 20px;
+}
+
+.billing-address-form  p input {
+  padding: 15px;
+  width: 100%;
+  border-radius: 3px;
+  border: #004c49 1px solid;
+}
+
+.shipping-address-form p, .card-details p {
+  margin: 0;
+}
+
+.card.single-accordion .card-header h5 button:before {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  content: "\f058";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  line-height: 22px;
+  margin-top: -11px;
+  color: goldenrod;
+}
+
+.billing-address-form form p:last-child {
+  margin-bottom: 0;
+}
+
+table.order-details {
+  border: 1px solid #efefef;
+}
+
+table.order-details thead tr th {
+  background-color: #efefef;
+  padding: 18px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+table.order-details tbody td {
+  border: 1px solid #efefef;
+  padding: 15px;
+}
+
+.order-details-wrap > a {
+  margin-top: 30px;
+}
+
+.card.single-accordion {
+  border: 1px solid #eeeeee;
+}
+
+.single-product-item {
+  -webkit-box-shadow: 0 0 20px #e4e4e4;
+  box-shadow: 0 0 20px #e4e4e4;
+  padding-bottom: 50px;
+  border-radius: 5px;
+}
+
+
+.custom-radio .form-check-input:checked {
+    background-color: #004c49 !important;
+    border-color: goldenrod !important;
+}
+
+.custom-radio .form-check-label::before {
+    content: "\f14a";
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px;
+    background-color: #004c49 !important;
+    color: #004c49;
+}
+.custom-radio .form-check-input {
+    display: none;
+}
+.custom-radio .form-check-input:checked+.form-check-label::before {
+    color: goldenrod;
+}
+
+.custom-radio .form-check-label::before {
+    content: "\f14a";
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px;
+    background-color: #004c49 !important;
+}

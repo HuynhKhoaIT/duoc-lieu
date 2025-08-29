@@ -1,26 +1,55 @@
-import styles from "./Profile.module.css";
+import { useState } from "react";
 
-export default function Profile() {
+import apiConfig from "@/constants/apiConfig";
+import fetcher from "@/services/fetcher";
+
+import styles from "./Profile.module.scss";
+import { toast } from "sonner";
+
+export default function ProfileForm({ profileData }) {
+    const [ showModal, setShowModal ] = useState(false);
+    const [ message, setMessage ] = useState("");
+    const [ loading, setLoading ] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        // chuyển thành object
+        const payload = Object.fromEntries(formData.entries());
+
+        setLoading(true);
+        try {
+            const res = await fetcher(apiConfig.profile.update, {
+                data: {
+                    ...payload,
+                },
+            });
+            toast.success("Cập nhật thành công");
+            console.log(res);
+        } catch (err) {
+            setMessage("Có lỗi xảy ra ❌");
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <div className={`${styles["contact-form"]} mt-5 mb-5`}>
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="container">
                 <div className="flex flex-wrap">
                     <div className="w-full lg:w-9/12 mx-auto">
                         {/* Liên kết */}
                         <div className="flex flex-wrap">
                             <div className="w-full">
-                                <div
-                                    className={`${styles.card} ${styles["blue-bg"]} p-3`}
-                                >
+                                <div className={`${styles.card} blue-bg p-3`}>
                                     <h5 className="text-center mb-0">
-                                        <b className={styles["gold-text"]}>
-                                            Liên Kết
-                                        </b>
+                                        <b className={"gold-text"}>Liên Kết</b>
                                     </h5>
                                     <div className="w-full mb-2">
                                         <div className="flex flex-wrap justify-center items-center">
                                             <input
-                                                className={`form-control text-center mt-3 ${styles["blue-text"]}`}
+                                                className={`${styles["form-control"]} text-center mt-3 blue-text`}
                                                 style={{
                                                     height: "47px",
                                                     maxWidth: "400px",
@@ -31,12 +60,12 @@ export default function Profile() {
                                                 readOnly
                                             />
                                             <button
-                                                className={`${styles["read-more-btn"]} mt-3`}
+                                                className={`read-more-btn mt-3`}
                                                 style={{
                                                     maxWidth: "150px",
+                                                    height: "47px",
                                                     marginLeft: "-3px",
                                                 }}
-                                                // onClick={() => copy("link")}
                                             >
                                                 <i className="fas fa-copy mr-1"></i>
                                                 Sao Chép
@@ -53,19 +82,13 @@ export default function Profile() {
                                 <div
                                     className={`p-4 ${styles["breadcrumb-bg"]}`}
                                 >
-                                    <form action="/user/profile" method="post">
-                                        <input
-                                            type="hidden"
-                                            name="_token"
-                                            value="TOKEN_HERE"
-                                        />
-
+                                    <form onSubmit={handleSubmit}>
                                         <div className="flex flex-wrap mb-3">
                                             {/* Left */}
-                                            <div className="w-full md:w-1/2 mb-3">
+                                            <div className="w-full md:w-1/2 mb-3 px-[15px]">
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -76,12 +99,14 @@ export default function Profile() {
                                                         style={{ width: "60%" }}
                                                         type="text"
                                                         name="name"
-                                                        defaultValue="Hồ Văn Vũ"
+                                                        defaultValue={
+                                                            profileData.name
+                                                        }
                                                     />
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -91,14 +116,16 @@ export default function Profile() {
                                                     <input
                                                         style={{ width: "60%" }}
                                                         type="text"
-                                                        name="phone"
-                                                        defaultValue="0907458839"
+                                                        name="phone_number"
+                                                        defaultValue={
+                                                            profileData.phone_number
+                                                        }
                                                         readOnly
                                                     />
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>Địa chỉ</strong>
@@ -107,12 +134,14 @@ export default function Profile() {
                                                         style={{ width: "60%" }}
                                                         type="text"
                                                         name="address"
-                                                        defaultValue="01 Tô Hiến Thành, P. An Khánh, Q. Ninh Kiều, TP Cần Thơ"
+                                                        defaultValue={
+                                                            profileData.address
+                                                        }
                                                     />
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -122,18 +151,20 @@ export default function Profile() {
                                                     <input
                                                         style={{ width: "60%" }}
                                                         type="text"
-                                                        name="sponsor"
-                                                        defaultValue="0363810001"
+                                                        name="referrer_phone"
+                                                        defaultValue={
+                                                            profileData.referrer_phone
+                                                        }
                                                         readOnly
                                                     />
                                                 </p>
                                             </div>
 
                                             {/* Right */}
-                                            <div className="w-full md:w-1/2">
+                                            <div className="w-full md:w-1/2 px-[15px]">
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -143,13 +174,15 @@ export default function Profile() {
                                                     <input
                                                         style={{ width: "60%" }}
                                                         type="text"
-                                                        name="bankname"
-                                                        defaultValue="VietcomBank"
+                                                        name="bank_name"
+                                                        defaultValue={
+                                                            profileData.bank_name
+                                                        }
                                                     />
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -159,13 +192,15 @@ export default function Profile() {
                                                     <input
                                                         style={{ width: "60%" }}
                                                         type="text"
-                                                        name="banknumber"
-                                                        defaultValue="0091000349565"
+                                                        name="bank_account_number"
+                                                        defaultValue={
+                                                            profileData.bank_account_number
+                                                        }
                                                     />
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`${styles["blue-text"]}`}
+                                                        className={`blue-text`}
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -175,36 +210,39 @@ export default function Profile() {
                                                     <input
                                                         style={{ width: "60%" }}
                                                         type="text"
-                                                        name="bankowner"
-                                                        defaultValue="Hồ Văn Vũ"
+                                                        name="bank_account_name"
+                                                        defaultValue={
+                                                            profileData.bank_account_name
+                                                        }
                                                     />
                                                 </p>
 
                                                 {/* Nút cập nhật + Modal */}
                                                 <div className="text-center">
                                                     <button
-                                                        type="button"
-                                                        data-toggle="modal"
-                                                        data-target="#modalauth"
                                                         className={
-                                                            styles["main-btn"]
+                                                            "main-btn hover:cursor-pointer"
                                                         }
+                                                        type="submit"
+                                                        disabled={loading}
                                                     >
                                                         <strong>
-                                                            Cập Nhật
+                                                            {loading
+                                                                ? "Đang cập nhật..."
+                                                                : "Cập nhật"}
                                                         </strong>
                                                     </button>
 
-                                                    <div
+                                                    {/* <div
                                                         id="modalauth"
                                                         className="modal"
                                                     >
                                                         <div className="modal-dialog">
                                                             <div
-                                                                className={`modal-content ${styles["modal-center"]} ${styles["blue-bg"]} text-center`}
+                                                                className={`modal-content ${styles["modal-center"]} blue-bg text-center`}
                                                             >
                                                                 <h5
-                                                                    className={`modal-title ${styles["gold-text"]} text-center pt-4`}
+                                                                    className={`${styles["modal-title"]}  gold-text text-center pt-4`}
                                                                 >
                                                                     <b>
                                                                         MẬT KHẨU
@@ -231,16 +269,14 @@ export default function Profile() {
                                                                     <button
                                                                         type="submit"
                                                                         className={
-                                                                            styles[
-                                                                                "bordered-btn"
-                                                                            ]
+                                                                            "bordered-btn"
                                                                         }
                                                                     >
                                                                         Xác nhận
                                                                     </button>
                                                                     <button
                                                                         type="button"
-                                                                        className={`${styles["bordered-btn"]} ml-2`}
+                                                                        className={`bordered-btn ml-2`}
                                                                         style={{
                                                                             width: "110px",
                                                                         }}
@@ -251,7 +287,7 @@ export default function Profile() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

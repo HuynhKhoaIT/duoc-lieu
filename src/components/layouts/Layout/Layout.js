@@ -29,16 +29,7 @@ function Root({ children, title, className }) {
     );
 }
 
-function Layout({
-    children,
-    title,
-    breadcrumb,
-    isHeader = true,
-    isFooter = true,
-    isAuth = false,
-    Header,
-    Filter,
-}) {
+function Layout({ children, title, breadcrumb }) {
     const { cart } = useGlobalContext();
     return (
         <LayoutDesktop cart={cart} title={title} breadcrumb={breadcrumb}>
@@ -47,14 +38,7 @@ function Layout({
     );
 }
 
-const LayoutDesktop = ({
-    title,
-    breadcrumb,
-    children,
-    isFooter,
-    isHeader,
-    cart,
-}) => {
+const LayoutDesktop = ({ title, children, cart }) => {
     return (
         <Root title={title}>
             <Header cart={cart} />

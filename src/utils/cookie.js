@@ -10,6 +10,7 @@ export function setCookie(name, value, days = 365) {
 
 // Hàm lấy cookie
 export function getCookie(name) {
+    
     const cookies = document.cookie.split("; ");
     for (let cookie of cookies) {
         const [ key, value ] = cookie.split("=");

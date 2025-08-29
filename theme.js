@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
     typography: {
-        fontFamily: "var(--font-nunito-sans), sans-serif !important",
+        fontFamily: "'Play', sans-serif",
     },
     palette: {
         primary: {

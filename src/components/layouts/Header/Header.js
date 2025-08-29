@@ -5,15 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import paths from "@/constants/paths";
-import useAuth from "@/hooks/useAuth";
-
-import styles from "./Header.module.scss";
-import { removeCookie } from "@/utils/cookie";
 import { storageKeys } from "@/constants";
+import paths from "@/constants/paths";
+import { useGlobalContext } from "@/contexts/GlobalContext";
+import useAuth from "@/hooks/useAuth";
+import { removeCookie } from "@/utils/cookie";
 import { removeLocalItem } from "@/utils/localStorage";
 
+import styles from "./Header.module.scss";
+
 export default function Header() {
+    const { cart } = useGlobalContext();
+
     const { profile, isAuthenticated } = useAuth();
     const [ isSticky, setIsSticky ] = useState(false);
     const [ isShowMenu, setIsShowMenu ] = useState(false);
@@ -154,7 +157,7 @@ export default function Header() {
                                             <span
                                                 className={`${styles.cartBadge} pl-1 pr-1 pt-0 pb-0`}
                                             >
-                                                0
+                                                {cart}
                                             </span>
                                         </i>
                                     </Link>
