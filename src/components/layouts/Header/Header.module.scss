@@ -7,13 +7,14 @@
     left: 0;
     width: 100%;
     height: 89px;
+    font-family: "Play", sans-serif;
     .topHeaderArea{
         position: fixed;
         top: 0px;
         z-index: 999;
         width: 100%;
         transition: 0.3s;
-        padding: 15px 0;
+        padding: 25px 0;
         .mainMenuWrap{
             position: relative;
             display: flex;
@@ -62,6 +63,9 @@
                     padding: 15px;
                     color: #fff;
                     transition: 0.3s;
+                    &:hover{
+                        color: goldenrod;
+                    }
                 }
                 .cartBadge{
                     margin-left: -1px;

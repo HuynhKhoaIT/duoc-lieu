@@ -4,6 +4,7 @@
     border-radius: 3px;
     background: #fff;
 }
+
 .search-bar-tablecell button[type=submit] {
     border: none;
     color: #004c49;
@@ -13,13 +14,11 @@
     display: inline-block;
     border-radius: 50px;
     font-weight: 700;
-}
-.search-bar-tablecell button[type=submit] {
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-}
-.search-bar-tablecell button[type=submit]:hover {
-    background-color: #fff;
-    color: #004c49;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    &:hover {
+        background-color: #fff;
+        color: #004c49;
+    }
 }

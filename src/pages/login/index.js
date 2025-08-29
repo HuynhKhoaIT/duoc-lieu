@@ -2,7 +2,6 @@ import Layout from "@/components/layouts/Layout";
 import LoginPage from "@/components/Pages/Login/Login";
 
 function Login() {
-
     return (
         <LoginPage/>
     );

@@ -1,15 +1,23 @@
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import NewsDetailPage from "@/components/Pages/NewsDetail/NewsDetailPage";
 import apiConfig from "@/constants/apiConfig";
 
 function NewsDetail({ news, newsList, error, errorList }) {
+    const metadata = {
+        title: news?.title || "Tin tức",
+        description: news?.description || news?.excerpt || "Chi tiết tin tức",
+        image: news?.thumbnail || "/images/logo.png",
+    };
     return (
-        <NewsDetailPage
-            dataDetail={news}
-            newsList={newsList}
-            error={error}
-            errorList={errorList}
-        />
+        <RenderContext metadata={metadata}>
+            <NewsDetailPage
+                dataDetail={news}
+                newsList={newsList}
+                error={error}
+                errorList={errorList}
+            />
+        </RenderContext>
     );
 }
 
@@ -17,7 +25,7 @@ export async function getStaticProps({ params }) {
     try {
         const [ res, resList ] = await Promise.all([
             fetch(apiConfig.news.getDetail.url.replace(":id", params.newsId), {
-                cache: "force-cache", // hoặc "no-store" nếu muốn luôn lấy mới
+                cache: "force-cache",
             }),
             fetch(apiConfig.news.getList.url, {
                 cache: "force-cache",

@@ -8,6 +8,15 @@ const paths = {
     news: "/news",
     newsDetail: "/news/[newsId]",
     login: "/login",
+    user:"/user",
+    wallet:"/user/wallet",
+    agent:"/user/agent",
+    profile:"/user/profile",
+    setting:"/user/setting",
+    bill:"/user/bill",
+    gtable:"/user/gtable",
+    cart:"/user/cart",
+    order:"/user/order",
 
 };
 

@@ -372,9 +372,13 @@ p:last-child {
   color: #004c49;
 }
 
+.text-light {
+    color: #f8f9fa !important;
+}
 
 ol, ul {
   color: #004c49 !important;
   list-style: auto !important;
   padding: revert !important;
 }
+

@@ -1,17 +1,24 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import paths from "@/constants/paths";
+import useAuth from "@/hooks/useAuth";
 
 import styles from "./Header.module.scss";
+import { removeCookie } from "@/utils/cookie";
+import { storageKeys } from "@/constants";
+import { removeLocalItem } from "@/utils/localStorage";
 
 export default function Header() {
+    const { profile, isAuthenticated } = useAuth();
     const [ isSticky, setIsSticky ] = useState(false);
     const [ isShowMenu, setIsShowMenu ] = useState(false);
     const pathname = usePathname();
+    const [ phone, setPhone ] = useState("");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -35,7 +42,45 @@ export default function Header() {
         if (href === "/") {
             return pathname === "/";
         }
+        if (href === "/user") {
+            return pathname === "/user";
+        }
         return pathname.startsWith(href);
+    };
+
+    const menuConfig = [
+        { path: paths.home, label: "Trang Chủ" },
+        { path: paths.about, label: "Giới thiệu" },
+        { path: paths.shop, label: "Sản Phẩm" },
+        { path: paths.combo, label: "Đặt Hàng" },
+        { path: paths.news, label: "Bài Viết" },
+        { path: paths.contact, label: "Liên Hệ" },
+    ];
+
+    const menuUserConfig = [
+        { path: paths.user, label: "Tổng quát" },
+        { path: paths.wallet, label: "Giao dịch" },
+        { path: paths.agent, label: "Đại lý" },
+        { path: paths.order, label: "Đặt hàng" },
+        { path: paths.bill, label: "Đơn hàng" },
+        { path: paths.setting, label: "Cài đặt" },
+        { path: paths.gtable, label: "Tri ân" },
+    ];
+
+    const isUserNav = useMemo(() => {
+        return pathname.startsWith(paths.user);
+    }, [ pathname ]);
+    const activeMenu = isUserNav ? menuUserConfig : menuConfig;
+
+    useEffect(() => {
+        if (profile?.phone_number) {
+            setPhone(profile.phone_number);
+        }
+    }, [ profile ]);
+    const handleLogout = () => {
+        removeCookie(storageKeys.TOKEN);
+        removeLocalItem(storageKeys.PROFILE);
+        window.location.reload();
     };
 
     return (
@@ -47,7 +92,7 @@ export default function Header() {
                 className={`
                     ${styles.topHeaderArea} 
                     transition-colors duration-500 delay-150
-                    ${isSticky ? "bg-[#004c49]" : "bg-transparent"}
+                    ${isSticky ? "bg-[#004c49] !py-[15px]" : "bg-transparent"}
                 `}
                 id="sticker"
             >
@@ -57,12 +102,20 @@ export default function Header() {
                             <div className={styles.mainMenuWrap}>
                                 {/* logo */}
                                 <div className={styles.siteLogo}>
-                                    <Link href={paths.home}>
-                                        <img
-                                            src="/images/logo.png"
-                                            alt="Logo"
-                                            height="45"
-                                        />
+                                    <Link
+                                        href={
+                                            isUserNav ? paths.user : paths.home
+                                        }
+                                    >
+                                        <div className="relative w-[100px] h-[45px]">
+                                            <Image
+                                                src="/images/logo.png"
+                                                alt="Logo"
+                                                fill
+                                                className="object-contain"
+                                                priority
+                                            />
+                                        </div>
                                     </Link>
                                 </div>
                                 {/* logo */}
@@ -70,78 +123,32 @@ export default function Header() {
                                 {/* menu start */}
                                 <nav className={styles.mainMenu}>
                                     <ul>
-                                        <li
-                                            className={
-                                                isActive(paths.home)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.home}>
-                                                Trang Chủ
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={
-                                                isActive(paths.about)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.about}>
-                                                Giới thiệu
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={
-                                                isActive(paths.shop)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.shop}>
-                                                Sản Phẩm
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={
-                                                isActive(paths.combo)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.combo}>
-                                                Đặt Hàng
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={
-                                                isActive(paths.news)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.news}>
-                                                Bài Viết
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={
-                                                isActive(paths.contact)
-                                                    ? styles.currentListItem
-                                                    : ""
-                                            }
-                                        >
-                                            <Link href={paths.contact}>
-                                                Liên Hệ
-                                            </Link>
-                                        </li>
+                                        {activeMenu?.map((item) => (
+                                            <li
+                                                key={item.path}
+                                                className={
+                                                    isActive(item.path)
+                                                        ? styles.currentListItem
+                                                        : ""
+                                                }
+                                            >
+                                                <Link href={item.path}>
+                                                    {item.label}
+                                                </Link>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </nav>
                                 <div className={styles.headerIcons}>
                                     <Link
                                         className={`${styles.iconLink} ${styles.mobileHide}`}
-                                        href="/user/cart"
+                                        href={paths.profile}
+                                    >
+                                        {phone}
+                                    </Link>
+                                    <Link
+                                        className={`${styles.iconLink} ${styles.mobileHide}`}
+                                        href={paths.cart}
                                     >
                                         <i className="fas fa-shopping-cart">
                                             <span
@@ -151,12 +158,22 @@ export default function Header() {
                                             </span>
                                         </i>
                                     </Link>
-                                    <Link
-                                        className={`${styles.iconLink} ${styles.mobileHide}`}
-                                        href={paths.login}
-                                    >
-                                        <i className="fas fa-sign-in-alt"></i>
-                                    </Link>
+                                    {isAuthenticated ? (
+                                        <a
+                                            className={`${styles.iconLink} ${styles.mobileHide}`}
+                                            onClick={handleLogout}
+                                        >
+                                            <i className="fas fa-sign-in-alt"></i>
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            className={`${styles.iconLink} ${styles.mobileHide}`}
+                                            href={paths.login}
+                                        >
+                                            <i className="fas fa-sign-in-alt"></i>
+                                        </Link>
+                                    )}
+
                                     {!isShowMenu ? (
                                         <div
                                             onClick={() => setIsShowMenu(true)}
@@ -193,24 +210,16 @@ export default function Header() {
                     >
                         <nav className={styles["mean-nav"]}>
                             <ul className="block">
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.home}>Trang Chủ</Link>
-                                </li>
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.about}>Giới thiệu</Link>
-                                </li>
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.shop}>Sản Phẩm</Link>
-                                </li>
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.combo}>Đặt Hàng</Link>
-                                </li>
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.news}>Bài Viết</Link>
-                                </li>
-                                <li onClick={() => setIsShowMenu(false)}>
-                                    <Link href={paths.contact}>Liên Hệ</Link>
-                                </li>
+                                {activeMenu?.map((item) => (
+                                    <li
+                                        key={item.path}
+                                        onClick={() => setIsShowMenu(false)}
+                                    >
+                                        <Link href={item.path}>
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </nav>
                     </div>

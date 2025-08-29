@@ -1,15 +1,23 @@
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ShopDetailPage from "@/components/Pages/ShopDetail/ShopDetailPage";
 import apiConfig from "@/constants/apiConfig";
 
 function ShopDetail({ products, productsList, error, errorList }) {
+    const metadata = {
+        title: products?.name || "Sản phẩm",
+        description: products?.description || products?.excerpt || "Chi tiết sản phẩm",
+        image: products?.thumbnail || "/images/logo.png",
+    };
     return (
-        <ShopDetailPage
-            dataDetail={products}
-            productsList={productsList}
-            error={error}
-            errorList={errorList}
-        />
+        <RenderContext metadata={metadata}>
+            <ShopDetailPage
+                dataDetail={products}
+                productsList={productsList}
+                error={error}
+                errorList={errorList}
+            />
+        </RenderContext>
     );
 }
 
@@ -19,7 +27,7 @@ export async function getStaticProps({ params }) {
             fetch(
                 apiConfig.products.getDetail.url.replace(":id", params.shopId),
                 {
-                    cache: "force-cache", 
+                    cache: "force-cache",
                 },
             ),
             fetch(apiConfig.products.getList.url, {

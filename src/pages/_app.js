@@ -40,6 +40,7 @@ export default function App({ Component, pageProps }) {
                             </DevicesProvider>
                         </AppWrapper>
                     </QueryProvider>
+                    
                     <Toaster richColors closeButton position="top-center" />
                     <NavigateProgress options={{ showSpinner: false }} />
                 </GlobalContextProvider>

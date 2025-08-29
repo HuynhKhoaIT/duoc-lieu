@@ -9,7 +9,7 @@ export default function ProductCardItem({ p }) {
     return (
         <div key={p.id} className="text-center">
             <div className={styles.singleProductItem}>
-                <Link href={`${paths.shop}/${p.id}`}>
+                <Link href={`${paths.shop}/${p.slug}`}>
                     <div className="relative w-full aspect-[4/3]">
                         <Image
                             src={p.thumbnail}
@@ -29,7 +29,7 @@ export default function ProductCardItem({ p }) {
                             Đặt hàng
                         </button>
                     </Link>
-                    <Link href={`${paths.shop}/${p.id}`}>
+                    <Link href={`${paths.shop}/${p.slug}`}>
                         <button className={`bordered-btn`}>Xem thêm</button>
                     </Link>
                 </div>

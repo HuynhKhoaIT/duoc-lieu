@@ -12,7 +12,7 @@ const apiConfig = {
             headers: baseHeader,
         },
         loginBasic: {
-            url: `${apiUrl}api/login`,
+            url: `${apiUrl}api/v2/login`,
             method: 'POST',
             headers: baseHeader,
         },

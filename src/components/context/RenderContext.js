@@ -1,31 +1,77 @@
-import { Fragment } from 'react';
-import Head from 'next/head';
+import { Fragment } from "react";
+import Head from "next/head";
 
-import { metaDefaults } from '@/constants';
-import { cleanObject } from '@/utils';
+import { metaDefaults } from "@/constants";
+import { cleanObject } from "@/utils";
 
-import { useDevices } from './DevicesProvider';
-
-const RenderContext = ({ desktop, mobile, metadata, ...props }) => {
- 
-    const { title, description, image } = {
+const RenderContext = ({ metadata, children }) => {
+    const {
+        title,
+        description,
+        image,
+        url,
+        type = "website",
+        siteName = "My Website",
+        publishedTime,
+        modifiedTime,
+        author,
+        section,
+        tags,
+    } = {
         ...metaDefaults,
         ...cleanObject(metadata),
     };
 
-    const device = useDevices();
-    const isMobile = device;
-    const Component = isMobile ? mobile?.device : desktop?.device;
     return (
         <Fragment>
             <Head>
+                {/* Basic */}
                 <title>{title}</title>
                 <meta name="description" content={description} />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href={url} />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+
+                {/* Open Graph */}
+                <meta property="og:type" content={type} />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
-                <meta property="og:image" content={image} />
+                {image && <meta property="og:image" content={image} />}
+                {url && <meta property="og:url" content={url} />}
+                <meta property="og:site_name" content={siteName} />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={title} />
+                <meta name="twitter:description" content={description} />
+                {image && <meta name="twitter:image" content={image} />}
+
+                {/* Article (chỉ khi là news/blog) */}
+                {publishedTime && (
+                    <meta
+                        property="article:published_time"
+                        content={publishedTime}
+                    />
+                )}
+                {modifiedTime && (
+                    <meta
+                        property="article:modified_time"
+                        content={modifiedTime}
+                    />
+                )}
+                {author && <meta property="article:author" content={author} />}
+                {section && (
+                    <meta property="article:section" content={section} />
+                )}
+                {tags &&
+                    tags.map((tag, i) => (
+                        <meta key={i} property="article:tag" content={tag} />
+                    ))}
             </Head>
-            <Component {...props} />
+            {children}
         </Fragment>
     );
 };

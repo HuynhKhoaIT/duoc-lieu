@@ -1,15 +1,18 @@
 import Image from "next/image";
-import Link from "next/link";
-
-import paths from "@/constants/paths";
 
 import styles from "./ProductComboCard.module.scss";
 
 export default function ProductComboCard({ p }) {
+    const handleAddToCart = ({ item }) => {
+        console.log(item);
+    };
     return (
         <div className={`w-full  text-center mb-1 p-2 ${styles.pro1}`}>
-            <div className={styles.card}>
-                <Link href={`${paths.shop}/${p.id}`}>
+            <div
+                className={styles.card}
+                onClick={() => handleAddToCart({ item: p })}
+            >
+                <div>
                     {/* <div
                         className="h-[220px] bg-cover bg-no-repeat bg-[center_top_70%]"
                         style={{
@@ -41,7 +44,7 @@ export default function ProductComboCard({ p }) {
                         </div>
                     </div>
                     <h6 className={`gold-bg blue-text p-2`}>{p.name}</h6>
-                </Link>
+                </div>
             </div>
         </div>
     );
