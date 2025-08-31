@@ -65,9 +65,9 @@ export default function ProductComboCard({ p }) {
                                 />
                             </i>
                             <h6 className={`gold-text !m-0 pr-2 line-through`}>
-                                405.000
+                                {(p?.price_retail*1).toLocaleString()}
                             </h6>
-                            <h4 className="!text-white p-0 m-0">300.000</h4>
+                            <h4 className="!text-white p-0 m-0">{(p?.price_wholesale*1).toLocaleString()}</h4>
                         </div>
                     </div>
                     <h6 className={`gold-bg blue-text p-2`}>{p.name}</h6>

@@ -71,7 +71,7 @@ export default function Header() {
     ];
 
     const isUserNav = useMemo(() => {
-        return pathname.startsWith(paths.user);
+        return pathname?.startsWith(paths?.user);
     }, [ pathname ]);
     const activeMenu = isUserNav ? menuUserConfig : menuConfig;
 

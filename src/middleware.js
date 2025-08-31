@@ -17,6 +17,7 @@ const publicPaths = [
     "/images/",
     "/images/*",
     "/.well-known/*",
+    "/signin/*",
 ];
 
 const isPublicPath = (pathname) => {

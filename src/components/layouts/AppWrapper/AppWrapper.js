@@ -8,7 +8,6 @@ import { AppProvider } from "@/contexts";
 import LocaleProvider from "@/locales/LocaleProvider";
 import { setAuthCookie } from "@/utils/auth";
 
-import ConfirmModalWrapper from "./ConfirmModalWrapper";
 
 function AppWrapper({ children, locale, role, branchId }) {
     const queryClient = useQueryClient();
@@ -38,7 +37,7 @@ function AppWrapper({ children, locale, role, branchId }) {
             <LocaleProvider>
                 <LoadingOverlayProvider>
                     <LoadingOverlay />
-                    <ConfirmModalWrapper>{children} </ConfirmModalWrapper>
+                    {children}
                 </LoadingOverlayProvider>
             </LocaleProvider>
         </AppProvider>

@@ -11,6 +11,11 @@ const apiConfig = {
             method: "POST",
             headers: baseHeader,
         },
+        register:{
+            url: `${apiUrl}api/v2/register`,
+            method: "POST",
+            headers: baseHeader,
+        },
     },
     profile:{
         getDetail:{
@@ -107,6 +112,22 @@ const apiConfig = {
     order:{
         getList:{
             url: `${apiUrl}api/v2/orders`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
+    feedback:{
+        create:{
+            url: `${apiUrl}api/v2/orders/:id/feedback`,
+            method: "PUT",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
+    referrals:{
+        getList:{
+            url: `${apiUrl}api/v2/users/referrals`,
             method: "GET",
             headers: baseHeader,
             isAuth: true,

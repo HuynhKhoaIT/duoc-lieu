@@ -203,3 +203,10 @@ export function getPreviewFromHTML(html, maxLength = 100) {
         ? text.substring(0, maxLength) + "..."
         : text;
 }
+
+export function maskPhone(phone) {
+    if (!phone) return "";
+    const str = phone.toString();
+    if (str.length < 7) return str; 
+    return str.slice(0, 3) + "****" + str.slice(-3);
+}

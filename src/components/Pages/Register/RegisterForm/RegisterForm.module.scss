@@ -1,0 +1,25 @@
+.contact-form input {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #fff;
+}
+.search-bar-tablecell button[type=submit] {
+    border: none;
+    color: #004c49;
+    background-color: goldenrod;
+    padding: 15px 30px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50px;
+    font-weight: 700;
+}
+.search-bar-tablecell button[type=submit] {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+.search-bar-tablecell button[type=submit]:hover {
+    background-color: #fff;
+    color: #004c49;
+}

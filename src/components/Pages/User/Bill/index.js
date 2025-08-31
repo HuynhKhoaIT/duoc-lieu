@@ -1,12 +1,20 @@
+import { useState } from "react";
+import Link from "next/link";
+import { toast } from "sonner";
+
+import FeedbackModal from "@/components/Common/Modal/FeedbackModal/FeedbackModal";
 import TableBase from "@/components/Common/Table";
 import { statusOrderOptions } from "@/constants";
+import apiConfig from "@/constants/apiConfig";
+import paths from "@/constants/paths";
+import fetcher from "@/services/fetcher";
 import { formatDateString } from "@/utils";
 
 import styles from "./BillTable.module.scss";
-import paths from "@/constants/paths";
-import Link from "next/link";
 
 export default function BillTable({ ordersData }) {
+    const [ isOpen, setIsOpen ] = useState(false);
+    const [ orderFeedback, setOrderFeedback ] = useState(null);
     const columns = [
         { key: "id", label: "#" },
         { key: "order_code", label: "Mã ĐH" },
@@ -35,11 +43,39 @@ export default function BillTable({ ordersData }) {
         status: statusOrderOptions[order.status],
 
         action: (
-            <button type="button" className="main-btn text-sm cursor-pointer">
+            <button
+                onClick={() => {
+                    setOrderFeedback(order);
+                    setIsOpen(true);
+                }}
+                type="button"
+                className="main-btn text-sm cursor-pointer"
+            >
                 <strong>Phản Hồi</strong>
             </button>
         ),
     }));
+
+    const handleFeedback = async ({ feedback }) => {
+        try {
+            const res = await fetcher(apiConfig.feedback.create, {
+                pathParams: {
+                    id: orderFeedback.id,
+                },
+                data: {
+                    feedback,
+                },
+            });
+            if (res.status === 200) {
+                toast.success("Phản hồi thành công");
+                setIsOpen(false);
+            }
+        } catch (error) {
+            toast.error("Phản hồi thất bại");
+        } finally {
+            setOrderFeedback(null);
+        }
+    };
     return (
         <div className={`${styles.contactForm} pt-5 pb-3`}>
             <div className="container">
@@ -115,6 +151,11 @@ export default function BillTable({ ordersData }) {
                     </div>
                 </div>
             </div>
+            <FeedbackModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                onSubmit={handleFeedback}
+            />
         </div>
     );
 }
