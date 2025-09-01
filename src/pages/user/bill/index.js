@@ -1,57 +1,28 @@
 import { Fragment } from "react";
+import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import BillTable from "@/components/Pages/User/Bill";
-import apiConfig from "@/constants/apiConfig";
-import fetcher from "@/services/fetcher";
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function OrderPage({ ordersData }) {
+function BillPage() {
+
+    const { data, error, isLoading, mutate } = useSWR("/api/orders", fetcher);
+
+
     return (
         <Fragment>
             <Breadcrumb title="Đơn hàng" />
-            <BillTable ordersData={ordersData} />
+            <BillTable ordersData={data?.data} refetch={mutate} />
             <LogoCarousel />
         </Fragment>
     );
 }
 
-export async function getServerSideProps(context) {
-    const token = context.req.cookies.token;
-
-    if (!token) {
-        return {
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            },
-        };
-    }
-
-    try {
-        const res = await fetcher(apiConfig.order.getList, {
-            context: { token },
-        });
-
-        return {
-            props: {
-                ordersData: res.data?.data || [],
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching orders:", error.message);
-
-        return {
-            props: {
-                ordersData: [],
-            },
-        };
-    }
-}
-
-OrderPage.getLayout = function getLayout(page) {
+BillPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default OrderPage;
+export default BillPage;

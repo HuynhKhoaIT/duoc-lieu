@@ -1,57 +1,33 @@
 import { Fragment } from "react";
+import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import CartPage from "@/components/Pages/User/Cart";
-import apiConfig from "@/constants/apiConfig";
-import fetcher from "@/services/fetcher";
 
-function OrderPage({ cartsData }) {
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+function Cart() {
+    const { data, error, isLoading, mutate } = useSWR("/api/cart", fetcher);
+
+    if (error) return <p>Lỗi tải giỏ hàng!</p>;
+
     return (
         <Fragment>
             <Breadcrumb title="Giỏ hàng" />
-            <CartPage cartsData={cartsData} />
+            {isLoading ? (
+                <p>...</p>
+            ) : (
+                <CartPage cartsData={data?.data || []} refetch={mutate} />
+            )}
             <LogoCarousel />
         </Fragment>
     );
 }
 
-export async function getServerSideProps(context) {
-    const token = context.req.cookies.token;
-
-    if (!token) {
-        return {
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            },
-        };
-    }
-
-    try {
-        const res = await fetcher(apiConfig.carts.getList, {
-            context: { token },
-        });
-
-        return {
-            props: {
-                cartsData: res.data?.data || [],
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching carts:", error.message);
-
-        return {
-            props: {
-                cartsData: [],
-            },
-        };
-    }
-}
-
-OrderPage.getLayout = function getLayout(page) {
+Cart.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 
-export default OrderPage;
+export default Cart;
