@@ -1,0 +1,33 @@
+.boxed-btn {
+    border-radius: 50px;
+}
+
+.boxed-btn {
+    font-family: 'Play', sans-serif;
+    display: inline-block;
+    background-color: goldenrod;
+    border: 2px solid goldenrod;
+    color: #fff;
+    padding: 10px 20px;
+}
+.boxed-btn {
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.boxed-btn:hover {
+    cursor: pointer;
+    background-color: #004c49;
+    border: 2px solid goldenrod;
+    color: goldenrod;
+}
+.input{
+    width: 49%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+    @media screen and (max-width: 991px) {
+         width: 100%;
+    }
+}

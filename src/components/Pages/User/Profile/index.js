@@ -4,9 +4,11 @@ import { toast } from "sonner";
 import apiConfig from "@/constants/apiConfig";
 import fetcher from "@/services/fetcher";
 
+import ConfirmUpdateModal from "./ConfirmUpdateModal/ConfirmUpdateModal";
+
 import styles from "./Profile.module.scss";
 
-export default function ProfileForm({ profileData }) {
+export default function ProfileForm({ profileData, loadingProfile }) {
     const [ showModal, setShowModal ] = useState(false);
     const [ message, setMessage ] = useState("");
     const [ loading, setLoading ] = useState(false);
@@ -32,6 +34,26 @@ export default function ProfileForm({ profileData }) {
             setMessage("Có lỗi xảy ra ❌");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleConfirmTransaction = async ({ transactionPassword }) => {
+        console.log(transactionPassword);
+    };
+    const [ copied, setCopied ] = useState(false);
+
+    const handleCopy = async () => {
+        const input = document.getElementById("link");
+        if (input) {
+            try {
+                await navigator.clipboard.writeText(input.value);
+                setCopied(true);
+                toast.success("Đã sao chép liên kết!");
+                setTimeout(() => setCopied(false), 2000);
+            } catch (err) {
+                console.error("Copy failed", err);
+                toast.error("Sao chép thất bại!");
+            }
         }
     };
     return (
@@ -60,15 +82,19 @@ export default function ProfileForm({ profileData }) {
                                                 readOnly
                                             />
                                             <button
-                                                className={`read-more-btn mt-3`}
+                                                type="button"
+                                                onClick={handleCopy}
+                                                className="read-more-btn mt-3"
                                                 style={{
-                                                    maxWidth: "150px",
+                                                    // maxWidth: "150px",
                                                     height: "47px",
                                                     marginLeft: "-3px",
                                                 }}
                                             >
                                                 <i className="fas fa-copy mr-1"></i>
-                                                Sao Chép
+                                                {copied
+                                                    ? "Đã Sao Chép"
+                                                    : "Sao Chép"}
                                             </button>
                                         </div>
                                     </div>
@@ -82,7 +108,7 @@ export default function ProfileForm({ profileData }) {
                                 <div
                                     className={`p-4 ${styles["breadcrumb-bg"]}`}
                                 >
-                                    <form onSubmit={handleSubmit}>
+                                    <form>
                                         <div className="flex flex-wrap mb-3">
                                             {/* Left */}
                                             <div className="w-full md:w-1/2 mb-3 px-[15px]">
@@ -223,7 +249,10 @@ export default function ProfileForm({ profileData }) {
                                                         className={
                                                             "main-btn hover:cursor-pointer"
                                                         }
-                                                        type="submit"
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setShowModal(true);
+                                                        }}
                                                         disabled={loading}
                                                     >
                                                         <strong>
@@ -232,62 +261,6 @@ export default function ProfileForm({ profileData }) {
                                                                 : "Cập nhật"}
                                                         </strong>
                                                     </button>
-
-                                                    {/* <div
-                                                        id="modalauth"
-                                                        className="modal"
-                                                    >
-                                                        <div className="modal-dialog">
-                                                            <div
-                                                                className={`modal-content ${styles["modal-center"]} blue-bg text-center`}
-                                                            >
-                                                                <h5
-                                                                    className={`${styles["modal-title"]}  gold-text text-center pt-4`}
-                                                                >
-                                                                    <b>
-                                                                        MẬT KHẨU
-                                                                        GIAO
-                                                                        DỊCH
-                                                                    </b>
-                                                                </h5>
-                                                                <div className="modal-body flex justify-center items-center">
-                                                                    <p>
-                                                                        <input
-                                                                            type="password"
-                                                                            name="passauth"
-                                                                            placeholder="Vui lòng nhập mật khẩu giao dịch"
-                                                                            style={{
-                                                                                width: "365px",
-                                                                            }}
-                                                                            required
-                                                                        />
-                                                                    </p>
-                                                                </div>
-                                                                <div
-                                                                    className={`${styles["contact-form"]} pt-2 pb-4`}
-                                                                >
-                                                                    <button
-                                                                        type="submit"
-                                                                        className={
-                                                                            "bordered-btn"
-                                                                        }
-                                                                    >
-                                                                        Xác nhận
-                                                                    </button>
-                                                                    <button
-                                                                        type="button"
-                                                                        className={`bordered-btn ml-2`}
-                                                                        style={{
-                                                                            width: "110px",
-                                                                        }}
-                                                                        data-dismiss="modal"
-                                                                    >
-                                                                        Hủy bỏ
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>
@@ -296,6 +269,11 @@ export default function ProfileForm({ profileData }) {
                             </div>
                         </div>
                         {/* End Form */}
+                        <ConfirmUpdateModal
+                            isOpen={showModal}
+                            onClose={() => setShowModal(false)}
+                            onSubmit={handleConfirmTransaction}
+                        />
                     </div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import TableBase from "@/components/Common/Table";
 
 import styles from "./Wallet.module.scss";
+import Link from "next/link";
+import paths from "@/constants/paths";
 
 export default function WalletPage() {
     const columns = [
@@ -79,18 +81,18 @@ export default function WalletPage() {
                                 <h4 className="mb-1 text-light">278.634</h4>
                             </div>
                             <div className="flex justify-center items-center mt-2 space-x-3">
-                                <a
-                                    href="/user/transfer"
+                                <Link
+                                    href={paths.transfer}
                                     className={"bordered-btn"}
                                 >
                                     CHUYỂN
-                                </a>
-                                <a
-                                    href="/user/withdraw"
+                                </Link>
+                                <Link   
+                                    href={paths.withdraw}
                                     className={`bordered-btn text-center w-[100px]`}
                                 >
                                     RÚT
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

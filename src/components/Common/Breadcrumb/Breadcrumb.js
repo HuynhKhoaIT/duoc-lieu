@@ -10,7 +10,7 @@ export default function Breadcrumb({ title }) {
                             <p>
                                 Dược Liệu Xanh <br /> An lành cho Sức khỏe
                             </p>
-                            <h1>{title}</h1>
+                            <h1 className="capitalize">{title}</h1>
                         </div>
                     </div>
                 </div>
