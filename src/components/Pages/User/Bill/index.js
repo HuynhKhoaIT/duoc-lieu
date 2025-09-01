@@ -7,6 +7,7 @@ import TableBase from "@/components/Common/Table";
 import { statusOrderOptions } from "@/constants";
 import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
+import useAuth from "@/hooks/useAuth";
 import fetcher from "@/services/fetcher";
 import { formatDateString } from "@/utils";
 
@@ -14,6 +15,7 @@ import styles from "./BillTable.module.scss";
 
 export default function BillTable({ ordersData }) {
     const [ isOpen, setIsOpen ] = useState(false);
+    const { profile } = useAuth();
     const [ orderFeedback, setOrderFeedback ] = useState(null);
     const columns = [
         { key: "id", label: "#" },
@@ -42,7 +44,9 @@ export default function BillTable({ ordersData }) {
                     : "Phiếu mua hàng",
         status: statusOrderOptions[order.status],
 
-        action: (
+        action: order?.feedback ? (
+            order.feedback
+        ) : (
             <button
                 onClick={() => {
                     setOrderFeedback(order);
@@ -119,7 +123,7 @@ export default function BillTable({ ordersData }) {
                                     {/* Nút */}
                                     <div className="flex justify-center items-center mt-4 gap-3">
                                         <Link
-                                            href="#"
+                                            href={`${paths.signin}/${profile?.phone_number}`}
                                             className={`bordered-btn text-center`}
                                             style={{ width: "115px" }}
                                         >

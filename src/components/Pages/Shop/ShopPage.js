@@ -3,11 +3,14 @@ import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel
 
 import ProductSection from "./ProductSection/ProductSection";
 
-export default function ShopPage({productsData}) {
+export default function ShopPage({ productsData, categories }) {
     return (
         <>
             <Breadcrumb title={"Sản phẩm"} />
-            <ProductSection productsData={productsData} />
+            <ProductSection
+                productsData={productsData}
+                categories={categories}
+            />
             <LogoCarousel />
         </>
     );

@@ -19,6 +19,7 @@ const paths = {
     order:"/user/order",
     checkOut:"/user/checkout",
     payment:"/user/payment",
+    signin:"/signin",
 
 };
 

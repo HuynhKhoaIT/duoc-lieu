@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 
-import styles from "./ContactForm.module.scss";
 import { maskPhone } from "@/utils";
+
+import styles from "./ContactForm.module.scss";
 
 function AccordionItem({ item, level = 1 }) {
     const [ open, setOpen ] = useState(false);
@@ -36,7 +37,7 @@ function AccordionItem({ item, level = 1 }) {
     );
 }
 
-export default function AgentPage({usersData}) {
+export default function AgentPage({ usersData }) {
     const data = [
         {
             id: "1",

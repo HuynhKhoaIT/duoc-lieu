@@ -4,7 +4,6 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import BillTable from "@/components/Pages/User/Bill";
-import ProductOrderPage from "@/components/Pages/User/Order/ProductOrderPage";
 import apiConfig from "@/constants/apiConfig";
 import useListData from "@/hooks/useListData";
 function OrderPage() {

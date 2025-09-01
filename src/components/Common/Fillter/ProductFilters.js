@@ -2,21 +2,8 @@ import { useState } from "react";
 
 import styles from "./ProductFilters.module.scss";
 
-const categories = [
-    { label: "Tất cả", value: "*", active: true },
-    { label: "Dầu Gội", value: ".pro1" },
-    { label: "Sữa Tắm", value: ".pro2" },
-    { label: "DDVS", value: ".pro3" },
-    { label: "Tinh Dầu", value: ".pro4" },
-    { label: "Tinh Chất", value: ".pro5" },
-    { label: "Serum", value: ".pro6" },
-    { label: "Rửa Chén", value: ".pro10" },
-    { label: "Rửa Tay", value: ".pro11" },
-    { label: "Nước Giặt", value: ".pro12" },
-];
-
-export default function ProductFilters({ onFilterChange }) {
-    const [ activeFilter, setActiveFilter ] = useState("*");
+export default function ProductFilters({ onFilterChange, categories }) {
+    const [ activeFilter, setActiveFilter ] = useState("all");
 
     const handleClick = (value) => {
         setActiveFilter(value);
@@ -27,16 +14,25 @@ export default function ProductFilters({ onFilterChange }) {
         <div className="w-full">
             <div className={styles.productFilters}>
                 <ul className="flex flex-wrap justify-center gap-2">
-                    {categories.map((item) => (
+                    <li
+                        className={`btn-sm ${
+                            activeFilter === "all" ? styles.active : ""
+                        }`}
+                        data-filter={"all"}
+                        onClick={() => handleClick("all")}
+                    >
+                        Tất cả
+                    </li>
+                    {categories?.map((item) => (
                         <li
-                            key={item.value}
+                            key={item.id}
                             className={`btn-sm ${
-                                activeFilter === item.value ? styles.active : ""
+                                activeFilter === item.id ? styles.active : ""
                             }`}
-                            data-filter={item.value}
-                            onClick={() => handleClick(item.value)}
+                            data-filter={item.id}
+                            onClick={() => handleClick(item.id)}
                         >
-                            {item.label}
+                            {item.name}
                         </li>
                     ))}
                 </ul>

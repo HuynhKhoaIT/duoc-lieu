@@ -23,7 +23,7 @@ function useListData(apiConfig, options = {}) {
                     pathParams: { ...defaultPathParams, ...pathParams },
                 });
 
-                if (response?.status === 200) {
+                if (response?.status === 200 || response?.status === 201) {
                     setData(response.data);
                 }
             } catch (err) {

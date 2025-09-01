@@ -16,6 +16,18 @@ const apiConfig = {
             method: "POST",
             headers: baseHeader,
         },
+        updatePassword:{
+            url: `${apiUrl}api/v2/user/update-password`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
+        updateTransaction:{
+            url: `${apiUrl}api/v2/user/update-transaction-password`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
     },
     profile:{
         getDetail:{
