@@ -5,22 +5,49 @@ import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel
 import Layout from "@/components/layouts/Layout";
 import CartPage from "@/components/Pages/User/Cart";
 import apiConfig from "@/constants/apiConfig";
-import useListData from "@/hooks/useListData";
-function OrderPage() {
-    const {
-        data: carts,
-        loading: loadingCarts,
-        error: errorCart,
-        refetch: refetchCarts,
-    } = useListData(apiConfig.carts.getList);
+import fetcher from "@/services/fetcher";
 
+function OrderPage({ cartsData }) {
     return (
         <Fragment>
-            <Breadcrumb title={"Giỏ hàng"} />
-            <CartPage cartsData={carts?.data} refetch={refetchCarts} />
+            <Breadcrumb title="Giỏ hàng" />
+            <CartPage cartsData={cartsData} />
             <LogoCarousel />
         </Fragment>
     );
+}
+
+export async function getServerSideProps(context) {
+    const token = context.req.cookies.token;
+
+    if (!token) {
+        return {
+            redirect: {
+                destination: "/login",
+                permanent: false,
+            },
+        };
+    }
+
+    try {
+        const res = await fetcher(apiConfig.carts.getList, {
+            context: { token },
+        });
+
+        return {
+            props: {
+                cartsData: res.data?.data || [],
+            },
+        };
+    } catch (error) {
+        console.error("Error fetching carts:", error.message);
+
+        return {
+            props: {
+                cartsData: [],
+            },
+        };
+    }
 }
 
 OrderPage.getLayout = function getLayout(page) {

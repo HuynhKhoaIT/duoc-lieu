@@ -5,11 +5,11 @@ import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel
 
 import ProductSection from "./ProductSection/ProductSection";
 
-export default function ComboPage({data,categories}) {
+export default function ComboPage({ data, categories }) {
     return (
         <>
             <Breadcrumb title={"Đặt hàng"} />
-            <ProductSection productsData={data} categories={categories}/>
+            <ProductSection productsData={data} categories={categories} />
             <LogoCarousel />
         </>
     );

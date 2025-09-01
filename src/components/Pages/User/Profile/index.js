@@ -8,8 +8,8 @@ import ConfirmUpdateModal from "./ConfirmUpdateModal/ConfirmUpdateModal";
 
 import styles from "./Profile.module.scss";
 
-export default function ProfileForm({ profileData, loadingProfile }) {
-    console.log(profileData);
+export default function ProfileForm({ profileData }) {
+    console.log("profileData", profileData);
     const [ showModal, setShowModal ] = useState(false);
     const [ message, setMessage ] = useState("");
     const [ loading, setLoading ] = useState(false);

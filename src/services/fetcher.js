@@ -1,12 +1,9 @@
 import axios from "axios";
 
-import { storageKeys } from "@/constants";
-import { getCookie } from "@/utils/cookie";
-
 const instance = axios.create();
 
 const fetcher = async (
-    { method, url, headers,isAuth } = {},
+    { method, url, headers = {}, isAuth } = {},
     { data, params, pathParams, context = {}, signal, ...rest } = {},
 ) => {
     try {
@@ -14,13 +11,15 @@ const fetcher = async (
         if (pathParams) {
             for (let key of Object.keys(pathParams)) {
                 const keyCompare = `:${key}`;
-                if (url.indexOf(keyCompare) !== -1) {
+                if (url.includes(keyCompare)) {
                     url = url.replace(keyCompare, pathParams[key]);
                 }
             }
         }
 
-        const token = getCookie(storageKeys.TOKEN); // Lấy token từ cookie
+        // lấy token từ context (SSR) thay vì cookie
+        console.log("context",context);
+        const token = context?.token;
 
         if (token && isAuth) {
             headers.Authorization = `Bearer ${token}`;
@@ -39,6 +38,7 @@ const fetcher = async (
             });
             data = formData;
         }
+
         return await instance.request({
             method,
             url,
@@ -63,4 +63,5 @@ const fetcher = async (
         throw error;
     }
 };
+
 export default fetcher;

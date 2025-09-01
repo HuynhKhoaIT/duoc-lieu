@@ -2,37 +2,28 @@ import Layout from "@/components/layouts/Layout";
 import ShopPage from "@/components/Pages/Shop/ShopPage";
 import apiConfig from "@/constants/apiConfig";
 
-function Shop({ categories,products }) {
-
-    return (
-        <ShopPage
-            categories={categories}
-            productsData={products}
-        />
-    );
+function Shop({ categories, products }) {
+    return <ShopPage categories={categories} productsData={products} />;
 }
 
 export async function getStaticProps() {
     try {
-        const res = await fetch(apiConfig.category.getList.url, {
-            cache: "force-cache",
-        });
-
-        const productsRes = await fetch(apiConfig.products.getList.url, {
-            cache: "force-cache",
-        });
-
+        const [ res, productsRes ] = await Promise.all([
+            fetch(apiConfig.category.getList.url, { cache: "force-cache" }),
+            fetch(apiConfig.products.getList.url, { cache: "force-cache" }),
+        ]);
 
         const categories = res.ok ? await res.json() : null;
         const products = productsRes.ok ? await productsRes.json() : null;
-
 
         return {
             props: {
                 categories: categories?.data || null,
                 products: products?.data || null,
                 error: res.ok ? null : `Error ${res.status}`,
-                errorProducts: productsRes.ok ? null : `Error ${productsRes.status}`,
+                errorProducts: productsRes.ok
+                    ? null
+                    : `Error ${productsRes.status}`,
             },
             revalidate: 3600,
         };

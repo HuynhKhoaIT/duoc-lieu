@@ -4,9 +4,6 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import GtablePage from "@/components/Pages/User/Gtable";
-import ProductOrderPage from "@/components/Pages/User/Order/ProductOrderPage";
-import apiConfig from "@/constants/apiConfig";
-import useListData from "@/hooks/useListData";
 function Gtable() {
     // const {
     //     data: products,

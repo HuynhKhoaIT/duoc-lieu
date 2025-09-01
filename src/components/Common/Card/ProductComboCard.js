@@ -40,12 +40,6 @@ export default function ProductComboCard({ p }) {
                 }}
             >
                 <div>
-                    {/* <div
-                        className="h-[220px] bg-cover bg-no-repeat bg-[center_top_70%]"
-                        style={{
-                            backgroundImage: `url(${p.thumbnail})`,
-                        }}
-                    /> */}
                     <div className="relative w-full aspect-[3/3]">
                         <Image
                             src={p.thumbnail}
@@ -65,9 +59,11 @@ export default function ProductComboCard({ p }) {
                                 />
                             </i>
                             <h6 className={`gold-text !m-0 pr-2 line-through`}>
-                                {(p?.price_retail*1).toLocaleString()}
+                                {(p?.price_retail * 1).toLocaleString("vi-VN")}
                             </h6>
-                            <h4 className="!text-white p-0 m-0">{(p?.price_wholesale*1).toLocaleString()}</h4>
+                            <h4 className="!text-white p-0 m-0">
+                                {(p?.price_wholesale * 1).toLocaleString("vi-VN")}
+                            </h4>
                         </div>
                     </div>
                     <h6 className={`gold-bg blue-text p-2`}>{p.name}</h6>

@@ -80,12 +80,12 @@ export default function Header() {
             setPhone(profile.phone_number);
         }
     }, [ profile ]);
-    const handleLogout = () => {
-        removeCookie(storageKeys.TOKEN);
-        removeLocalItem(storageKeys.PROFILE);
-        window.location.reload();
-    };
 
+    async function handleLogout() {
+        await fetch("/api/logout", { method: "POST" });
+        removeLocalItem(storageKeys.PROFILE);
+        window.location.href = "/login"; // hoặc router.push("/login")
+    }
     return (
         <div
             id="sticker-sticky-wrapper"

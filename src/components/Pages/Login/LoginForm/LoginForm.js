@@ -26,22 +26,30 @@ export default function LoginForm() {
         const password = formData.get("password");
 
         try {
-            const res = await fetcher(apiConfig.account.loginBasic, {
-                data: {
+            const res = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     phone_number: phone,
                     password,
-                },
+                }),
             });
-            if (res.status === 200) {
-                setCookie(storageKeys.TOKEN, res.data.token);
-                setLocalData(storageKeys.PROFILE, res.data.user);
+
+            const data = await res.json();
+
+            if (data.success) {
+                // ✅ Token đã lưu trong cookie (httpOnly)
+                // Chỉ cần lưu profile vào localStorage
+                setLocalData(storageKeys.PROFILE, data.user);
+
                 router.push(paths.user);
+            } else {
+                setError(data.message || "Đăng nhập thất bại");
             }
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
-            window.location.reload();
         }
     };
 

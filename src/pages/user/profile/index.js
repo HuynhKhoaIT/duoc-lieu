@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
@@ -6,55 +6,25 @@ import Layout from "@/components/layouts/Layout";
 import ProfileForm from "@/components/Pages/User/Profile";
 import apiConfig from "@/constants/apiConfig";
 import fetcher from "@/services/fetcher";
-import axios from "axios";
-function ProfilePage({profile}) {
-    // const [ loading, setLoading ] = useState(false);
-    // const [ profile, setProfile ] = useState({});
-    // const fetchProfile = async () => {
-    //     try {
-    //         setLoading(true);
-    //         const res = await fetcher(apiConfig.profile.getDetail);
-    //         console.log(res);
-    //         if (res.status === 201 && res.data) {
-    //             setProfile(res.data.data);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    //     finally {
-    //         setLoading(false);
-    //     }
-    // };
-    // useEffect(() => {
-    //     fetchProfile();
-    // }, []);
+
+function ProfilePage({ profile }) {
     return (
         <Fragment>
-            <Breadcrumb title={"Đặt hàng"} />
-            <ProfileForm profileData={profile}  />
+            <Breadcrumb title="Đặt hàng" />
+            <ProfileForm profileData={profile} />
             <LogoCarousel />
         </Fragment>
     );
 }
 
 export async function getServerSideProps(context) {
-    const token = context.req.cookies.token || null;
-    console.log("context",context);
-    // if (!token) {
-    //     return {
-    //         redirect: {
-    //             destination: "/login",
-    //             permanent: false,
-    //         },
-    //     };
-    // }
+    const token = context.req.cookies.token;
 
     try {
-        const res = await axios.get(apiConfig.profile.getDetail, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const res = await fetcher(
+            apiConfig.profile.getDetail, 
+            { context: { token } },
+        );
 
         return {
             props: {
@@ -64,6 +34,15 @@ export async function getServerSideProps(context) {
         };
     } catch (error) {
         console.error("Error fetching profile:", error.message);
+
+        if (error?.response?.status === 401) {
+            return {
+                redirect: {
+                    destination: "/login",
+                    permanent: false,
+                },
+            };
+        }
 
         return {
             props: {

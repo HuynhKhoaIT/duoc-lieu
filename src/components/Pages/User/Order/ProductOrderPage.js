@@ -1,26 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import ProductComboCard from "@/components/Common/Card/ProductComboCard";
 import ProductFilters from "@/components/Common/Fillter/ProductFilters";
-import apiConfig from "@/constants/apiConfig";
-import useListData from "@/hooks/useListData";
 
 import styles from "./ProductSection.module.scss";
 
-export default function ProductOrderPage({categories}) {
-    const { data: productsData } = useListData(apiConfig.products.getList);
-
+export default function ProductOrderPage({ categories, productsData }) {
     const [ activeFilter, setActiveFilter ] = useState(null);
     const products = useMemo(() => {
-        if (!productsData?.data) return [];
-        if (!activeFilter) return productsData?.data;
-        return productsData?.data.filter((p) => {
+        if (!productsData) return [];
+        if (!activeFilter) return productsData;
+        return productsData.filter((p) => {
             if (activeFilter === "all") {
                 return true;
             }
             return p.categories?.[0]?.id === activeFilter;
         });
-    }, [ activeFilter, productsData?.data ]);
+    }, [ activeFilter, productsData ]);
     return (
         <div className={styles.productSection}>
             <div className="container mx-auto mt-5 mb-4">
