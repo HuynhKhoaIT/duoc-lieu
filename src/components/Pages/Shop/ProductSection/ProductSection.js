@@ -10,15 +10,15 @@ import styles from "./ProductSection.module.scss";
 export default function ProductSection({ productsData, categories }) {
     const [ activeFilter, setActiveFilter ] = useState(null);
     const products = useMemo(() => {
-        if (!productsData?.data) return [];
-        if (!activeFilter) return productsData?.data;
-        return productsData?.data.filter((p) => {
+        if (!productsData) return [];
+        if (!activeFilter) return productsData;
+        return productsData.filter((p) => {
             if (activeFilter === "all") {
                 return true;
             }
             return p.categories?.[0]?.id === activeFilter;
         });
-    }, [ activeFilter, productsData?.data ]);
+    }, [ activeFilter, productsData ]);
 
     return (
         <div className={styles.productSection}>

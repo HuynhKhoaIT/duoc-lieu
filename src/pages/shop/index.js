@@ -1,23 +1,13 @@
 import Layout from "@/components/layouts/Layout";
 import ShopPage from "@/components/Pages/Shop/ShopPage";
 import apiConfig from "@/constants/apiConfig";
-import useListData from "@/hooks/useListData";
 
-function Shop({ categories }) {
-    const {
-        data: products,
-        loading: loadingProducts,
-        error: errorProducts,
-        refetch: refetchProducts,
-    } = useListData(apiConfig.products.getList);
+function Shop({ categories,products }) {
 
     return (
         <ShopPage
             categories={categories}
             productsData={products}
-            loading={loadingProducts}
-            error={errorProducts}
-            refetch={refetchProducts}
         />
     );
 }
@@ -28,12 +18,21 @@ export async function getStaticProps() {
             cache: "force-cache",
         });
 
+        const productsRes = await fetch(apiConfig.products.getList.url, {
+            cache: "force-cache",
+        });
+
+
         const categories = res.ok ? await res.json() : null;
+        const products = productsRes.ok ? await productsRes.json() : null;
+
 
         return {
             props: {
                 categories: categories?.data || null,
+                products: products?.data || null,
                 error: res.ok ? null : `Error ${res.status}`,
+                errorProducts: productsRes.ok ? null : `Error ${productsRes.status}`,
             },
             revalidate: 3600,
         };
@@ -41,7 +40,9 @@ export async function getStaticProps() {
         return {
             props: {
                 categories: null,
+                products: null,
                 error: err.message,
+                errorProducts: err.message,
             },
             revalidate: 60,
         };
