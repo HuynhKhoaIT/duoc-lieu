@@ -15,7 +15,7 @@ function BillPage() {
     return (
         <Fragment>
             <Breadcrumb title="Đơn hàng" />
-            <BillTable ordersData={data?.data} refetch={mutate} />
+            <BillTable ordersData={data?.data} refetch={mutate} loading={isLoading}/>
             <LogoCarousel />
         </Fragment>
     );

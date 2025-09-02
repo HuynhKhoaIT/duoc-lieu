@@ -24,6 +24,7 @@ function UserWallet() {
             <WalletPage
                 walletHistory={historyData?.data}
                 balanceData={balanceData}
+                loading={isLoading}
             />
             <LogoCarousel />
         </Fragment>

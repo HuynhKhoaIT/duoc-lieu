@@ -31,7 +31,7 @@ export default async function handler(req, res) {
                 .json({
                     success: true,
                     token: result.token,
-                    user: result.user,
+                    user: result.data,
                 });
         } else {
             return res.status(401).json({ success: false });

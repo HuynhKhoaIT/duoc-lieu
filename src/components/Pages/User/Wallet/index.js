@@ -6,7 +6,7 @@ import { COMMISSION_TYPE, DEFAULT_FORMAT, WITHDRAW_TYPE } from "@/constants";
 import paths from "@/constants/paths";
 import { formatDateString } from "@/utils";
 
-export default function WalletPage({ walletHistory, balanceData }) {
+export default function WalletPage({ walletHistory, balanceData, loading }) {
     const { push } = useRouter();
     const columns = [
         { key: "id", label: "#" },
@@ -73,7 +73,7 @@ export default function WalletPage({ walletHistory, balanceData }) {
                             </div>
                         </div>
 
-                        <TableBase columns={columns} data={data} />
+                        <TableBase columns={columns} data={data} loading={loading} />
                         {/* Pagination */}
                         {/* <nav className={styles.navigation}>
                             <ul className={`${styles.pagination}`}>

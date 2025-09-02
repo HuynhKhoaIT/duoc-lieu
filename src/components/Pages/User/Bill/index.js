@@ -11,7 +11,7 @@ import { formatDateString } from "@/utils";
 
 import styles from "./BillTable.module.scss";
 
-export default function BillTable({ ordersData, refetch }) {
+export default function BillTable({ ordersData, refetch,loading }) {
     const [ isOpen, setIsOpen ] = useState(false);
     const { profile } = useAuth();
     const [ orderFeedback, setOrderFeedback ] = useState(null);
@@ -137,7 +137,7 @@ export default function BillTable({ ordersData, refetch }) {
                         </div>
 
                         {/* Bảng đơn hàng */}
-                        <TableBase columns={columns} data={data} />
+                        <TableBase columns={columns} data={data} loading={loading}/>
 
                         {/* Pagination */}
                         <nav

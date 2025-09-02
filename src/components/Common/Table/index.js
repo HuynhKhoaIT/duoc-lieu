@@ -4,6 +4,7 @@ export default function TableBase({
     columns,
     data,
     nodata = "Không có dữ liệu",
+    loading = false, 
 }) {
     return (
         <div className="overflow-x-auto">
@@ -27,18 +28,45 @@ export default function TableBase({
                     </tr>
                 </thead>
                 <tbody>
-                    {data?.map((row) => (
-                        <tr key={row.id} className="border-b hover:bg-gray-50">
-                            {columns.map((col) => (
-                                <td key={col.key} className="py-4 text-center">
-                                    {row[col.key]}
-                                </td>
-                            ))}
+                    {loading ? (
+                        <tr>
+                            <td
+                                colSpan={columns.length}
+                                className="text-center py-6"
+                            >
+                                <span className="animate-pulse text-gray-500">
+                                    Đang tải dữ liệu...
+                                </span>
+                            </td>
                         </tr>
-                    ))}
+                    ) : data?.length > 0 ? (
+                        data.map((row) => (
+                            <tr
+                                key={row.id}
+                                className="border-b hover:bg-gray-50"
+                            >
+                                {columns.map((col) => (
+                                    <td
+                                        key={col.key}
+                                        className="py-4 text-center"
+                                    >
+                                        {row[col.key]}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td
+                                colSpan={columns.length}
+                                className="text-center py-6"
+                            >
+                                {nodata}
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
-            {data?.length === 0 && <p className="text-center p-2 border">{nodata}</p>}
         </div>
     );
 }
