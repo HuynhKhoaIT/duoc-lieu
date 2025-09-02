@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { storageKeys } from "@/constants";
 import paths from "@/constants/paths";
+import useAlert from "@/hooks/useAlert"; // import hook SweetAlert
 import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./RegisterForm.module.scss";
@@ -13,45 +14,41 @@ export default function RegisterForm() {
     const router = useRouter();
     const { phone } = router.query;
     const [ loading, setLoading ] = useState(false);
-    const [ errors, setErrors ] = useState({});
+    const { showAlert } = useAlert();
 
     const validate = (formData) => {
-        const newErrors = {};
-
         const name = formData.get("name")?.trim();
         const username = formData.get("username")?.trim();
-        const phone = formData.get("phone_number")?.trim();
+        const phoneNumber = formData.get("phone_number")?.trim();
         const address = formData.get("address")?.trim();
         const email = formData.get("email")?.trim();
         const password = formData.get("password")?.trim();
         const confirmPassword = formData.get("confirmPassword")?.trim();
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^(0|\+84)\d{9}$/; // 10 số bắt đầu bằng 0 hoặc +84
-        if (!name) newErrors.name = "Vui lòng nhập họ tên";
-        if (!username) newErrors.username = "Vui lòng nhập tên đăng nhập";
-        if (!phoneRegex.test(phone))
-            newErrors.phone_number = "Số điện thoại không hợp lệ";
-        if (!emailRegex.test(email)) newErrors.email = "Email không hợp lệ";
-        if (!address) newErrors.address = "Vui lòng nhập địa chỉ";
-        if (!password || password.length < 8)
-            newErrors.password = "Mật khẩu phải tối thiểu 8 ký tự";
-        if (confirmPassword !== password)
-            newErrors.confirmPassword = "Xác nhận mật khẩu không khớp";
+        const phoneRegex = /^(0|\+84)\d{9}$/;
 
-        return newErrors;
+        if (!name) return "Vui lòng nhập họ tên";
+        if (!username) return "Vui lòng nhập tên đăng nhập";
+        if (!phoneRegex.test(phoneNumber)) return "Số điện thoại không hợp lệ";
+        if (!emailRegex.test(email)) return "Email không hợp lệ";
+        if (!address) return "Vui lòng nhập địa chỉ";
+        if (!password || password.length < 8)
+            return "Mật khẩu phải tối thiểu 8 ký tự";
+        if (confirmPassword !== password) return "Xác nhận mật khẩu không khớp";
+
+        return null;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
         setLoading(true);
 
         const formData = new FormData(e.target);
-        const newErrors = validate(formData);
+        const errorMsg = validate(formData);
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
+        if (errorMsg) {
+            showAlert(errorMsg, "warning");
             setLoading(false);
             return;
         }
@@ -71,24 +68,29 @@ export default function RegisterForm() {
                     password_confirmation: formData.get("confirmPassword"),
                 }),
             });
+            const data = await res.json();
 
-            if (res.status === 201) {
+            if (data.success) {
                 await handleLogout();
                 toast.success("Đăng ký thành công");
                 window.location.href = paths.user;
+            } else {
+                showAlert(data.message || "Đăng ký thất bại");
             }
         } catch (err) {
-            setErrors({ form: err.message });
-            toast.error("Đăng ký thất bại");
+            showAlert(err.message);
         } finally {
             setLoading(false);
         }
     };
+
     async function handleLogout() {
         await fetch("/api/account/logout", { method: "POST" });
         removeLocalItem(storageKeys.PROFILE);
+        removeLocalItem(storageKeys.IS_LOGIN);
         window.location.href = "/login";
     }
+
     return (
         <div className={`${styles.contactForm} blue-bg pb-[500px]`}>
             <div className="max-w-7xl mx-auto px-4">
@@ -134,26 +136,11 @@ export default function RegisterForm() {
                                             type={field.type || "text"}
                                             name={field.name}
                                             placeholder={field.label}
-                                            className={`w-full max-w-md border rounded-lg px-4 py-2 ${
-                                                errors[field.name]
-                                                    ? "!border-red-500 !focus:border-red-500 !focus:ring-red-500"
-                                                    : "border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                                            }`}
-                                            required
+                                            className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
                                         />
-                                        {errors[field.name] && (
-                                            <p className="!text-red-500 text-sm mt-1">
-                                                {errors[field.name]}
-                                            </p>
-                                        )}
                                     </div>
                                 ))}
 
-                                {errors.form && (
-                                    <p className="!text-red-500 text-sm">
-                                        {errors.form}
-                                    </p>
-                                )}
                                 <div className={styles.searchBarTablecell}>
                                     <button
                                         type="submit"

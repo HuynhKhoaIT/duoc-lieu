@@ -20,9 +20,7 @@ export default async function handler(req, res) {
                 },
             },
         );
-        console.log("response",response);
 
-        // trả về y chang backend để client nhận token + user
         res.status(response.status).json(response.data);
     } catch (err) {
         console.error(err.response?.data || err.message);

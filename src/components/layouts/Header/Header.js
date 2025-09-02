@@ -83,7 +83,8 @@ export default function Header() {
     async function handleLogout() {
         await fetch("/api/account/logout", { method: "POST" });
         removeLocalItem(storageKeys.PROFILE);
-        window.location.href = "/login"; // hoặc router.push("/login")
+        removeLocalItem(storageKeys.IS_LOGIN);
+        window.location.href = "/login";
     }
     return (
         <div
