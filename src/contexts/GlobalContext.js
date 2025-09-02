@@ -1,3 +1,5 @@
+import { storageKeys } from "@/constants";
+import { getLocalData } from "@/utils/localStorage";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const GlobalContext = createContext({
@@ -12,6 +14,9 @@ export const GlobalContextProvider = ({ children }) => {
     const [ cart, setCart ] = useState(0);
 
     useEffect(() => {
+        const isLogin = getLocalData(storageKeys.IS_LOGIN);
+        if (!isLogin) return;
+
         async function fetchCart() {
             try {
                 const res = await fetch("/api/cart");
@@ -19,7 +24,6 @@ export const GlobalContextProvider = ({ children }) => {
                 if (!res.ok) throw new Error("API lỗi");
 
                 const json = await res.json();
-                console.log("json", json);
                 const cartData = json?.data || [];
 
                 const totalQuantity = Array.isArray(cartData)

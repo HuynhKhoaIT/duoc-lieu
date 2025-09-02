@@ -20,7 +20,7 @@ export default function Header() {
     const [ isSticky, setIsSticky ] = useState(false);
     const [ isShowMenu, setIsShowMenu ] = useState(false);
     const pathname = usePathname();
-    const [ phone, setPhone ] = useState("");
+    const [ username, setUsername ] = useState("");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -76,7 +76,7 @@ export default function Header() {
 
     useEffect(() => {
         if (profile?.phone_number) {
-            setPhone(profile.phone_number);
+            setUsername(profile.username);
         }
     }, [ profile ]);
 
@@ -146,7 +146,7 @@ export default function Header() {
                                         className={`${styles.iconLink} ${styles.mobileHide}`}
                                         href={paths.profile}
                                     >
-                                        {phone}
+                                        {username}
                                     </Link>
                                     <Link
                                         className={`${styles.iconLink} ${styles.mobileHide}`}

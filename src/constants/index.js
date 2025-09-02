@@ -20,6 +20,7 @@ export const DEFAULT_FORMAT_ZERO_SECOND = "DD/MM/YYYY HH:mm:00";
 export const storageKeys = {
     TOKEN: `${appName}-token`,
     PROFILE: `${appName}-profile`,
+    IS_LOGIN: `${appName}-isLogin`,
 };
 
 export const ROLES_CODE = {

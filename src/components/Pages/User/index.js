@@ -1,9 +1,8 @@
-import { agentLevelOptions, userStatusOptions } from "@/constants";
+import { agentLevelOptions } from "@/constants";
 
 import styles from "./User.module.scss";
 
 export default function UserDashboardPage({ dashboardData }) {
-    console.log(dashboardData);
     return (
         <div className="pt-[48px] pb-[24px] mb-2">
             <div className="container">

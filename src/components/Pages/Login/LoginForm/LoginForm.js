@@ -3,27 +3,43 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { storageKeys } from "@/constants";
-import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
-import fetcher from "@/services/fetcher";
-import { setCookie } from "@/utils/cookie";
 import { setLocalData } from "@/utils/localStorage";
+import useAlert from "@/hooks/useAlert"; // <-- import hook alert
 
 import styles from "./LoginForm.module.scss";
 
 export default function LoginForm() {
     const router = useRouter();
-    const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState("");
+    const [loading, setLoading] = useState(false);
+    const { showAlert } = useAlert(); // <-- dùng hook
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
         setLoading(true);
 
         const formData = new FormData(e.target);
-        const phone = formData.get("phone");
-        const password = formData.get("password");
+        const phone = formData.get("phone")?.trim();
+        const password = formData.get("password")?.trim();
+
+        // ✅ Validate trước khi gọi API
+        if (!phone) {
+            showAlert("Vui lòng nhập số điện thoại.");
+            setLoading(false);
+            return;
+        }
+
+        if (!/^[0-9]{9,11}$/.test(phone)) {
+            showAlert("Số điện thoại không hợp lệ.");
+            setLoading(false);
+            return;
+        }
+
+        if (!password) {
+            showAlert("Vui lòng nhập mật khẩu.");
+            setLoading(false);
+            return;
+        }
 
         try {
             const res = await fetch("/api/account/login", {
@@ -38,16 +54,14 @@ export default function LoginForm() {
             const data = await res.json();
 
             if (data.success) {
-                // ✅ Token đã lưu trong cookie (httpOnly)
-                // Chỉ cần lưu profile vào localStorage
+                setLocalData(storageKeys.IS_LOGIN, true);
                 setLocalData(storageKeys.PROFILE, data.user);
-
                 router.push(paths.user);
             } else {
-                setError(data.message || "Đăng nhập thất bại");
+                showAlert("Số điện thoại hoặc mật khẩu không đúng.");
             }
         } catch (err) {
-            setError(err.message);
+            showAlert("Số điện thoại hoặc mật khẩu không đúng.");
         } finally {
             setLoading(false);
         }
@@ -63,19 +77,12 @@ export default function LoginForm() {
                                 onSubmit={handleSubmit}
                                 className="text-center flex justify-center items-center flex-col gap-4"
                             >
-                                {error && (
-                                    <p className="text-red-500 text-sm">
-                                        {error}
-                                    </p>
-                                )}
-
                                 <p className="w-full flex justify-center items-center px-1">
                                     <input
                                         type="tel"
                                         placeholder="Số điện thoại"
                                         name="phone"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
-                                        required
                                     />
                                 </p>
 
@@ -86,7 +93,6 @@ export default function LoginForm() {
                                         name="password"
                                         autoComplete="off"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
-                                        required
                                     />
                                 </p>
 
