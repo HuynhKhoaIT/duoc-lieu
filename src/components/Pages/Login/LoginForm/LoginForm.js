@@ -1,18 +1,16 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 import { storageKeys } from "@/constants";
 import paths from "@/constants/paths";
+import useAlert from "@/hooks/useAlert";
 import { setLocalData } from "@/utils/localStorage";
-import useAlert from "@/hooks/useAlert"; // <-- import hook alert
 
 import styles from "./LoginForm.module.scss";
 
 export default function LoginForm() {
-    const router = useRouter();
-    const [loading, setLoading] = useState(false);
-    const { showAlert } = useAlert(); // <-- dùng hook
+    const [ loading, setLoading ] = useState(false);
+    const { showAlert } = useAlert();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +20,6 @@ export default function LoginForm() {
         const phone = formData.get("phone")?.trim();
         const password = formData.get("password")?.trim();
 
-        // ✅ Validate trước khi gọi API
         if (!phone) {
             showAlert("Vui lòng nhập số điện thoại.");
             setLoading(false);
@@ -56,7 +53,7 @@ export default function LoginForm() {
             if (data.success) {
                 setLocalData(storageKeys.IS_LOGIN, true);
                 setLocalData(storageKeys.PROFILE, data.user);
-                router.push(paths.user);
+                window.location.href = paths.user;
             } else {
                 showAlert("Số điện thoại hoặc mật khẩu không đúng.");
             }
