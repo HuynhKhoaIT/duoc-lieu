@@ -1,6 +1,9 @@
+import { agentLevelOptions, userStatusOptions } from "@/constants";
+
 import styles from "./User.module.scss";
 
-export default function UserDashboardPage() {
+export default function UserDashboardPage({ dashboardData }) {
+    console.log(dashboardData);
     return (
         <div className="pt-[48px] pb-[24px] mb-2">
             <div className="container">
@@ -26,7 +29,12 @@ export default function UserDashboardPage() {
                                                 Danh Hiệu Cá Nhân
                                             </span>
                                             <h4 className="text-center text-light">
-                                                NPP 1 sao
+                                                {
+                                                    agentLevelOptions[
+                                                        dashboardData?.user
+                                                            ?.agent_level
+                                                    ]
+                                                }
                                             </h4>
                                         </div>
                                     </div>
@@ -55,7 +63,7 @@ export default function UserDashboardPage() {
                                                 Số Dư Tài Khoản
                                             </span>
                                             <h4 className="text-center text-light">
-                                                278.634
+                                                {dashboardData?.wallet?.balance}
                                             </h4>
                                         </div>
                                     </div>
@@ -81,7 +89,10 @@ export default function UserDashboardPage() {
                                                 Trạng thái
                                             </span>
                                             <h5 className="text-center text-light mb-1">
-                                                Đang hoạt động
+                                                {dashboardData?.user?.status ===
+                                                1
+                                                    ? "Hoạt động"
+                                                    : "Tạm ngưng"}
                                             </h5>
                                         </div>
                                     </div>
@@ -107,7 +118,15 @@ export default function UserDashboardPage() {
                                                 Đơn Hàng Cá Nhân
                                             </span>
                                             <h4 className="text-center text-light">
-                                                0 | 2
+                                                {
+                                                    dashboardData?.orders
+                                                        ?.personal_amount
+                                                }{" "}
+                                                |{" "}
+                                                {
+                                                    dashboardData?.orders
+                                                        ?.personal_count
+                                                }
                                             </h4>
                                         </div>
                                     </div>
@@ -116,9 +135,7 @@ export default function UserDashboardPage() {
                         </div>
 
                         {/* Card lớn chứa 3 thống kê */}
-                        <div
-                            className={`${styles.card} gold-bg pt-3`}
-                        >
+                        <div className={`${styles.card} gold-bg pt-3`}>
                             <div className="flex flex-wrap text-center">
                                 <div className="w-full md:w-1/2 lg:w-1/3 pb-3 flex justify-center items-center">
                                     <div className="flex justify-center items-center mr-3">
@@ -155,7 +172,7 @@ export default function UserDashboardPage() {
                                             Số Đại Lý 1
                                         </span>
                                         <h4 className="text-center text-light">
-                                            2 | 11
+                                            {dashboardData?.network?.f1_count}
                                         </h4>
                                     </div>
                                 </div>
@@ -175,7 +192,10 @@ export default function UserDashboardPage() {
                                             Tổng Số Đại Lý
                                         </span>
                                         <h4 className="text-center text-light">
-                                            598
+                                            {
+                                                dashboardData?.network
+                                                    ?.total_members
+                                            }
                                         </h4>
                                     </div>
                                 </div>
@@ -203,7 +223,10 @@ export default function UserDashboardPage() {
                                                 Doanh Số Cá Nhân
                                             </span>
                                             <h4 className="text-center text-light">
-                                                1.085.000
+                                                {(
+                                                    dashboardData?.sales
+                                                        ?.personal_sales * 1
+                                                )?.toLocaleString("vi-VN")}
                                             </h4>
                                         </div>
                                     </div>
@@ -229,7 +252,10 @@ export default function UserDashboardPage() {
                                                 Doanh Số Đại Lý
                                             </span>
                                             <h4 className="text-center text-light">
-                                                319.090.000
+                                                {(
+                                                    dashboardData?.sales
+                                                        ?.agency_sales * 1
+                                                )?.toLocaleString("vi-VN")}
                                             </h4>
                                         </div>
                                     </div>
@@ -255,7 +281,10 @@ export default function UserDashboardPage() {
                                                 Tổng Doanh Số
                                             </span>
                                             <h4 className="text-center text-light">
-                                                320.175.000
+                                                {(
+                                                    dashboardData?.sales
+                                                        ?.total_sales * 1
+                                                )?.toLocaleString("vi-VN")}
                                             </h4>
                                         </div>
                                     </div>

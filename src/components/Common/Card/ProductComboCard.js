@@ -16,17 +16,26 @@ export default function ProductComboCard({ p }) {
     const { push } = useRouter();
     const handleAddToCart = async ({ item }) => {
         try {
-            const res = await fetcher(apiConfig.carts.create, {
-                data: {
+            const res = await fetch("/api/cart", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     product_id: item.id,
                     quantity: 1,
-                },
+                }),
             });
-            setCart(cart + 1);
+
+            if (!res.ok) throw new Error("Thêm giỏ hàng thất bại");
+
+            const data = await res.json();
+            console.log("data",data);
+            // giả sử backend trả về tổng số lượng trong cart
+            setCart((prev) => prev + 1);
         } catch (error) {
-            console.log(error);
+            console.error("Lỗi khi thêm vào giỏ:", error);
         }
     };
+
     return (
         <div className={`w-full  text-center mb-1 p-2 ${styles.pro1}`}>
             <div
@@ -62,7 +71,9 @@ export default function ProductComboCard({ p }) {
                                 {(p?.price_retail * 1).toLocaleString("vi-VN")}
                             </h6>
                             <h4 className="!text-white p-0 m-0">
-                                {(p?.price_wholesale * 1).toLocaleString("vi-VN")}
+                                {(p?.price_wholesale * 1).toLocaleString(
+                                    "vi-VN",
+                                )}
                             </h4>
                         </div>
                     </div>

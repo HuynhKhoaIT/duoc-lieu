@@ -9,7 +9,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function BillPage() {
 
-    const { data, error, isLoading, mutate } = useSWR("/api/orders", fetcher);
+    const { data, error, isLoading, mutate } = useSWR("/api/order", fetcher);
 
 
     return (

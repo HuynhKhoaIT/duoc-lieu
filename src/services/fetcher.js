@@ -7,6 +7,7 @@ const fetcher = async (
     { data, params, pathParams, context = {}, signal, ...rest } = {},
 ) => {
     try {
+        
         // update path params
         if (pathParams) {
             for (let key of Object.keys(pathParams)) {
@@ -17,9 +18,8 @@ const fetcher = async (
             }
         }
 
-        // lấy token từ context (SSR) thay vì cookie
-        console.log("context",context);
         const token = context?.token;
+        
 
         if (token && isAuth) {
             headers.Authorization = `Bearer ${token}`;

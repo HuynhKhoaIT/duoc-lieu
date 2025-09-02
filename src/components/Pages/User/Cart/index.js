@@ -1,12 +1,9 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { id } from "date-fns/locale";
 
-import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
 import { useGlobalContext } from "@/contexts/GlobalContext";
-import fetcher from "@/services/fetcher";
 
 import styles from "./Cart.module.scss";
 
@@ -18,75 +15,62 @@ export default function CartPage({ cartsData, refetch }) {
     // Tăng số lượng
     const incrementQty = async (item) => {
         try {
-            await fetcher(apiConfig.carts.create, {
-                data: {
+            await fetch(`/api/cart`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     product_id: item?.product?.id,
                     quantity: 1,
-                },
-            });
-            setCartItems(
-                cartItems.map((i) => {
-                    if (i.id === item?.id) {
-                        return {
-                            ...i,
-                            quantity: i.quantity + 1,
-                        };
-                    }
-                    return i;
                 }),
+            });
+
+            setCartItems(
+                cartItems.map((i) =>
+                    i.id === item?.id ? { ...i, quantity: i.quantity + 1 } : i,
+                ),
             );
             setCart(cart + 1);
         } catch (error) {
-            console.log(error);
+            console.error("Lỗi khi tăng số lượng:", error);
         }
     };
 
     // Giảm số lượng
     const decrementQty = async (item) => {
-        console.log("id");
         if (item?.quantity === 1) {
             removeItem(item);
             return;
         }
+
         try {
-            await fetcher(apiConfig.carts.update, {
-                data: {
-                    product_id: item?.product?.id,
-                    quantity: item?.quantity - 1,
-                },
-                pathParams: {
-                    id: item?.id,
-                },
+            await fetch(`/api/cart/${item?.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({product_id: item?.product?.id, quantity: item?.quantity - 1 }),
             });
+
             setCartItems(
-                cartItems.map((i) => {
-                    if (i.id === item.id) {
-                        return {
-                            ...i,
-                            quantity: i.quantity - 1,
-                        };
-                    }
-                    return i;
-                }),
+                cartItems.map((i) =>
+                    i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
+                ),
             );
             setCart(cart - 1);
         } catch (error) {
-            console.error(error);
+            console.error("Lỗi khi giảm số lượng:", error);
         }
     };
 
     // Xóa sản phẩm
     const removeItem = async (item) => {
         try {
-            await fetcher(apiConfig.carts.delete, {
-                pathParams: {
-                    id: item?.id,
-                },
+            await fetch(`/api/cart/${item?.id}`, {
+                method: "DELETE",
             });
+
             setCartItems(cartItems.filter((i) => i.id !== item.id));
             setCart(cart - item.quantity);
         } catch (error) {
-            console.error(error);
+            console.error("Lỗi khi xoá sản phẩm:", error);
         }
     };
 

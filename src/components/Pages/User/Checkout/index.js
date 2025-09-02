@@ -1,13 +1,11 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
-import apiConfig from "@/constants/apiConfig";
+import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
-import fetcher from "@/services/fetcher";
 
 import styles from "./Checkout.module.scss";
-import paths from "@/constants/paths";
-import { toast } from "sonner";
 
 export default function CheckoutForm({ cartsData }) {
     const { profile } = useAuth();
@@ -34,16 +32,25 @@ export default function CheckoutForm({ cartsData }) {
             payment_method: formData.get("payment"),
         };
         try {
-            await fetcher(apiConfig.checkOut.create, {
-                data: data,
+            const res = await fetch("/api/checkOut", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             });
-            toast.success("Đặt hàng thành công");
-            push(paths.bill);
+            const result = await res.json();
+            if (result.success) {
+                toast.success("Đặt hàng thành công");
+                push(paths.bill);
+            }else{
+                toast.error("Đặt hàng thất bại");
+            }
+
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
-
         }
     };
 

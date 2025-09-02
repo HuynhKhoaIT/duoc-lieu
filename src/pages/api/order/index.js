@@ -2,6 +2,10 @@ import apiConfig from "@/constants/apiConfig";
 
 export default async function handler(req, res) {
     const token = req.cookies.token;
+    if (req.method !== "GET") {
+        res.setHeader("Allow", [ "GET" ]);
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
 
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });

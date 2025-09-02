@@ -4,11 +4,8 @@ import { useRouter } from "next/router";
 import { toast } from "sonner";
 
 import { storageKeys } from "@/constants";
-import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
-import fetcher from "@/services/fetcher";
-import { setCookie } from "@/utils/cookie";
-import { setLocalData } from "@/utils/localStorage";
+import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./RegisterForm.module.scss";
 
@@ -60,8 +57,10 @@ export default function RegisterForm() {
         }
 
         try {
-            const res = await fetcher(apiConfig.account.register, {
-                data: {
+            const res = await fetch("/api/account/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     name: formData.get("name"),
                     username: formData.get("username"),
                     phone_number: formData.get("phone_number"),
@@ -70,11 +69,11 @@ export default function RegisterForm() {
                     password: formData.get("password"),
                     referrer_phone: phone,
                     password_confirmation: formData.get("confirmPassword"),
-                },
+                }),
             });
+
             if (res.status === 201) {
-                setCookie(storageKeys.TOKEN, res.data.token);
-                setLocalData(storageKeys.PROFILE, res.data.user);
+                await handleLogout();
                 toast.success("Đăng ký thành công");
                 window.location.href = paths.user;
             }
@@ -85,7 +84,11 @@ export default function RegisterForm() {
             setLoading(false);
         }
     };
-
+    async function handleLogout() {
+        await fetch("/api/account/logout", { method: "POST" });
+        removeLocalItem(storageKeys.PROFILE);
+        window.location.href = "/login";
+    }
     return (
         <div className={`${styles.contactForm} blue-bg pb-[500px]`}>
             <div className="max-w-7xl mx-auto px-4">

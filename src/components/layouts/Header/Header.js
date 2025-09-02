@@ -9,7 +9,6 @@ import { storageKeys } from "@/constants";
 import paths from "@/constants/paths";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import useAuth from "@/hooks/useAuth";
-import { removeCookie } from "@/utils/cookie";
 import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./Header.module.scss";
@@ -82,7 +81,7 @@ export default function Header() {
     }, [ profile ]);
 
     async function handleLogout() {
-        await fetch("/api/logout", { method: "POST" });
+        await fetch("/api/account/logout", { method: "POST" });
         removeLocalItem(storageKeys.PROFILE);
         window.location.href = "/login"; // hoặc router.push("/login")
     }

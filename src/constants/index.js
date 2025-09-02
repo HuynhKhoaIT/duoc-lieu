@@ -43,3 +43,20 @@ export const statusOrderOptions = {
     completed: "Hoàn tất",
     cancelled: "Đã hủy",
 };
+
+export const agentLevelOptions = {
+    0: "Cộng tác viên",
+    1: "NPP 1 sao",
+    2: "NPP 2 sao",
+    3: "NPP 3 sao",
+    4: "NPP 4 sao",
+    5: "NPP 5 sao",
+};
+
+export const userStatusOptions = {
+    0: "Tạm ngưng",
+    1: "Hoạt động",
+};
+
+export const COMMISSION_TYPE = "commission";
+export const WITHDRAW_TYPE ="withdraw";

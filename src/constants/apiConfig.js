@@ -11,32 +11,38 @@ const apiConfig = {
             method: "POST",
             headers: baseHeader,
         },
-        register:{
+        register: {
             url: `${apiUrl}api/v2/register`,
             method: "POST",
             headers: baseHeader,
         },
-        updatePassword:{
+        updatePassword: {
             url: `${apiUrl}api/v2/user/update-password`,
             method: "POST",
             headers: baseHeader,
             isAuth: true,
         },
-        updateTransaction:{
+        updateTransaction: {
             url: `${apiUrl}api/v2/user/update-transaction-password`,
             method: "POST",
             headers: baseHeader,
             isAuth: true,
         },
+        verifyTransaction:{
+            url: `${apiUrl}api/v2/user/verify-transaction-password`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
     },
-    profile:{
-        getDetail:{
+    profile: {
+        getDetail: {
             url: `${apiUrl}api/v2/my-profile`,
             method: "GET",
             headers: baseHeader,
             isAuth: true,
         },
-        update:{
+        update: {
             url: `${apiUrl}api/v2/my-profile`,
             method: "PUT",
             headers: baseHeader,
@@ -113,7 +119,7 @@ const apiConfig = {
             headers: baseHeader,
         },
     },
-    checkOut:{
+    checkOut: {
         create: {
             url: `${apiUrl}api/v2/orders/create-from-cart`,
             method: "POST",
@@ -121,26 +127,60 @@ const apiConfig = {
             isAuth: true,
         },
     },
-    order:{
-        getList:{
+    order: {
+        getList: {
             url: `${apiUrl}api/v2/orders`,
             method: "GET",
             headers: baseHeader,
             isAuth: true,
         },
     },
-    feedback:{
-        create:{
+    feedback: {
+        create: {
             url: `${apiUrl}api/v2/orders/:id/feedback`,
             method: "PUT",
             headers: baseHeader,
             isAuth: true,
         },
     },
-    referrals:{
-        getList:{
+    referrals: {
+        getList: {
             url: `${apiUrl}api/v2/users/referrals`,
             method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
+    dashboard: {
+        getList: {
+            url: `${apiUrl}api/v2/my-dashboard`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
+    wallet: {
+        history: {
+            url: `${apiUrl}api/v2/wallet/history`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
+        transfer:{
+            url: `${apiUrl}api/v2/wallet/transfer`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
+        balance:{
+            url: `${apiUrl}api/v2/wallet/balance`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
+        withdraw:{
+            url: `${apiUrl}api/v2/wallet/withdraw-requests`,
+            method: "POST",
             headers: baseHeader,
             isAuth: true,
         },

@@ -1,46 +1,81 @@
+"use client";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import apiConfig from "@/constants/apiConfig";
-import fetcher from "@/services/fetcher";
-
-import ConfirmUpdateModal from "./ConfirmUpdateModal/ConfirmUpdateModal";
+import ConfirmTransactionModal from "@/components/Common/Modal/ConfirmTransactionModal/ConfirmUpdateModal";
+import useAlert from "@/hooks/useAlert";
 
 import styles from "./Profile.module.scss";
 
 export default function ProfileForm({ profileData }) {
-    console.log("profileData", profileData);
     const [ showModal, setShowModal ] = useState(false);
-    const [ message, setMessage ] = useState("");
     const [ loading, setLoading ] = useState(false);
+    const { showAlert } = useAlert();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.currentTarget;
+    const validateForm = (payload) => {
+        if (!payload.name?.trim()) {
+            showAlert("Họ tên không được để trống.");
+            return false;
+        }
+        if (!payload.address?.trim()) {
+            showAlert("Địa chỉ không được để trống.");
+            return false;
+        }
+        if (!payload.bank_name?.trim()) {
+            showAlert("Tên ngân hàng không được để trống.");
+            return false;
+        }
+        if (!payload.bank_account_number?.trim()) {
+            showAlert("Số tài khoản không được để trống.");
+            return false;
+        }
+        if (isNaN(Number(payload.bank_account_number))) {
+            showAlert("Số tài khoản phải là số.");
+            return false;
+        }
+        if (!payload.bank_account_name?.trim()) {
+            showAlert("Chủ tài khoản không được để trống.");
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async () => {
+        const form = document.querySelector("#profileForm");
+        if (!form) return;
+
         const formData = new FormData(form);
-
-        // chuyển thành object
         const payload = Object.fromEntries(formData.entries());
+
+        if (!validateForm(payload)) return;
 
         setLoading(true);
         try {
-            const res = await fetcher(apiConfig.profile.update, {
-                data: {
+            const res = await fetch("/api/account/update-profile", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     ...payload,
-                },
+                }),
             });
-            toast.success("Cập nhật thành công");
-            console.log(res);
+            const data = await res.json();
+            if (data?.success) {
+                toast.success("Cập nhật thành công!");
+            } else {
+                showAlert(data?.message || "Cập nhật thất bại.");
+            }
         } catch (err) {
-            setMessage("Có lỗi xảy ra ❌");
+            showAlert(err.message || "Có lỗi xảy ra ❌");
         } finally {
             setLoading(false);
+            setShowModal(false);
         }
     };
 
-    const handleConfirmTransaction = async ({ transactionPassword }) => {
-        console.log(transactionPassword);
+    const handleConfirmTransaction = async () => {
+        await handleSubmit();
     };
+
     const [ copied, setCopied ] = useState(false);
 
     const handleCopy = async () => {
@@ -53,10 +88,11 @@ export default function ProfileForm({ profileData }) {
                 setTimeout(() => setCopied(false), 2000);
             } catch (err) {
                 console.error("Copy failed", err);
-                toast.error("Sao chép thất bại!");
+                showAlert("Sao chép thất bại!");
             }
         }
     };
+
     return (
         <div className={`${styles["contact-form"]} mt-5 mb-5`}>
             <div className="container">
@@ -67,7 +103,7 @@ export default function ProfileForm({ profileData }) {
                             <div className="w-full">
                                 <div className={`${styles.card} blue-bg p-3`}>
                                     <h5 className="text-center mb-0">
-                                        <b className={"gold-text"}>Liên Kết</b>
+                                        <b className="gold-text">Liên Kết</b>
                                     </h5>
                                     <div className="w-full mb-2">
                                         <div className="flex flex-wrap justify-center items-center">
@@ -87,7 +123,6 @@ export default function ProfileForm({ profileData }) {
                                                 onClick={handleCopy}
                                                 className="read-more-btn mt-3"
                                                 style={{
-                                                    // maxWidth: "150px",
                                                     height: "47px",
                                                     marginLeft: "-3px",
                                                 }}
@@ -109,13 +144,13 @@ export default function ProfileForm({ profileData }) {
                                 <div
                                     className={`p-4 ${styles["breadcrumb-bg"]}`}
                                 >
-                                    <form>
+                                    <form id="profileForm">
                                         <div className="flex flex-wrap mb-3">
                                             {/* Left */}
                                             <div className="w-full md:w-1/2 mb-3 px-[15px]">
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -133,7 +168,7 @@ export default function ProfileForm({ profileData }) {
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -152,7 +187,7 @@ export default function ProfileForm({ profileData }) {
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>Địa chỉ</strong>
@@ -168,7 +203,7 @@ export default function ProfileForm({ profileData }) {
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -191,7 +226,7 @@ export default function ProfileForm({ profileData }) {
                                             <div className="w-full md:w-1/2 px-[15px]">
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -209,7 +244,7 @@ export default function ProfileForm({ profileData }) {
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -227,7 +262,7 @@ export default function ProfileForm({ profileData }) {
                                                 </p>
                                                 <p className="flex justify-between items-center px-0">
                                                     <span
-                                                        className={`blue-text`}
+                                                        className="blue-text"
                                                         style={{ width: "40%" }}
                                                     >
                                                         <strong>
@@ -244,15 +279,35 @@ export default function ProfileForm({ profileData }) {
                                                     />
                                                 </p>
 
-                                                {/* Nút cập nhật + Modal */}
                                                 <div className="text-center">
                                                     <button
-                                                        className={
-                                                            "main-btn hover:cursor-pointer"
-                                                        }
+                                                        className="main-btn hover:cursor-pointer"
                                                         type="button"
                                                         onClick={() => {
-                                                            setShowModal(true);
+                                                            const form =
+                                                                document.querySelector(
+                                                                    "#profileForm",
+                                                                );
+                                                            if (!form) return;
+
+                                                            const formData =
+                                                                new FormData(
+                                                                    form,
+                                                                );
+                                                            const payload =
+                                                                Object.fromEntries(
+                                                                    formData.entries(),
+                                                                );
+
+                                                            if (
+                                                                validateForm(
+                                                                    payload,
+                                                                )
+                                                            ) {
+                                                                setShowModal(
+                                                                    true,
+                                                                );
+                                                            }
                                                         }}
                                                         disabled={loading}
                                                     >
@@ -270,7 +325,7 @@ export default function ProfileForm({ profileData }) {
                             </div>
                         </div>
                         {/* End Form */}
-                        <ConfirmUpdateModal
+                        <ConfirmTransactionModal
                             isOpen={showModal}
                             onClose={() => setShowModal(false)}
                             onSubmit={handleConfirmTransaction}

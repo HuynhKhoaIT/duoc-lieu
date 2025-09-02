@@ -5,15 +5,13 @@ import { toast } from "sonner";
 import FeedbackModal from "@/components/Common/Modal/FeedbackModal/FeedbackModal";
 import TableBase from "@/components/Common/Table";
 import { statusOrderOptions } from "@/constants";
-import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
-import fetcher from "@/services/fetcher";
 import { formatDateString } from "@/utils";
 
 import styles from "./BillTable.module.scss";
 
-export default function BillTable({ ordersData }) {
+export default function BillTable({ ordersData, refetch }) {
     const [ isOpen, setIsOpen ] = useState(false);
     const { profile } = useAuth();
     const [ orderFeedback, setOrderFeedback ] = useState(null);
@@ -62,17 +60,15 @@ export default function BillTable({ ordersData }) {
 
     const handleFeedback = async ({ feedback }) => {
         try {
-            const res = await fetcher(apiConfig.feedback.create, {
-                pathParams: {
-                    id: orderFeedback.id,
-                },
-                data: {
-                    feedback,
-                },
+            const res = await fetch(`/api/order/${orderFeedback.id}/feedback`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ feedback }),
             });
             if (res.status === 200) {
                 toast.success("Phản hồi thành công");
                 setIsOpen(false);
+                refetch();
             }
         } catch (error) {
             toast.error("Phản hồi thất bại");

@@ -1,10 +1,13 @@
+import { useRouter } from "next/router";
+import { toast } from "sonner";
+
 import TableBase from "@/components/Common/Table";
-
-import styles from "./Wallet.module.scss";
-import Link from "next/link";
+import { COMMISSION_TYPE, DEFAULT_FORMAT, WITHDRAW_TYPE } from "@/constants";
 import paths from "@/constants/paths";
+import { formatDateString } from "@/utils";
 
-export default function WalletPage() {
+export default function WalletPage({ walletHistory, balanceData }) {
+    const { push } = useRouter();
     const columns = [
         { key: "id", label: "#" },
         { key: "amount", label: "Số tiền" },
@@ -12,95 +15,67 @@ export default function WalletPage() {
         { key: "date", label: "Ngày GD" },
     ];
 
-    const data = [
-        {
-            id: 1,
-            amount: "2.500",
-            type: "NPP - 078****378",
-            date: "2025-08-28 20:30:38",
-        },
-        {
-            id: 2,
-            amount: "25.000",
-            type: "ĐL - 078****378",
-            date: "2025-08-28 20:30:38",
-        },
-        {
-            id: 3,
-            amount: "2.500",
-            type: "NPP - 094****022",
-            date: "2025-08-28 18:47:15",
-        },
-        {
-            id: 4,
-            amount: "2.500",
-            type: "NPP - 039****369",
-            date: "2025-08-28 18:29:19",
-        },
-        {
-            id: 5,
-            amount: "25.000",
-            type: "ĐL - 039****369",
-            date: "2025-08-28 18:29:19",
-        },
-        {
-            id: 6,
-            amount: "11.800",
-            type: "NPP - 436****123",
-            date: "2025-08-28 18:14:49",
-        },
-        {
-            id: 7,
-            amount: "29.500",
-            type: "ĐL - 436****123",
-            date: "2025-08-28 18:14:49",
-        },
-        {
-            id: 8,
-            amount: "300.000",
-            type: "Chuyển đến 093****004",
-            date: "2025-08-28 16:01:51",
-        },
-        {
-            id: 9,
-            amount: "5.000",
-            type: "NPP - 038****544",
-            date: "2025-08-28 14:56:25",
-        },
-    ];
+    const data = walletHistory?.map((item, index) => ({
+        id: index + 1,
+        amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
+        type:
+            item?.type === COMMISSION_TYPE
+                ? `CTV-${item?.related_user?.username}`
+                : item?.type === WITHDRAW_TYPE? "Tiền tự rút":`Tiền chuyển-${item?.related_user?.username}`,
+        date: formatDateString(item.created_at,DEFAULT_FORMAT),
+    }));
 
     return (
         <div className="pt-[48px] pb-4">
             <div className="container">
                 <div className="grid grid-cols-14">
                     <div className="lg:col-span-10 lg:col-start-3 col-start-0 col-span-14 ">
-                        {/* Card số dư */}
                         <div className={`p-3 rounded-sm shadow blue-bg`}>
                             <div className="text-center">
                                 <h5 className={`!mb-1 gold-text`}>Số dư</h5>
-                                <h4 className="mb-1 text-light">278.634</h4>
+                                <h4 className="mb-1 text-light">
+                                    {balanceData?.balance
+                                        ? (
+                                            balanceData?.balance * 1
+                                        ).toLocaleString("vi-VN")
+                                        : "0"}
+                                </h4>
                             </div>
                             <div className="flex justify-center items-center mt-2 space-x-3">
-                                <Link
-                                    href={paths.transfer}
+                                <button
+                                    onClick={() => {
+                                        if (balanceData?.balance > 0) {
+                                            push(paths.transfer);
+                                        } else {
+                                            toast.error(
+                                                "Số dư không đủ để chuyển!",
+                                            );
+                                        }
+                                    }}
                                     className={"bordered-btn"}
                                 >
                                     CHUYỂN
-                                </Link>
-                                <Link   
-                                    href={paths.withdraw}
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        if (balanceData?.balance > 0) {
+                                            push(paths.withdraw);
+                                        } else {
+                                            toast.error(
+                                                "Số dư không đủ để rút!",
+                                            );
+                                        }
+                                    }}
                                     className={`bordered-btn text-center w-[100px]`}
                                 >
                                     RÚT
-                                </Link>
+                                </button>
                             </div>
                         </div>
 
-                        {/* Table */}
-                        
                         <TableBase columns={columns} data={data} />
                         {/* Pagination */}
-                        <nav className={styles.navigation}>
+                        {/* <nav className={styles.navigation}>
                             <ul className={`${styles.pagination}`}>
                                 <li
                                     className={`${styles.pageItem} ${styles.disabled}`}
@@ -137,7 +112,7 @@ export default function WalletPage() {
                                     </a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> */}
                     </div>
                 </div>
             </div>
