@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import apiConfig from "@/constants/apiConfig";
 import paths from "@/constants/paths";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import useAuth from "@/hooks/useAuth";
-import fetcher from "@/services/fetcher";
 
 import styles from "./ProductComboCard.module.scss";
 

@@ -52,7 +52,7 @@ export default function LoginForm() {
             if (data.success) {
                 setLocalData(storageKeys.IS_LOGIN, true);
                 setLocalData(storageKeys.PROFILE, data.user);
-                // window.location.href = paths.user;
+                window.location.href = paths.user;
             } else {
                 showAlert("Số điện thoại hoặc mật khẩu không đúng.");
             }

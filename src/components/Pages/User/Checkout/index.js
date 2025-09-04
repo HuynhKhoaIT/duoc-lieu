@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
+import useCart from "@/hooks/useCart";
 
 import styles from "./Checkout.module.scss";
 
@@ -12,6 +13,7 @@ export default function CheckoutForm({ cartsData }) {
     const { push } = useRouter();
     const [ open, setOpen ] = useState("payment");
     const [ loading, setLoading ] = useState(false);
+    const { cartItems, totalPrice, totalQty } = useCart(cartsData);
 
     const toggle = (id) => {
         setOpen(open === id ? null : id);
@@ -43,10 +45,9 @@ export default function CheckoutForm({ cartsData }) {
             if (result.success) {
                 toast.success("Đặt hàng thành công");
                 push(paths.bill);
-            }else{
+            } else {
                 toast.error("Đặt hàng thất bại");
             }
-
         } catch (error) {
             console.error(error);
         } finally {
@@ -54,25 +55,6 @@ export default function CheckoutForm({ cartsData }) {
         }
     };
 
-    const totalPrice = useMemo(() => {
-        return Array.isArray(cartsData)
-            ? cartsData.reduce(
-                (acc, item) =>
-                    acc +
-                      (item?.product?.price_wholesale || 0) *
-                          (item?.quantity || 0),
-                0,
-            )
-            : 0;
-    }, [ cartsData ]);
-
-    const totalQty = useMemo(() => {
-        return Array.isArray(cartsData)
-            ? cartsData.reduce((acc, item) => acc + (item?.quantity || 0), 0)
-            : 0;
-    }, [ cartsData ]);
-
-    console.log(profile);
     return (
         <div className={`${styles.checkoutSection} mt-5 mb-5`}>
             <form action="/user/checkout" method="post" onSubmit={handleSubmit}>
@@ -424,7 +406,7 @@ export default function CheckoutForm({ cartsData }) {
                                                             styles.tableTotalRow
                                                         }
                                                     >
-                                                        {cartsData?.map(
+                                                        {cartItems?.map(
                                                             (item, index) => (
                                                                 <tr
                                                                     key={index}

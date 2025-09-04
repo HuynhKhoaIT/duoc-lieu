@@ -15,16 +15,49 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
         { key: "date", label: "Ngày GD" },
     ];
 
-    const data = walletHistory?.map((item, index) => ({
-        id: index + 1,
-        amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
-        type:
-            item?.type === COMMISSION_TYPE
-                ? `CTV-${item?.related_user?.username}`
-                : item?.type === WITHDRAW_TYPE? "Tiền tự rút":`Tiền chuyển-${item?.related_user?.username}`,
-        date: formatDateString(item.created_at,DEFAULT_FORMAT),
-    }));
+    // const data = walletHistory?.map((item, index) => ({
+    //     id: index + 1,
+    //     amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
+    //     type:
+    //         item?.type === COMMISSION_TYPE
+    //             ? `CTV-${item?.related_user?.username}`
+    //             : item?.type === WITHDRAW_TYPE? "Tiền tự rút":`Tiền chuyển-${item?.related_user?.username}`,
+    //     date: formatDateString(item.created_at,DEFAULT_FORMAT),
+    // }));
+    const data = walletHistory?.map((item, index) => {
+        let typeLabel = "";
 
+        switch (item?.type) {
+            case "transfer_out":
+                typeLabel = `Gửi từ ví - ${item?.sender?.username || "N/A"}`;
+                break;
+            case "transfer_in":
+                typeLabel = `Nhận từ ví - ${item?.sender?.username || "N/A"}`;
+                break;
+            case "withdraw":
+                typeLabel = "Rút tiền";
+                break;
+            case "commission":
+                typeLabel = `CTV- ${item?.sender?.username || "N/A"}`;
+                break;
+            case "refund":
+                typeLabel = "Hoàn tiền";
+                break;
+            case "deduct":
+                typeLabel = "Mua hàng";
+                break;
+            default:
+                typeLabel = "Khác";
+                break;
+        }
+
+        return {
+            id: index + 1,
+            amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
+            type: typeLabel,
+            date: formatDateString(item.created_at, DEFAULT_FORMAT),
+        };
+    });
     return (
         <div className="pt-[48px] pb-4">
             <div className="container">
@@ -73,7 +106,11 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
                             </div>
                         </div>
 
-                        <TableBase columns={columns} data={data} loading={loading} />
+                        <TableBase
+                            columns={columns}
+                            data={data}
+                            loading={loading}
+                        />
                         {/* Pagination */}
                         {/* <nav className={styles.navigation}>
                             <ul className={`${styles.pagination}`}>

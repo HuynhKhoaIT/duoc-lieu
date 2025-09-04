@@ -21,6 +21,7 @@ export const storageKeys = {
     TOKEN: `${appName}-token`,
     PROFILE: `${appName}-profile`,
     IS_LOGIN: `${appName}-isLogin`,
+    CART_DATA: `${appName}-cartData`,
 };
 
 export const ROLES_CODE = {

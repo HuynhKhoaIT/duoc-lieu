@@ -1,6 +1,7 @@
+import { createContext, useContext, useEffect, useState } from "react";
+
 import { storageKeys } from "@/constants";
 import { getLocalData } from "@/utils/localStorage";
-import { createContext, useContext, useEffect, useState } from "react";
 
 const GlobalContext = createContext({
     data: [],
@@ -12,11 +13,9 @@ const GlobalContext = createContext({
 export const GlobalContextProvider = ({ children }) => {
     const [ data, setData ] = useState([]);
     const [ cart, setCart ] = useState(0);
+    const isLogin = getLocalData(storageKeys.IS_LOGIN);
 
     useEffect(() => {
-        const isLogin = getLocalData(storageKeys.IS_LOGIN);
-        if (!isLogin) return;
-
         async function fetchCart() {
             try {
                 const res = await fetch("/api/cart");
@@ -40,8 +39,19 @@ export const GlobalContextProvider = ({ children }) => {
             }
         }
 
-        fetchCart();
-    }, []);
+        if (isLogin) {
+            fetchCart();
+        } else {
+            const cartData = getLocalData(storageKeys.CART_DATA);
+            console.log(cartData);
+            const totalQuantity = Array.isArray(cartData)
+                ? cartData.reduce((acc, item) => acc + (item?.quantity || 0), 0)
+                : 0;
+
+            setCart(totalQuantity || 0);
+            setData(cartData || []);
+        }
+    }, [ isLogin ]);
 
     return (
         <GlobalContext.Provider value={{ data, setData, cart, setCart }}>

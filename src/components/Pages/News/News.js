@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import NewsCardItem from "@/components/Common/Card/NewsCardItem";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 
-export default function NewsPage({ data, loading }) {
+export default function NewsPage({ data }) {
     return (
         <>
             <Breadcrumb title={"Bài viết"} />

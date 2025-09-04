@@ -195,10 +195,9 @@ export function formatDateString(dateString, format = DATE_FORMAT_VALUE) {
 }
 export function getPreviewFromHTML(html, maxLength = 100) {
     if (!html) return "";
-    // Tạo element tạm để parse HTML
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const text = div.textContent || div.innerText || "";
+
+    const text = html.replace(/<[^>]*>?/gm, "");
+
     return text.length > maxLength
         ? text.substring(0, maxLength) + "..."
         : text;
@@ -207,6 +206,6 @@ export function getPreviewFromHTML(html, maxLength = 100) {
 export function maskPhone(phone) {
     if (!phone) return "";
     const str = phone.toString();
-    if (str.length < 7) return str; 
+    if (str.length < 7) return str;
     return str.slice(0, 3) + "****" + str.slice(-3);
 }

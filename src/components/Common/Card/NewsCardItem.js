@@ -28,7 +28,7 @@ export default function NewsCardItem({ news }) {
                         {formatDateString(news.created_at)}
                     </span>
                 </p>
-                <p className={`${styles.excerpt} line-clamp-2`}>{getPreviewFromHTML(news.content,70)}</p>
+                <p className={`${styles.excerpt} line-clamp-2`}>{getPreviewFromHTML(news?.content,70)}</p>
                 <Link
                     href={`${paths.news}/${news.slug}`}
                     className={`read-more-btn hover:underline`}

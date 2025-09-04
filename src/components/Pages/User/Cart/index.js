@@ -1,101 +1,24 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import paths from "@/constants/paths";
-import { useGlobalContext } from "@/contexts/GlobalContext";
+import useAuth from "@/hooks/useAuth";
+import useCart from "@/hooks/useCart";
 
 import styles from "./Cart.module.scss";
 
-export default function CartPage({ cartsData, refetch }) {
-    const [ cartItems, setCartItems ] = useState([]);
-    const { cart, setCart } = useGlobalContext();
-    const [ loading, setLoading ] = useState(false);
+export default function CartPage({ cartsData }) {
+    const { isAuthenticated } = useAuth();
+    const {
+        cartItems,
+        totalPrice,
+        totalQty,
+        loading,
+        incrementQty,
+        decrementQty,
+        removeItem,
+    } = useCart(cartsData);
 
-    // Tăng số lượng
-    const incrementQty = async (item) => {
-        try {
-            await fetch(`/api/cart`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    product_id: item?.product?.id,
-                    quantity: 1,
-                }),
-            });
-
-            setCartItems(
-                cartItems.map((i) =>
-                    i.id === item?.id ? { ...i, quantity: i.quantity + 1 } : i,
-                ),
-            );
-            setCart(cart + 1);
-        } catch (error) {
-            console.error("Lỗi khi tăng số lượng:", error);
-        }
-    };
-
-    // Giảm số lượng
-    const decrementQty = async (item) => {
-        if (item?.quantity === 1) {
-            removeItem(item);
-            return;
-        }
-
-        try {
-            await fetch(`/api/cart/${item?.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({product_id: item?.product?.id, quantity: item?.quantity - 1 }),
-            });
-
-            setCartItems(
-                cartItems.map((i) =>
-                    i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
-                ),
-            );
-            setCart(cart - 1);
-        } catch (error) {
-            console.error("Lỗi khi giảm số lượng:", error);
-        }
-    };
-
-    // Xóa sản phẩm
-    const removeItem = async (item) => {
-        try {
-            await fetch(`/api/cart/${item?.id}`, {
-                method: "DELETE",
-            });
-
-            setCartItems(cartItems.filter((i) => i.id !== item.id));
-            setCart(cart - item.quantity);
-        } catch (error) {
-            console.error("Lỗi khi xoá sản phẩm:", error);
-        }
-    };
-
-    // Tính tổng tiền
-    const totalPrice = useMemo(() => {
-        return Array.isArray(cartItems)
-            ? cartItems.reduce(
-                (acc, item) =>
-                    acc +
-                      (item?.product?.price_wholesale || 0) *
-                          (item?.quantity || 0),
-                0,
-            )
-            : 0;
-    }, [ cartItems ]);
-
-    const totalQty = useMemo(() => {
-        return Array.isArray(cartItems)
-            ? cartItems.reduce((acc, item) => acc + (item?.quantity || 0), 0)
-            : 0;
-    }, [ cartItems ]);
-
-    useEffect(() => {
-        setCartItems(cartsData);
-    }, [ cartsData ]);
     return (
         <div className={`${styles.cartSection} mt-[48px] mb-[48px]`}>
             <div className="container">
@@ -147,11 +70,7 @@ export default function CartPage({ cartsData, refetch }) {
                                                         <i className="far fa-window-close"></i>
                                                     </button>
                                                 </td>
-                                                <td
-                                                    className={
-                                                        "flex justify-center items-center"
-                                                    }
-                                                >
+                                                <td className="flex justify-center items-center">
                                                     <img
                                                         src={
                                                             item?.product
@@ -265,7 +184,9 @@ export default function CartPage({ cartsData, refetch }) {
                                                     <div className="flex justify-center mt-0">
                                                         <Link
                                                             href={
-                                                                paths.checkOut
+                                                                isAuthenticated
+                                                                    ? paths.userCheckOut
+                                                                    : paths.checkOut
                                                             }
                                                         >
                                                             <button

@@ -15,7 +15,6 @@ import styles from "./Header.module.scss";
 
 export default function Header() {
     const { cart } = useGlobalContext();
-
     const { profile, isAuthenticated } = useAuth();
     const [ isSticky, setIsSticky ] = useState(false);
     const [ isShowMenu, setIsShowMenu ] = useState(false);
@@ -151,7 +150,11 @@ export default function Header() {
                                     </Link>
                                     <Link
                                         className={`${styles.iconLink} ${styles.mobileHide}`}
-                                        href={paths.cart}
+                                        href={
+                                            isAuthenticated
+                                                ? paths.userCart
+                                                : paths.cart
+                                        }
                                     >
                                         <i className="fas fa-shopping-cart">
                                             <span

@@ -7,6 +7,8 @@ const paths = {
     combo: "/combo",
     news: "/news",
     newsDetail: "/news/[newsId]",
+    cart: "/cart",
+    checkOut: "/checkout",
     login: "/login",
     user: "/user",
     wallet: "/user/wallet",
@@ -15,13 +17,13 @@ const paths = {
     setting: "/user/setting",
     bill: "/user/bill",
     gtable: "/user/gtable",
-    cart: "/user/cart",
     order: "/user/order",
-    checkOut: "/user/checkout",
     payment: "/user/payment",
     signin: "/signin",
     withdraw: "/user/withdraw",
     transfer: "/user/transfer",
+    userCart: "/user/cart",
+    userCheckOut: "/user/checkout",
 };
 
 export default paths;

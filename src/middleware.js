@@ -18,6 +18,8 @@ const publicPaths = [
     "/images/*",
     "/.well-known/*",
     "/signin/*",
+    "/cart",
+    "/checkout",
 ];
 
 const isPublicPath = (pathname) => {
