@@ -35,8 +35,7 @@ export default function Footer() {
                                 <h2 className={styles.widgetTitle}>Liên hệ</h2>
                                 <ul>
                                     <li>
-                                        Địa chỉ: Số 215, ấp 10, Xã Vị Thẳng,
-                                        Huyện Vị Thủy, Tỉnh Hậu Giang, Việt Nam
+                                        Địa chỉ: Âp 10, xã Vị Thuỷ, thành phố Cần Thơ
                                     </li>
                                     <li>Hotline: 0931.003.004</li>
                                 </ul>
@@ -98,10 +97,10 @@ export default function Footer() {
                                 <br />
                                 Thiết kế bởi{" "}
                                 <Link
-                                    href="https://duoclieuxanh.com/"
+                                    href="https://avaz.vn/"
                                     className="text-blue-600 hover:underline"
                                 >
-                                    KitaGroup
+                                    Avaz
                                 </Link>
                             </p>
                         </div>

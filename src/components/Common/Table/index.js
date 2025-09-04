@@ -17,7 +17,7 @@ export default function TableBase({
                             <th key={col.key} className="p-[15px] text-center">
                                 <strong
                                     style={{
-                                        color: "#004c49",
+                                        color: "#008080",
                                         fontSize: "16px",
                                     }}
                                 >

@@ -4,13 +4,16 @@ import { toast } from "sonner";
 
 import ConfirmTransactionModal from "@/components/Common/Modal/ConfirmTransactionModal/ConfirmUpdateModal";
 import useAlert from "@/hooks/useAlert";
+import useAuth from "@/hooks/useAuth";
 
 import styles from "./Profile.module.scss";
+import paths from "@/constants/paths";
 
 export default function ProfileForm({ profileData }) {
     const [ showModal, setShowModal ] = useState(false);
     const [ loading, setLoading ] = useState(false);
     const { showAlert } = useAlert();
+    const { profile } = useAuth();
 
     const validateForm = (payload) => {
         if (!payload.name?.trim()) {
@@ -115,7 +118,9 @@ export default function ProfileForm({ profileData }) {
                                                 }}
                                                 type="text"
                                                 id="link"
-                                                value="https://duoclieuxanh.net/signin/0907458839"
+                                                value={
+                                                    window.location.origin + paths.signin+`/${profile.phone_number}`
+                                                }
                                                 readOnly
                                             />
                                             <button

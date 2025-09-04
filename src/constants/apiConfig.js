@@ -28,7 +28,7 @@ const apiConfig = {
             headers: baseHeader,
             isAuth: true,
         },
-        verifyTransaction:{
+        verifyTransaction: {
             url: `${apiUrl}api/v2/user/verify-transaction-password`,
             method: "POST",
             headers: baseHeader,
@@ -127,6 +127,14 @@ const apiConfig = {
             isAuth: true,
         },
     },
+    checkOutV3: {
+        create: {
+            url: `${apiUrl}api/v3/orders`,
+            method: "POST",
+            headers: baseHeader,
+            isAuth: true,
+        },
+    },
     order: {
         getList: {
             url: `${apiUrl}api/v2/orders`,
@@ -166,19 +174,19 @@ const apiConfig = {
             headers: baseHeader,
             isAuth: true,
         },
-        transfer:{
+        transfer: {
             url: `${apiUrl}api/v2/wallet/transfer`,
             method: "POST",
             headers: baseHeader,
             isAuth: true,
         },
-        balance:{
+        balance: {
             url: `${apiUrl}api/v2/wallet/balance`,
             method: "GET",
             headers: baseHeader,
             isAuth: true,
         },
-        withdraw:{
+        withdraw: {
             url: `${apiUrl}api/v2/wallet/withdraw-requests`,
             method: "POST",
             headers: baseHeader,

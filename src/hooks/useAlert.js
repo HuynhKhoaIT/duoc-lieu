@@ -2,7 +2,7 @@
 import Swal from "sweetalert2";
 
 export default function useAlert() {
-    const PRIMARY_COLOR = "#004c49";
+    const PRIMARY_COLOR = "#008080";
     const SUB_PRIMARY_COLOR = "goldenrod";
 
     const showAlert = (message, icon = "warning") => {

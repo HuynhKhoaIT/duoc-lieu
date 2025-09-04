@@ -145,7 +145,7 @@ export default function CartPage({ cartsData }) {
                         </div>
 
                         <div className="lg:col-span-4 col-span-12">
-                            <form action="/user/checkout" method="get">
+                            <form>
                                 <div className={styles.totalSection}>
                                     <table className={styles.totalTable}>
                                         <thead
@@ -188,18 +188,9 @@ export default function CartPage({ cartsData }) {
                                                                     ? paths.userCheckOut
                                                                     : paths.checkOut
                                                             }
+                                                            className="main-btn text-center"
                                                         >
-                                                            <button
-                                                                className="main-btn text-center"
-                                                                disabled={
-                                                                    loading
-                                                                }
-                                                                style={{
-                                                                    cursor: "pointer",
-                                                                }}
-                                                            >
-                                                                Đặt Hàng
-                                                            </button>
+                                                            Đặt Hàng
                                                         </Link>
                                                     </div>
                                                 </td>

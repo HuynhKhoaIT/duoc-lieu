@@ -21,7 +21,7 @@ export default function useCart(initialData = []) {
         } else {
             setCartItems(initialData);
         }
-    }, [ initialData, isAuthenticated ]);
+    }, [ isAuthenticated ]);
 
     /** ---------------------------
      * ADD TO CART

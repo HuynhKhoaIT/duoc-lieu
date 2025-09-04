@@ -43,7 +43,7 @@ export default function ProductDetail({ dataDetail }) {
                                 <div>
                                     {dataDetail?.price_wholesale ? (
                                         <div className="flex gap-2 items-center">
-                                            <span className="text-[24px] font-bold text-[#004c49]">
+                                            <span className="text-[24px] font-bold text-[#008080]">
                                                 {(
                                                     dataDetail.price_wholesale *
                                                     1
@@ -58,7 +58,7 @@ export default function ProductDetail({ dataDetail }) {
                                             </span>
                                         </div>
                                     ) : (
-                                        <span className="text-[24px] font-bold text-[#004c49]">
+                                        <span className="text-[24px] font-bold text-[#008080]">
                                             {(
                                                 dataDetail.price_wholesale * 1
                                             ).toLocaleString("vi-VN")}{" "}
@@ -71,11 +71,11 @@ export default function ProductDetail({ dataDetail }) {
                                 <div className="flex items-center">
                                     <button
                                         onClick={decreaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition"
+                                        className="w-8 h-8 flex items-center justify-center border border-[#008080] rounded-l-md hover:bg-[goldenrod]/10 transition"
                                     >
                                         <Minus
                                             size={16}
-                                            className="text-[#004c49]"
+                                            className="text-[#008080]"
                                         />
                                     </button>
                                     <input
@@ -85,18 +85,18 @@ export default function ProductDetail({ dataDetail }) {
                                         onChange={(e) =>
                                             changeQuantity(e.target.value)
                                         }
-                                        className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
+                                        className="w-8 h-8 text-center border-t border-b border-[#008080] focus:outline-none text-[#008080] font-medium 
                                         [&::-webkit-outer-spin-button]:appearance-none 
                                         [&::-webkit-inner-spin-button]:appearance-none 
                                         [-moz-appearance:textfield]"
                                     />
                                     <button
                                         onClick={increaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition"
+                                        className="w-8 h-8 flex items-center justify-center border border-[#008080] rounded-r-md hover:bg-[goldenrod]/10 transition"
                                     >
                                         <Plus
                                             size={16}
-                                            className="text-[#004c49]"
+                                            className="text-[#008080]"
                                         />
                                     </button>
                                 </div>
