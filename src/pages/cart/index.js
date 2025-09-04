@@ -4,17 +4,11 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import CartPage from "@/components/Pages/User/Cart";
-import { storageKeys } from "@/constants";
-import { getLocalData } from "@/utils/localStorage";
-
 function Cart() {
-    const cartData = getLocalData(storageKeys.CART_DATA);
-
     return (
         <Fragment>
             <Breadcrumb title="Giỏ hàng" />
-            <CartPage cartsData={cartData || []} />
-
+            <CartPage  />
             <LogoCarousel />
         </Fragment>
     );
