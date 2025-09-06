@@ -8,26 +8,21 @@ import { getLocalData, setLocalData } from "@/utils/localStorage";
 
 export default function useCart(initialData = []) {
     const { isAuthenticated } = useAuth();
-    const { cart, setCart, data, setData } = useGlobalContext();
+    const { cart, setCart, setData } = useGlobalContext();
 
     const [ cartItems, setCartItems ] = useState(initialData);
     const [ loading, setLoading ] = useState(false);
 
-    /** Khởi tạo dữ liệu từ props hoặc localStorage */
     useEffect(() => {
         if (!isAuthenticated) {
             const localCart = getLocalData(storageKeys.CART_DATA) || [];
             setCartItems(localCart);
-            setData(localCart); // đồng bộ với GlobalContext
         } else {
             setCartItems(initialData);
-            setData(initialData); // đồng bộ với GlobalContext
         }
     }, [ isAuthenticated,initialData ]);
 
-    /** ---------------------------
-     * ADD TO CART
-     * --------------------------- */
+
     const addToCart = async ({ item, qty = 1 }) => {
         if (!item?.id) return;
 
@@ -123,16 +118,13 @@ export default function useCart(initialData = []) {
         }
     };
 
-    /** ---------------------------
-     * TĂNG SỐ LƯỢNG
-     * --------------------------- */
     const incrementQty = async (item) => {
         if (!isAuthenticated) {
             const updatedCart = cartItems.map((i) =>
                 i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart); 
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart + 1);
             return;
@@ -152,7 +144,7 @@ export default function useCart(initialData = []) {
                 i.id === item?.id ? { ...i, quantity: i.quantity + 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart);
             setCart(cart + 1);
         } catch (error) {
             console.error("Lỗi khi tăng số lượng:", error);
@@ -160,9 +152,6 @@ export default function useCart(initialData = []) {
         }
     };
 
-    /** ---------------------------
-     * GIẢM SỐ LƯỢNG
-     * --------------------------- */
     const decrementQty = async (item) => {
         if (item?.quantity === 1) {
             removeItem(item);
@@ -174,7 +163,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart);
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart - 1);
             return;
@@ -194,7 +183,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart); 
             setCart(cart - 1);
         } catch (error) {
             console.error("Lỗi khi giảm số lượng:", error);
@@ -202,14 +191,11 @@ export default function useCart(initialData = []) {
         }
     };
 
-    /** ---------------------------
-     * XOÁ SẢN PHẨM
-     * --------------------------- */
     const removeItem = async (item) => {
         if (!isAuthenticated) {
             const updatedCart = cartItems.filter((i) => i.id !== item.id);
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart);
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart - item.quantity);
             return;
@@ -222,7 +208,7 @@ export default function useCart(initialData = []) {
 
             const updatedCart = cartItems.filter((i) => i.id !== item.id);
             setCartItems(updatedCart);
-            setData(updatedCart); // cập nhật GlobalContext
+            setData(updatedCart);
             setCart(cart - item.quantity);
         } catch (error) {
             console.error("Lỗi khi xoá sản phẩm:", error);
@@ -230,9 +216,6 @@ export default function useCart(initialData = []) {
         }
     };
 
-    /** ---------------------------
-     * TÍNH TỔNG TIỀN
-     * --------------------------- */
     const totalPrice = useMemo(() => {
         return Array.isArray(cartItems)
             ? cartItems.reduce(
@@ -244,10 +227,7 @@ export default function useCart(initialData = []) {
             )
             : 0;
     }, [ cartItems ]);
-
-    /** ---------------------------
-     * TÍNH TỔNG SỐ LƯỢNG
-     * --------------------------- */
+    
     const totalQty = useMemo(() => {
         return Array.isArray(cartItems)
             ? cartItems.reduce((acc, item) => acc + (item?.quantity || 0), 0)

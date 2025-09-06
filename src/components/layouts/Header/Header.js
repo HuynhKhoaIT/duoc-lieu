@@ -20,6 +20,11 @@ export default function Header() {
     const [ isShowMenu, setIsShowMenu ] = useState(false);
     const pathname = usePathname();
     const [ username, setUsername ] = useState("");
+    const [ mounted, setMounted ] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -76,7 +81,7 @@ export default function Header() {
         if (profile?.phone_number) {
             setUsername(profile.username);
         }
-    }, [ profile ]);
+    }, []);
 
     async function handleLogout() {
         try {
@@ -95,6 +100,8 @@ export default function Header() {
             console.error("Logout failed:", error);
         }
     }
+    if (!mounted) return null;
+
     return (
         <div
             id="sticker-sticky-wrapper"
@@ -158,22 +165,26 @@ export default function Header() {
                                     >
                                         {username}
                                     </Link>
-                                    <Link
-                                        className={`${styles.iconLink} ${styles.mobileHide}`}
-                                        href={
-                                            isAuthenticated
-                                                ? paths.userCart
-                                                : paths.cart
-                                        }
-                                    >
-                                        <i className="fas fa-shopping-cart">
-                                            <span
-                                                className={`${styles.cartBadge} pl-1 pr-1 pt-0 pb-0`}
-                                            >
-                                                {cart}
-                                            </span>
-                                        </i>
-                                    </Link>
+
+                                    {mounted && (
+                                        <Link
+                                            className={`${styles.iconLink} ${styles.mobileHide}`}
+                                            href={
+                                                isAuthenticated
+                                                    ? paths.userCart
+                                                    : paths.cart
+                                            }
+                                        >
+                                            <i className="fas fa-shopping-cart">
+                                                <span
+                                                    className={`${styles.cartBadge} pl-1 pr-1 pt-0 pb-0`}
+                                                >
+                                                    {cart}
+                                                </span>
+                                            </i>
+                                        </Link>
+                                    )}
+
                                     {isAuthenticated ? (
                                         <a
                                             className={`${styles.iconLink} ${styles.mobileHide}`}
