@@ -1,8 +1,9 @@
-import { agentLevelOptions } from "@/constants";
+import { agentLevelOptions, userStatusOptions } from "@/constants";
 
 import styles from "./User.module.scss";
 
 export default function UserDashboardPage({ dashboardData }) {
+    console.log("dashboardData", dashboardData);
     return (
         <div className="pt-[48px] pb-[24px] mb-2">
             <div className="container">
@@ -62,7 +63,10 @@ export default function UserDashboardPage({ dashboardData }) {
                                                 Số Dư Tài Khoản
                                             </span>
                                             <h4 className="text-center text-light">
-                                                {dashboardData?.wallet?.balance}
+                                                {(
+                                                    dashboardData?.wallet
+                                                        ?.balance * 1
+                                                )?.toLocaleString("vi-VN")}
                                             </h4>
                                         </div>
                                     </div>
@@ -88,10 +92,12 @@ export default function UserDashboardPage({ dashboardData }) {
                                                 Trạng thái
                                             </span>
                                             <h5 className="text-center text-light mb-1">
-                                                {dashboardData?.user?.status ===
-                                                1
-                                                    ? "Hoạt động"
-                                                    : "Tạm ngưng"}
+                                                {
+                                                    userStatusOptions[
+                                                        dashboardData?.user
+                                                            ?.status
+                                                    ]
+                                                }
                                             </h5>
                                         </div>
                                     </div>
@@ -119,12 +125,12 @@ export default function UserDashboardPage({ dashboardData }) {
                                             <h4 className="text-center text-light">
                                                 {
                                                     dashboardData?.orders
-                                                        ?.personal_amount
+                                                        ?.orders_pending
                                                 }{" "}
                                                 |{" "}
                                                 {
                                                     dashboardData?.orders
-                                                        ?.personal_count
+                                                        ?.orders_completed
                                                 }
                                             </h4>
                                         </div>
@@ -151,7 +157,10 @@ export default function UserDashboardPage({ dashboardData }) {
                                             Lượt đăng ký
                                         </span>
                                         <h4 className="text-center text-light">
-                                            1
+                                            {
+                                                dashboardData?.network
+                                                    ?.members_without_completed_orders
+                                            }
                                         </h4>
                                     </div>
                                 </div>
@@ -171,7 +180,11 @@ export default function UserDashboardPage({ dashboardData }) {
                                             Số Đại Lý 1
                                         </span>
                                         <h4 className="text-center text-light">
-                                            {dashboardData?.network?.f1_count}
+                                            {dashboardData?.network?.f1_count}{" "}|{" "}
+                                            {
+                                                dashboardData?.network
+                                                    ?.members_completed_orders
+                                            }
                                         </h4>
                                     </div>
                                 </div>

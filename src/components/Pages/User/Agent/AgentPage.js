@@ -21,7 +21,7 @@ function AccordionItem({ item, level = 1 }) {
 
             <div
                 className={`overflow-hidden transition-[max-height] duration-500 ease-in-out pl-4`}
-                style={{ maxHeight: open ? "200px" : "0px" }}
+                style={{ maxHeight: open ? "100%" : "0px" }}
             >
                 {hasChildren &&
                     item?.referrals?.map((child) => (
