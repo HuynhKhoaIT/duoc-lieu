@@ -4,10 +4,12 @@ import { useMemo, useState } from "react";
 
 import ProductComboCard from "@/components/Common/Card/ProductComboCard";
 import ProductFilters from "@/components/Common/Fillter/ProductFilters";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 import styles from "./ProductSection.module.scss";
 
 export default function ProductSection({ productsData, categories }) {
+    const { data } = useGlobalContext();
     const [ activeFilter, setActiveFilter ] = useState(null);
     const products = useMemo(() => {
         if (!productsData) return [];
@@ -19,7 +21,11 @@ export default function ProductSection({ productsData, categories }) {
             return p.categories?.[0]?.id === activeFilter;
         });
     }, [ activeFilter, productsData ]);
-
+    const numberCart = (id) => {
+        return data?.find((item) => {
+            return item?.product?.id == id;
+        })?.quantity;
+    };
     return (
         <div className={styles.productSection}>
             <div className="container mx-auto mt-5 mb-4">
@@ -32,7 +38,11 @@ export default function ProductSection({ productsData, categories }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {products?.map((p) => (
-                        <ProductComboCard key={p.id} p={p} />
+                        <ProductComboCard
+                            key={p.id}
+                            p={p}
+                            quantity={numberCart(p.id)}
+                        />
                     ))}
                 </div>
             </div>

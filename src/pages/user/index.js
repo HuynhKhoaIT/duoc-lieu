@@ -15,7 +15,7 @@ function UserPage() {
     return (
         <Fragment>
             <Breadcrumb title={"Tổng Quát"} />
-            <UserDashboardPage dashboardData={data?.data} />
+            <UserDashboardPage dashboardData={data?.data} loading={isLoading} />
             <LogoCarousel />
         </Fragment>
     );

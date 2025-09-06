@@ -55,11 +55,29 @@ export const agentLevelOptions = {
     5: "CTV 5 sao",
 };
 
-export const userStatusOptions = {
-    ["active"]: "Hoạt động",
-    ["expiring_soon"]: "Gần hết hạn",
-    ["expired"]: "Hết hạn",
-};
+
+
+export const userStatusOptions = [
+    { 
+        label: "Hoạt động", 
+        value: "active", 
+        color: "#00FF7F",
+        icon: "fas fa-check",
+    },
+    { 
+        label: "Gần hết hạn", 
+        value: "expiring_soon", 
+        color: "#daa520",
+        icon: "fa-solid fa-exclamation",
+    },
+    { 
+        label: "Hết hạn", 
+        value: "expired", 
+        color: "#FF6347",
+        icon: "fas fa-times",
+    },
+];
+
 
 export const COMMISSION_TYPE = "commission";
 export const WITHDRAW_TYPE = "withdraw";

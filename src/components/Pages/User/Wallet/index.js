@@ -1,13 +1,24 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
 
 import TableBase from "@/components/Common/Table";
-import { COMMISSION_TYPE, DEFAULT_FORMAT, WITHDRAW_TYPE } from "@/constants";
+import { DEFAULT_FORMAT } from "@/constants";
 import paths from "@/constants/paths";
 import { formatDateString } from "@/utils";
 
-export default function WalletPage({ walletHistory, balanceData, loading }) {
+export default function WalletPage({
+    walletHistory,
+    balanceData,
+    loading,
+    mutate,
+    metaData,
+    currentPage,
+    setCurrentPage,
+}) {
     const { push } = useRouter();
+    const [ totalPages, setTotalPages ] = useState(metaData?.last_page || 1);
+
     const columns = [
         { key: "id", label: "#" },
         { key: "amount", label: "Số tiền" },
@@ -15,15 +26,6 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
         { key: "date", label: "Ngày GD" },
     ];
 
-    // const data = walletHistory?.map((item, index) => ({
-    //     id: index + 1,
-    //     amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
-    //     type:
-    //         item?.type === COMMISSION_TYPE
-    //             ? `CTV-${item?.related_user?.username}`
-    //             : item?.type === WITHDRAW_TYPE? "Tiền tự rút":`Tiền chuyển-${item?.related_user?.username}`,
-    //     date: formatDateString(item.created_at,DEFAULT_FORMAT),
-    // }));
     const data = walletHistory?.map((item, index) => {
         let typeLabel = "";
 
@@ -52,20 +54,31 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
         }
 
         return {
-            id: index + 1,
+            id: index + 1 + (currentPage - 1) * metaData?.per_page, // đánh số đúng theo page
             amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
             type: typeLabel,
             date: formatDateString(item.created_at, DEFAULT_FORMAT),
         };
     });
+
+    const handlePageChange = (page) => {
+        if (page < 1 || page > totalPages) return;
+        setCurrentPage(page);
+        mutate();
+    };
+
+    useEffect(() => {
+        setTotalPages(metaData?.last_page || 1);
+    }, [ metaData ]);
+
     return (
         <div className="pt-[48px] pb-4">
             <div className="container">
                 <div className="grid grid-cols-14">
                     <div className="lg:col-span-10 lg:col-start-3 col-start-0 col-span-14 ">
-                        <div className={`p-3 rounded-sm shadow blue-bg`}>
+                        <div className="p-3 rounded-sm shadow blue-bg">
                             <div className="text-center">
-                                <h5 className={`!mb-1 gold-text`}>Số dư</h5>
+                                <h5 className="!mb-1 gold-text">Số dư</h5>
                                 <h4 className="mb-1 text-light">
                                     {balanceData?.balance
                                         ? (
@@ -85,7 +98,7 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
                                             );
                                         }
                                     }}
-                                    className={"bordered-btn"}
+                                    className="bordered-btn"
                                 >
                                     CHUYỂN
                                 </button>
@@ -99,57 +112,20 @@ export default function WalletPage({ walletHistory, balanceData, loading }) {
                                             );
                                         }
                                     }}
-                                    className={`bordered-btn text-center w-[100px]`}
+                                    className="bordered-btn text-center w-[100px]"
                                 >
                                     RÚT
                                 </button>
                             </div>
                         </div>
-
                         <TableBase
                             columns={columns}
                             data={data}
                             loading={loading}
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
                         />
-                        {/* Pagination */}
-                        {/* <nav className={styles.navigation}>
-                            <ul className={`${styles.pagination}`}>
-                                <li
-                                    className={`${styles.pageItem} ${styles.disabled}`}
-                                >
-                                    <span className={styles.pageLink}>‹</span>
-                                </li>
-                                <li
-                                    className={`${styles.pageItem} ${styles.active}`}
-                                >
-                                    <span className={styles.pageLink}>1</span>
-                                </li>
-                                <li className={`${styles.pageItem}`}>
-                                    <a
-                                        href="?page=2"
-                                        className={styles.pageLink}
-                                    >
-                                        2
-                                    </a>
-                                </li>
-                                <li className={`${styles.pageItem}`}>
-                                    <a
-                                        href="?page=3"
-                                        className={styles.pageLink}
-                                    >
-                                        3
-                                    </a>
-                                </li>
-                                <li className={`${styles.pageItem}`}>
-                                    <a
-                                        href="?page=2"
-                                        className={styles.pageLink}
-                                    >
-                                        ›
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav> */}
                     </div>
                 </div>
             </div>

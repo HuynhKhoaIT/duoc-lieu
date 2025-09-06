@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -11,10 +11,20 @@ import { formatDateString } from "@/utils";
 
 import styles from "./BillTable.module.scss";
 
-export default function BillTable({ ordersData, refetch,loading }) {
+export default function BillTable({
+    ordersData,
+    refetch,
+    loading,
+    mutate,
+    metaData,
+    currentPage,
+    setCurrentPage,
+}) {
     const [ isOpen, setIsOpen ] = useState(false);
     const { profile } = useAuth();
     const [ orderFeedback, setOrderFeedback ] = useState(null);
+    const [ totalPages, setTotalPages ] = useState(metaData?.last_page || 1);
+
     const columns = [
         { key: "id", label: "#" },
         { key: "order_code", label: "Mã ĐH" },
@@ -76,8 +86,19 @@ export default function BillTable({ ordersData, refetch,loading }) {
             setOrderFeedback(null);
         }
     };
+
+    const handlePageChange = (page) => {
+        if (page < 1 || page > totalPages) return;
+        setCurrentPage(page);
+        mutate();
+    };
+
+    useEffect(() => {
+        setTotalPages(metaData?.last_page || 1);
+    }, [ metaData ]);
+
     return (
-        <div className={`${styles.contactForm} pt-5 pb-3`}>
+        <div className={`${styles.contactForm} pt-[48px] pb-3`}>
             <div className="container">
                 <div className="flex">
                     <div className="w-full lg:w-9/12 mx-auto">
@@ -137,17 +158,14 @@ export default function BillTable({ ordersData, refetch,loading }) {
                         </div>
 
                         {/* Bảng đơn hàng */}
-                        <TableBase columns={columns} data={data} loading={loading}/>
-
-                        {/* Pagination */}
-                        <nav
-                            aria-label="Page navigation"
-                            className="pt-3 flex justify-center"
-                        >
-                            <ul className="flex gap-2">
-                                {/* thêm item sau */}
-                            </ul>
-                        </nav>
+                        <TableBase
+                            columns={columns}
+                            data={data}
+                            loading={loading}
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
                     </div>
                 </div>
             </div>

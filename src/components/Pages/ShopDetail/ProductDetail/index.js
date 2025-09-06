@@ -111,7 +111,7 @@ export default function ProductDetail({ dataDetail }) {
                                             qty: quantity,
                                         })
                                     }
-                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2"
+                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
                                 >
                                     <ShoppingCart size={18} />
                                     Thêm vào giỏ hàng
@@ -119,7 +119,7 @@ export default function ProductDetail({ dataDetail }) {
 
                                 <button
                                     onClick={() => buyNow(dataDetail)}
-                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2"
+                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
                                 >
                                     <CreditCard size={18} />
                                     Mua ngay
@@ -150,6 +150,18 @@ export default function ProductDetail({ dataDetail }) {
                             <Section
                                 title="HƯỚNG DẪN SỬ DỤNG"
                                 content={dataDetail?.instructions}
+                            />
+                            <Section
+                                title="Thành Phần"
+                                content={dataDetail?.ingredients}
+                            />
+                            <Section
+                                title="Cảnh báo an toàn"
+                                content={dataDetail?.safety_warning}
+                            />
+                            <Section
+                                title="Thông tin quan trọng cần lưu ý"
+                                content={dataDetail?.important_info}
                             />
                         </div>
                     </div>

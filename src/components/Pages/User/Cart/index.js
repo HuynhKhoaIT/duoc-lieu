@@ -18,6 +18,7 @@ export default function CartPage({ cartsData }) {
         decrementQty,
         removeItem,
     } = useCart(cartsData);
+    console.log(cartItems);
 
     return (
         <div className={`${styles.cartSection} mt-[48px] mb-[48px]`}>
@@ -51,7 +52,7 @@ export default function CartPage({ cartsData }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {cartItems.map((item) => (
+                                        {cartItems?.map((item) => (
                                             <tr
                                                 key={item.id}
                                                 className={styles.tableBodyRow}

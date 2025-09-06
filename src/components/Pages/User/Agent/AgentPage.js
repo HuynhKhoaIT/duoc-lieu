@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 import useAuth from "@/hooks/useAuth";
 import { maskPhone } from "@/utils";
@@ -16,12 +17,12 @@ function AccordionItem({ item, level = 1 }) {
                 className={styles.btnItem}
                 onClick={() => hasChildren && setOpen(!open)}
             >
-                {item.name} | {maskPhone(item.phone_number)}
+                {item.name} | {item?.username} | {maskPhone(item.phone_number)}
             </button>
 
             <div
                 className={`overflow-hidden transition-[max-height] duration-500 ease-in-out pl-4`}
-                style={{ maxHeight: open ? "100%" : "0px" }}
+                style={{ maxHeight: open ? "10000px" : "0px" }}
             >
                 {hasChildren &&
                     item?.referrals?.map((child) => (
@@ -36,7 +37,7 @@ function AccordionItem({ item, level = 1 }) {
     );
 }
 
-export default function AgentPage({ usersData }) {
+export default function AgentPage({ usersData, isLoading }) {
     const { profile } = useAuth();
     const images = [
         "/images/npp.png",
@@ -46,6 +47,7 @@ export default function AgentPage({ usersData }) {
         "/images/npp4.png",
         "/images/npp5.png",
     ];
+
     return (
         <div className="mt-12 mb-12">
             <div className="max-w-6xl mx-auto px-4">
@@ -55,23 +57,55 @@ export default function AgentPage({ usersData }) {
                             <h5 className={`text-center mb-2 gold-text`}>
                                 Danh Hiệu Hiện Tại
                             </h5>
-                            <div className="flex justify-center items-center mt-2 flex-wrap gap-2 px-5">
-                                {images.map((src, index) => (
-                                    <img
-                                        key={index}
-                                        className={`p-1 rounded ${profile?.agent_level === index ? styles.grayBg : ""}`}
-                                        src={src}
-                                        width="80"
-                                        alt={`npp-${index}`}
-                                    />
-                                ))}
-                            </div>
+
+                            {isLoading ? (
+                                <div className="flex justify-center items-center mt-2 flex-wrap gap-2 px-5">
+                                    {Array.from(new Array(6)).map((_, idx) => (
+                                        <Skeleton
+                                            key={idx}
+                                            variant="rectangular"
+                                            width={80}
+                                            height={80}
+                                            className="rounded"
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex justify-center items-center mt-2 flex-wrap gap-2 px-5">
+                                    {images.map((src, index) => (
+                                        <img
+                                            key={index}
+                                            className={`p-1 rounded ${
+                                                profile?.agent_level === index
+                                                    ? styles.grayBg
+                                                    : ""
+                                            }`}
+                                            src={src}
+                                            width="80"
+                                            alt={`npp-${index}`}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         <div className="border rounded-[4px] p-2">
-                            {usersData?.map((item) => (
-                                <AccordionItem key={item.id} item={item} />
-                            ))}
+                            {isLoading ? (
+                                <div className="space-y-3">
+                                    {Array.from(new Array(3)).map((_, idx) => (
+                                        <Skeleton
+                                            key={idx}
+                                            variant="rectangular"
+                                            width="100%"
+                                            height={67}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                usersData?.map((item) => (
+                                    <AccordionItem key={item.id} item={item} />
+                                ))
+                            )}
                         </div>
                     </div>
                 </div>

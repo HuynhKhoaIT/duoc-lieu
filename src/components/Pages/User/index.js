@@ -1,14 +1,83 @@
+import { Skeleton } from "@mui/material";
+
 import { agentLevelOptions, userStatusOptions } from "@/constants";
+import { formatDateString } from "@/utils";
 
 import styles from "./User.module.scss";
 
-export default function UserDashboardPage({ dashboardData }) {
-    console.log("dashboardData", dashboardData);
+export default function UserDashboardPage({ dashboardData, loading }) {
+    const statusInfo = userStatusOptions.find(
+        (item) => item.value === dashboardData?.user?.status,
+    );
+    if (loading) {
+        return (
+            <div className="pt-[48px] pb-[24px] mb-2">
+                <div className="container">
+                    <div className="flex flex-wrap">
+                        <div className="w-full lg:w-9/12 mx-auto">
+                            <div className="mb-3">
+                                <Skeleton
+                                    variant="rectangular"
+                                    height={80}
+                                    className="mb-3 rounded-lg"
+                                />
+                            </div>
+
+                            <div className="flex flex-wrap -mx-2">
+                                {[ 1, 2, 3 ].map((i) => (
+                                    <div
+                                        key={i}
+                                        className="w-full md:w-1/2 lg:w-1/3 px-2"
+                                    >
+                                        <Skeleton
+                                            variant="rectangular"
+                                            height={100}
+                                            className="mb-3 rounded-lg"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap mt-3 -mx-2">
+                                {[ 1, 2, 3 ].map((i) => (
+                                    <div
+                                        key={i}
+                                        className="w-full md:w-1/3 px-2"
+                                    >
+                                        <Skeleton
+                                            variant="rectangular"
+                                            height={100}
+                                            className="mb-3 rounded-lg"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="pt-[48px] pb-[24px] mb-2">
             <div className="container">
                 <div className="flex flex-wrap">
                     <div className="w-full lg:w-9/12 mx-auto">
+                        {statusInfo?.value === "expiring_soon" && (
+                            <div className="mb-2">
+                                <h6 className={"!text-red-600"}>
+                                    <i>
+                                        # Cảnh báo: {formatDateString(
+                                            dashboardData?.user
+                                                ?.commission_expired_at,
+                                        )}{" "}
+                                        NGÀY CUỐI ĐỂ PHÙ HỢP HƯỞNG CHO TÀI KHOẢN
+                                        CỦA BẠN
+                                    </i>
+                                </h6>
+                            </div>
+                        )}
                         <div className="flex flex-wrap">
                             <div className="w-full">
                                 <div
@@ -80,8 +149,17 @@ export default function UserDashboardPage({ dashboardData }) {
                                     <div className="flex items-center">
                                         <div className="flex justify-center items-center mr-3">
                                             <h3>
+                                                {/* <i
+                                                    className="fas fa-check"
+                                                    style={{
+                                                        color: statusInfo?.color,
+                                                    }}
+                                                /> */}
                                                 <i
-                                                    className={`fas fa-heartbeat gold-text`}
+                                                    className={statusInfo?.icon}
+                                                    style={{
+                                                        color: statusInfo?.color,
+                                                    }}
                                                 />
                                             </h3>
                                         </div>
@@ -91,14 +169,9 @@ export default function UserDashboardPage({ dashboardData }) {
                                             >
                                                 Trạng thái
                                             </span>
-                                            <h5 className="text-center text-light mb-1">
-                                                {
-                                                    userStatusOptions[
-                                                        dashboardData?.user
-                                                            ?.status
-                                                    ]
-                                                }
-                                            </h5>
+                                            <h4 className="text-center text-light mb-1">
+                                                {statusInfo?.label}
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +253,7 @@ export default function UserDashboardPage({ dashboardData }) {
                                             Số Đại Lý 1
                                         </span>
                                         <h4 className="text-center text-light">
-                                            {dashboardData?.network?.f1_count}{" "}|{" "}
+                                            {dashboardData?.network?.f1_count} |{" "}
                                             {
                                                 dashboardData?.network
                                                     ?.members_completed_orders
@@ -232,7 +305,7 @@ export default function UserDashboardPage({ dashboardData }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Doanh Số Cá Nhân
+                                                Tiêu Dùng Cá Nhân
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(
@@ -261,7 +334,7 @@ export default function UserDashboardPage({ dashboardData }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Doanh Số Đại Lý
+                                                Doanh Số Giới Thiệu
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(

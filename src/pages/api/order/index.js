@@ -12,7 +12,10 @@ export default async function handler(req, res) {
     }
 
     try {
-        const response = await fetch(apiConfig.order.getList.url, {
+        const { page = 1 } = req.query;
+        const url = `${apiConfig.order.getList.url}?page=${page}&per_page=10`;
+
+        const response = await fetch(url, {
             method: apiConfig.order.getList.method,
             headers: {
                 "Content-Type": "application/json",

@@ -28,6 +28,7 @@ export default function CheckoutForm({ cartsData }) {
     const [ loading, setLoading ] = useState(false);
     const { cartItems, totalPrice, totalQty } = useCart(cartsData);
 
+    console.log("cartItems",cartItems);
     const toggle = (id) => {
         setOpen(open === id ? null : id);
     };
@@ -89,7 +90,8 @@ export default function CheckoutForm({ cartsData }) {
                     setCart(0);
                     setData([]);
                 } else {
-                    toast.error("Đặt hàng thất bại");
+
+                    showAlert(result?.message);
                 }
             } catch (error) {
                 console.error(error);
@@ -117,7 +119,7 @@ export default function CheckoutForm({ cartsData }) {
                     setData([]);
                     removeLocalItem(storageKeys.CART_DATA);
                 } else {
-                    toast.error("Đặt hàng thất bại");
+                    showAlert(res?.message);
                 }
             } catch (error) {
                 console.error(error);
@@ -143,12 +145,12 @@ export default function CheckoutForm({ cartsData }) {
                             </div>
 
                             <div className={styles.checkoutAccordionWrap}>
-                                <PaymentMethod open={open} toggle={toggle} />
                                 <ShippingInfo
-                                    open={open}
+                                    open={'shippingInfo'}
                                     toggle={toggle}
                                     profile={profile}
                                 />
+                                <PaymentMethod open={"payment"} toggle={toggle} />
                             </div>
                         </div>
 

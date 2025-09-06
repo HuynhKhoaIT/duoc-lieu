@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
@@ -8,14 +8,24 @@ import BillTable from "@/components/Pages/User/Bill";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function BillPage() {
+    const [ currentPage, setCurrentPage ] = useState(1);
 
-    const { data, error, isLoading, mutate } = useSWR("/api/order", fetcher);
-
+    const { data, error, isLoading, mutate } = useSWR(
+        `/api/order?page=${currentPage}`,
+        fetcher,
+    );
 
     return (
         <Fragment>
             <Breadcrumb title="Đơn hàng" />
-            <BillTable ordersData={data?.data} refetch={mutate} loading={isLoading}/>
+            <BillTable
+                ordersData={data?.data}
+                mutate={mutate}
+                metaData={data?.meta}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                loading={isLoading}
+            />
             <LogoCarousel />
         </Fragment>
     );

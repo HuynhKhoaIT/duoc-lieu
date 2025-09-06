@@ -2,7 +2,6 @@ import apiConfig from "@/constants/apiConfig";
 
 export default async function handler(req, res) {
     const token = req.cookies.token;
-
     if (req.method !== "GET") {
         res.setHeader("Allow", [ "GET" ]);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
@@ -13,12 +12,8 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { page = 1 } = req.query;
-
-        const url = `${apiConfig.wallet.history.url}?page=${page}`;
-
-        const response = await fetch(url, {
-            method: apiConfig.wallet.history.method,
+        const response = await fetch(apiConfig.referrals.getList.url, {
+            method: apiConfig.referrals.getList.method,
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -26,11 +21,9 @@ export default async function handler(req, res) {
         });
 
         const data = await response.json();
-
-        // Trả dữ liệu về client
-        res.status(response.status).json(data);
+        res.status(200).json(data);
     } catch (err) {
-        console.error("Error fetching wallet history:", err);
+        console.error("Error fetching data:", err);
         res.status(500).json({ message: "Error fetching data" });
     }
 }

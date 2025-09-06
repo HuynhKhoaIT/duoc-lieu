@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { createTheme, TextField, ThemeProvider } from "@mui/material";
 import { toast } from "sonner";
 
 import { storageKeys } from "@/constants";
@@ -9,7 +10,14 @@ import useAlert from "@/hooks/useAlert"; // import hook SweetAlert
 import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./RegisterForm.module.scss";
-
+const customTheme = createTheme({
+    palette: {
+        primary: {
+            main: "#DAA520", // Màu chính (ví dụ xanh teal)
+            contrastText: "#fff", // Màu chữ trên nền primary
+        },
+    },
+});
 export default function RegisterForm() {
     const router = useRouter();
     const { phone } = router.query;
@@ -149,6 +157,17 @@ export default function RegisterForm() {
                                             placeholder={field.label}
                                             className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
                                         />
+                                        {/* <ThemeProvider theme={customTheme}>
+                                            <TextField
+                                                type={field.type || "text"}
+                                                name={field.name}
+                                                label={field.label}
+                                                fullWidth
+                                                variant="outlined"
+                                                size="medium"
+                                                sx={{ maxWidth: 400 }}
+                                            />
+                                        </ThemeProvider> */}
                                     </div>
                                 ))}
 

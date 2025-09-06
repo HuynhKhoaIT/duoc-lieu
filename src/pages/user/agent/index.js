@@ -1,53 +1,21 @@
 import { Fragment } from "react";
+import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import AgentPage from "@/components/Pages/User/Agent/AgentPage";
-import apiConfig from "@/constants/apiConfig";
-import fetcher from "@/services/fetcher";
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function Agent({ usersData }) {
+function Agent() {
+    const { data, error, isLoading, mutate } = useSWR(`/api/referrals`, fetcher);
     return (
         <Fragment>
             <Breadcrumb title="Đại lý" />
-            <AgentPage usersData={usersData} />
+            <AgentPage usersData={data?.data} isLoading={isLoading} error={error} />
             <LogoCarousel />
         </Fragment>
     );
-}
-
-export async function getServerSideProps(context) {
-    const token = context.req.cookies.token;
-
-    if (!token) {
-        return {
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            },
-        };
-    }
-
-    try {
-        const res = await fetcher(apiConfig.referrals.getList, {
-            context: { token },
-        });
-
-        return {
-            props: {
-                usersData: res.data?.data || [],
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching referrals:", error.message);
-
-        return {
-            props: {
-                usersData: [],
-            },
-        };
-    }
 }
 
 Agent.getLayout = function getLayout(page) {

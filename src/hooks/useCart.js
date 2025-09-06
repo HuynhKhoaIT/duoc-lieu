@@ -8,7 +8,7 @@ import { getLocalData, setLocalData } from "@/utils/localStorage";
 
 export default function useCart(initialData = []) {
     const { isAuthenticated } = useAuth();
-    const { cart, setCart } = useGlobalContext();
+    const { cart, setCart, data, setData } = useGlobalContext();
 
     const [ cartItems, setCartItems ] = useState(initialData);
     const [ loading, setLoading ] = useState(false);
@@ -18,10 +18,12 @@ export default function useCart(initialData = []) {
         if (!isAuthenticated) {
             const localCart = getLocalData(storageKeys.CART_DATA) || [];
             setCartItems(localCart);
+            setData(localCart); // đồng bộ với GlobalContext
         } else {
             setCartItems(initialData);
+            setData(initialData); // đồng bộ với GlobalContext
         }
-    }, [ isAuthenticated ]);
+    }, [ isAuthenticated,initialData ]);
 
     /** ---------------------------
      * ADD TO CART
@@ -53,6 +55,7 @@ export default function useCart(initialData = []) {
             }
 
             setCartItems(existingCart);
+            setData(existingCart); // cập nhật GlobalContext
             setLocalData(storageKeys.CART_DATA, existingCart);
 
             const totalQty = existingCart.reduce(
@@ -108,6 +111,7 @@ export default function useCart(initialData = []) {
             }
 
             setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setCart(cart + qty);
 
             toast.success("Thêm vào giỏ hàng thành công");
@@ -128,6 +132,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
             );
             setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart + 1);
             return;
@@ -143,11 +148,11 @@ export default function useCart(initialData = []) {
                 }),
             });
 
-            setCartItems(
-                cartItems.map((i) =>
-                    i.id === item?.id ? { ...i, quantity: i.quantity + 1 } : i,
-                ),
+            const updatedCart = cartItems.map((i) =>
+                i.id === item?.id ? { ...i, quantity: i.quantity + 1 } : i,
             );
+            setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setCart(cart + 1);
         } catch (error) {
             console.error("Lỗi khi tăng số lượng:", error);
@@ -169,6 +174,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
             );
             setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart - 1);
             return;
@@ -184,11 +190,11 @@ export default function useCart(initialData = []) {
                 }),
             });
 
-            setCartItems(
-                cartItems.map((i) =>
-                    i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
-                ),
+            const updatedCart = cartItems.map((i) =>
+                i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
             );
+            setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setCart(cart - 1);
         } catch (error) {
             console.error("Lỗi khi giảm số lượng:", error);
@@ -203,6 +209,7 @@ export default function useCart(initialData = []) {
         if (!isAuthenticated) {
             const updatedCart = cartItems.filter((i) => i.id !== item.id);
             setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart - item.quantity);
             return;
@@ -213,7 +220,9 @@ export default function useCart(initialData = []) {
                 method: "DELETE",
             });
 
-            setCartItems(cartItems.filter((i) => i.id !== item.id));
+            const updatedCart = cartItems.filter((i) => i.id !== item.id);
+            setCartItems(updatedCart);
+            setData(updatedCart); // cập nhật GlobalContext
             setCart(cart - item.quantity);
         } catch (error) {
             console.error("Lỗi khi xoá sản phẩm:", error);
