@@ -6,7 +6,7 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 import useAuth from "@/hooks/useAuth";
 import { getLocalData, setLocalData } from "@/utils/localStorage";
 
-export default function useCart(initialData = []) {
+export default function useCart(initialData) {
     const { isAuthenticated } = useAuth();
     const { cart, setCart, setData } = useGlobalContext();
 
@@ -20,8 +20,7 @@ export default function useCart(initialData = []) {
         } else {
             setCartItems(initialData);
         }
-    }, [ isAuthenticated,initialData ]);
-
+    }, [ isAuthenticated, initialData ]);
 
     const addToCart = async ({ item, qty = 1 }) => {
         if (!item?.id) return;
@@ -124,7 +123,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); 
+            setData(updatedCart);
             setLocalData(storageKeys.CART_DATA, updatedCart);
             setCart(cart + 1);
             return;
@@ -183,7 +182,7 @@ export default function useCart(initialData = []) {
                 i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i,
             );
             setCartItems(updatedCart);
-            setData(updatedCart); 
+            setData(updatedCart);
             setCart(cart - 1);
         } catch (error) {
             console.error("Lỗi khi giảm số lượng:", error);
@@ -227,7 +226,7 @@ export default function useCart(initialData = []) {
             )
             : 0;
     }, [ cartItems ]);
-    
+
     const totalQty = useMemo(() => {
         return Array.isArray(cartItems)
             ? cartItems.reduce((acc, item) => acc + (item?.quantity || 0), 0)
