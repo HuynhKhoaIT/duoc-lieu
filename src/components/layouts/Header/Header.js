@@ -79,10 +79,21 @@ export default function Header() {
     }, [ profile ]);
 
     async function handleLogout() {
-        await fetch("/api/account/logout", { method: "POST" });
-        removeLocalItem(storageKeys.PROFILE);
-        removeLocalItem(storageKeys.IS_LOGIN);
-        window.location.href = "/login";
+        try {
+            removeLocalItem(storageKeys.PROFILE);
+            removeLocalItem(storageKeys.IS_LOGIN);
+
+            await fetch("/api/account/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            window.location.href = "/login";
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     }
     return (
         <div

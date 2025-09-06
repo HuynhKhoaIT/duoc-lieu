@@ -4,11 +4,11 @@ export default function handler(req, res) {
     res.setHeader(
         "Set-Cookie",
         serialize("token", "", {
-            path: "/", // xoá toàn bộ path
+            path: "/", 
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            expires: new Date(0), // set expired
+            expires: new Date(0), 
         }),
     );
 
