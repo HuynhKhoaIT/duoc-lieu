@@ -13,7 +13,7 @@ function TransferPage() {
         isLoading: balanceIsLoading,
         error: balanceError,
         mutate: balanceMutate,
-    } = useSWR("/api/wallet/ballance", fetcher);
+    } = useSWR("/api/wallet/balance", fetcher);
 
     return (
         <Fragment>
