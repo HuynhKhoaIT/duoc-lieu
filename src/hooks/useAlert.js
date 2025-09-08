@@ -1,13 +1,15 @@
 "use client";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function useAlert() {
+    const router = useRouter();
     const PRIMARY_COLOR = "#008080";
     const SUB_PRIMARY_COLOR = "goldenrod";
 
-    const showAlert = (message, icon = "warning") => {
+    const showAlert = (message, icon = "warning", redirectPath = null) => {
         Swal.fire({
-            icon, 
+            icon,
             text: message,
             confirmButtonText: "OK",
             confirmButtonColor: PRIMARY_COLOR,
@@ -22,45 +24,35 @@ export default function useAlert() {
                 swalIcon.style.borderColor = PRIMARY_COLOR;
                 swalIcon.style.color = PRIMARY_COLOR;
 
-                /** ================================
-                 *  Success Icon Customization
-                 *  ================================ */
                 if (icon === "success") {
                     const successRing = swalIcon.querySelector(
-                        ".swal2-success-ring",
+                        ".swal2-success-ring"
                     );
                     const successLineTip = swalIcon.querySelector(
-                        ".swal2-success-line-tip",
+                        ".swal2-success-line-tip"
                     );
                     const successLineLong = swalIcon.querySelector(
-                        ".swal2-success-line-long",
+                        ".swal2-success-line-long"
                     );
-
-                    if (successRing)
-                        successRing.style.borderColor = PRIMARY_COLOR;
-                    if (successLineTip)
-                        successLineTip.style.backgroundColor = PRIMARY_COLOR;
-                    if (successLineLong)
-                        successLineLong.style.backgroundColor = PRIMARY_COLOR;
+                    if (successRing) successRing.style.borderColor = PRIMARY_COLOR;
+                    if (successLineTip) successLineTip.style.backgroundColor = PRIMARY_COLOR;
+                    if (successLineLong) successLineLong.style.backgroundColor = PRIMARY_COLOR;
                 }
 
-                /** ================================
-                 *  Error Icon Customization
-                 *  ================================ */
                 if (icon === "error") {
                     const xMark = swalIcon.querySelector(".swal2-x-mark");
                     const xMarkLines =
                         swalIcon.querySelectorAll(".swal2-x-mark-line");
-
-                    // Vòng ngoài
                     if (xMark) xMark.style.borderColor = PRIMARY_COLOR;
-
-                    // Hai đường chéo
                     xMarkLines.forEach((line) => {
                         line.style.backgroundColor = PRIMARY_COLOR;
                     });
                 }
             },
+        }).then((result) => {
+            if (result.isConfirmed && redirectPath) {
+                router.push(redirectPath); // điều hướng sang path khác
+            }
         });
     };
 

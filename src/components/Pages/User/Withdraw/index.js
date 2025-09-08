@@ -102,10 +102,10 @@ export default function WithdrawForm({ balanceData }) {
                 toast.success("Rút tiền thành công.");
                 push(paths.wallet);
             } else {
-                showAlert(data?.message || "Rút tiền thất bại.");
+                showAlert(data?.message, "warning", paths.profile);
             }
         } catch (error) {
-            showAlert(error?.message || "Lỗi hệ thống.");
+            showAlert(error?.message, "warning", paths.profile);
         } finally {
             setShowModal(false);
         }

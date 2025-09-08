@@ -112,12 +112,13 @@
 .mean-bar {
     background-color: transparent;
     position: absolute;
-    right: 0;
-    top: 50px;
-    width: 100%;
+    top: 60px;
+    left: 50%; /* Đưa phần tử ra giữa màn hình theo chiều ngang */
+    transform: translateX(-50%); /* Dịch sang trái 50% chiều rộng của chính nó */
     overflow: hidden;
-     transition: height 0.3s ease-in-out; /* Hiệu ứng transition cho height */
-  height: 0; /* Ẩn menu ban đầu */
+    transition: height 0.3s ease-in-out;
+    width: 92%;
+    height: 0; /* Ẩn menu ban đầu */
 
   &.show {
     height: 500PX; /* Mở menu với height 100% */
@@ -133,20 +134,20 @@
     width: 100%;
     background: rgb(0, 76, 73);
     ul{
-        padding: 0;
+        padding: 0 !important;
         margin: 0;
         width: 100%;
-        list-style-type: none;
+        list-style-type: none !important;
     }
     ul li {
         position: relative;
         float: left;
         width: 100%;
-        padding: 0.5em 5%;
+        padding: 0;
         a {
             display: block;
             float: left;
-            width: 90%;
+            width: 100%;
             padding: 0.5em 5%;
             margin: 0;
             text-align: left;

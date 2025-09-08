@@ -17,7 +17,7 @@ function AccordionItem({ item, level = 1 }) {
                 className={styles.btnItem}
                 onClick={() => hasChildren && setOpen(!open)}
             >
-                {item.name} | {item?.username} | {maskPhone(item.phone_number)}
+                {item.name} | {item?.username} | {maskPhone(item.phone_number)} | {(item.personal_sales*1).toLocaleString("vi-VN")}
             </button>
 
             <div
@@ -102,9 +102,14 @@ export default function AgentPage({ usersData, isLoading }) {
                                     ))}
                                 </div>
                             ) : (
-                                usersData?.map((item) => (
-                                    <AccordionItem key={item.id} item={item} />
-                                ))
+                                usersData
+                                    ?.flatMap((item) => item.referrals || [])
+                                    .map((child) => (
+                                        <AccordionItem
+                                            key={child.id}
+                                            item={child}
+                                        />
+                                    ))
                             )}
                         </div>
                     </div>
