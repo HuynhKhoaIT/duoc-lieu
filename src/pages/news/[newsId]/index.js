@@ -1,9 +1,10 @@
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import NewsDetailPage from "@/components/Pages/NewsDetail/NewsDetailPage";
 import apiConfig from "@/constants/apiConfig";
 
-function NewsDetail({ news, newsList, error, errorList }) {
+function NewsDetail({ news, newsList, error, errorList, slideList }) {
     const metadata = {
         title: news?.title || "Tin tức",
         description: news?.description || news?.excerpt || "Chi tiết tin tức",
@@ -17,23 +18,28 @@ function NewsDetail({ news, newsList, error, errorList }) {
                 error={error}
                 errorList={errorList}
             />
+            <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
 }
 
 export async function getStaticProps({ params }) {
     try {
-        const [ res, resList ] = await Promise.all([
+        const [ res, resList, resSlide ] = await Promise.all([
             fetch(apiConfig.news.getDetail.url.replace(":id", params.newsId), {
                 cache: "force-cache",
             }),
             fetch(apiConfig.news.getList.url, {
                 cache: "force-cache",
             }),
+            fetch(apiConfig.slide.getList.url, {
+                cache: "force-cache",
+            }),
         ]);
 
         const news = res.ok ? await res.json() : null;
         const newsList = resList.ok ? await resList.json() : [];
+        const slideList = resSlide.ok ? await resSlide.json() : [];
 
         return {
             props: {
@@ -41,6 +47,8 @@ export async function getStaticProps({ params }) {
                 newsList,
                 error: res.ok ? null : `Error ${res.status}`,
                 errorList: resList.ok ? null : `Error ${resList.status}`,
+                slideList,
+                errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
             revalidate: 300, // sau 300s sẽ build lại
         };
@@ -51,6 +59,8 @@ export async function getStaticProps({ params }) {
                 newsList: [],
                 error: err.message,
                 errorList: err.message,
+                slideList: [],
+                errorSlide: err.message,
             },
             revalidate: 60, // fallback nhanh hơn nếu lỗi
         };

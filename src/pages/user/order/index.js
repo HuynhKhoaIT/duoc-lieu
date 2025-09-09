@@ -5,25 +5,29 @@ import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel
 import Layout from "@/components/layouts/Layout";
 import ProductOrderPage from "@/components/Pages/User/Order/ProductOrderPage";
 import apiConfig from "@/constants/apiConfig";
-function OrderPage({ categories, products }) {
+function OrderPage({ categories, products, slideList }) {
     return (
         <Fragment>
             <Breadcrumb title={"Đặt hàng"} />
             <ProductOrderPage categories={categories} productsData={products} />
-            <LogoCarousel />
+            <LogoCarousel slideList={slideList} />
         </Fragment>
     );
 }
 
 export async function getStaticProps() {
     try {
-        const [ res, productsRes ] = await Promise.all([
+        const [ res, productsRes, resSlide ] = await Promise.all([
             fetch(apiConfig.category.getList.url, { cache: "force-cache" }),
             fetch(apiConfig.products.getList.url, { cache: "force-cache" }),
+            fetch(apiConfig.slide.getList.url, {
+                cache: "force-cache",
+            }),
         ]);
 
         const categories = res.ok ? await res.json() : null;
         const products = productsRes.ok ? await productsRes.json() : null;
+        const slideList = resSlide.ok ? await resSlide.json() : null;
 
         return {
             props: {
@@ -33,6 +37,8 @@ export async function getStaticProps() {
                 errorProducts: productsRes.ok
                     ? null
                     : `Error ${productsRes.status}`,
+                slideList,
+                errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
             revalidate: 3600,
         };
@@ -43,6 +49,8 @@ export async function getStaticProps() {
                 products: null,
                 error: err.message,
                 errorProducts: err.message,
+                slideList: [],
+                errorSlide: err.message,
             },
             revalidate: 60,
         };

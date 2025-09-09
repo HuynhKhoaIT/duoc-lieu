@@ -12,7 +12,6 @@ export default function ContactPage() {
             <ContactSection />
             <FindLocation />
             <MapEmbed />
-            <LogoCarousel />
         </>
     );
 }

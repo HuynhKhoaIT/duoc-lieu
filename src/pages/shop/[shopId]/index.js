@@ -1,12 +1,14 @@
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ShopDetailPage from "@/components/Pages/ShopDetail/ShopDetailPage";
 import apiConfig from "@/constants/apiConfig";
 
-function ShopDetail({ products, productsList, error, errorList }) {
+function ShopDetail({ products, productsList, error, errorList, slideList }) {
     const metadata = {
         title: products?.name || "Sản phẩm",
-        description: products?.description || products?.excerpt || "Chi tiết sản phẩm",
+        description:
+            products?.description || products?.excerpt || "Chi tiết sản phẩm",
         image: products?.thumbnail || "/images/logo.png",
     };
     return (
@@ -17,13 +19,14 @@ function ShopDetail({ products, productsList, error, errorList }) {
                 error={error}
                 errorList={errorList}
             />
+            <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
 }
 
 export async function getStaticProps({ params }) {
     try {
-        const [ res, resList ] = await Promise.all([
+        const [ res, resList, resSlide ] = await Promise.all([
             fetch(
                 apiConfig.products.getDetail.url.replace(":id", params.shopId),
                 {
@@ -33,10 +36,14 @@ export async function getStaticProps({ params }) {
             fetch(apiConfig.products.getList.url, {
                 cache: "force-cache",
             }),
+            fetch(apiConfig.slide.getList.url, {
+                cache: "force-cache",
+            }),
         ]);
 
         const products = res.ok ? await res.json() : null;
         const productsList = resList.ok ? await resList.json() : [];
+        const slideList = resSlide.ok ? await resSlide.json() : [];
 
         return {
             props: {
@@ -44,6 +51,8 @@ export async function getStaticProps({ params }) {
                 productsList,
                 error: res.ok ? null : `Error ${res.status}`,
                 errorList: resList.ok ? null : `Error ${resList.status}`,
+                slideList,
+                errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
             revalidate: 300, // sau 300s sẽ build lại
         };
@@ -54,6 +63,8 @@ export async function getStaticProps({ params }) {
                 productsList: [],
                 error: err.message,
                 errorList: err.message,
+                slideList: [],
+                errorSlide: err.message,
             },
             revalidate: 60, // fallback nhanh hơn nếu lỗi
         };

@@ -5,10 +5,14 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import UserDashboardPage from "@/components/Pages/User";
+import apiConfig from "@/constants/apiConfig";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-function UserPage() {
-    const { data, error, isLoading, mutate } = useSWR("/api/dashboard", fetcher);
+function UserPage({ slideList }) {
+    const { data, error, isLoading, mutate } = useSWR(
+        "/api/dashboard",
+        fetcher,
+    );
 
     if (error) return <p>Lỗi tải giỏ hàng!</p>;
 
@@ -16,9 +20,35 @@ function UserPage() {
         <Fragment>
             <Breadcrumb title={"Tổng Quát"} />
             <UserDashboardPage dashboardData={data?.data} loading={isLoading} />
-            <LogoCarousel />
+            <LogoCarousel slideList={slideList} />
         </Fragment>
     );
+}
+
+export async function getStaticProps() {
+    try {
+        const resList = await fetch(apiConfig.slide.getList.url, {
+            cache: "force-cache",
+        });
+
+        const slideList = resList.ok ? await resList.json() : [];
+
+        return {
+            props: {
+                slideList,
+                errorList: resList.ok ? null : `Error ${resList.status}`,
+            },
+            revalidate: 500,
+        };
+    } catch (err) {
+        return {
+            props: {
+                slideList: [],
+                errorList: err.message,
+            },
+            revalidate: 60,
+        };
+    }
 }
 
 UserPage.getLayout = function getLayout(page) {

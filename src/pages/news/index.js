@@ -1,31 +1,46 @@
+import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import NewsPage from "@/components/Pages/News/News";
 import apiConfig from "@/constants/apiConfig";
-function News({ newsList }) {
-    return <NewsPage data={newsList} />;
+function News({ newsList, slideList }) {
+    return (
+        <>
+            <NewsPage data={newsList} />
+            <LogoCarousel slideList={slideList} />
+        </>
+    );
 }
 export async function getStaticProps() {
     try {
-        const resList = await fetch(apiConfig.news.getList.url, {
-            cache: "force-cache",
-        });
+        const [ resSlide, resList ] = await Promise.all([
+            fetch(apiConfig.slide.getList.url, {
+                cache: "force-cache",
+            }),
+            fetch(apiConfig.news.getList.url, {
+                cache: "force-cache",
+            }),
+        ]);
 
         const newsList = resList.ok ? await resList.json() : [];
-
+        const slideList = resSlide.ok ? await resSlide.json() : [];
         return {
             props: {
                 newsList,
                 errorList: resList.ok ? null : `Error ${resList.status}`,
+                slideList,
+                errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
-            revalidate: 300, // sau 300s sẽ build lại
+            revalidate: 300,
         };
     } catch (err) {
         return {
             props: {
                 newsList: [],
                 errorList: err.message,
+                slideList: [],
+                errorSlide: err.message,
             },
-            revalidate: 60, // fallback nhanh hơn nếu lỗi
+            revalidate: 60,
         };
     }
 }

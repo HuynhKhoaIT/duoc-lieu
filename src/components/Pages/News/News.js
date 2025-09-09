@@ -2,7 +2,6 @@ import React from "react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import NewsCardItem from "@/components/Common/Card/NewsCardItem";
-import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 
 export default function NewsPage({ data }) {
     return (
@@ -15,7 +14,6 @@ export default function NewsPage({ data }) {
                     ))}
                 </div>
             </div>
-            <LogoCarousel />
         </>
     );
 }

@@ -21,6 +21,7 @@ function Gtable() {
     );
 }
 
+
 Gtable.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };

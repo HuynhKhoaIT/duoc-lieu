@@ -5,10 +5,11 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import WalletPage from "@/components/Pages/User/Wallet";
+import apiConfig from "@/constants/apiConfig";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function UserWallet() {
+function UserWallet({ slideList }) {
     const [ currentPage, setCurrentPage ] = useState(1);
 
     // Fetch history data with pagination
@@ -37,11 +38,37 @@ function UserWallet() {
                 mutate={mutate}
                 metaData={historyData?.meta}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage} 
+                setCurrentPage={setCurrentPage}
             />
-            <LogoCarousel />
+            <LogoCarousel slideList={slideList} />
         </Fragment>
     );
+}
+
+export async function getStaticProps() {
+    try {
+        const resList = await fetch(apiConfig.slide.getList.url, {
+            cache: "force-cache",
+        });
+
+        const slideList = resList.ok ? await resList.json() : [];
+
+        return {
+            props: {
+                slideList,
+                errorList: resList.ok ? null : `Error ${resList.status}`,
+            },
+            revalidate: 500,
+        };
+    } catch (err) {
+        return {
+            props: {
+                slideList: [],
+                errorList: err.message,
+            },
+            revalidate: 60,
+        };
+    }
 }
 
 UserWallet.getLayout = function getLayout(page) {

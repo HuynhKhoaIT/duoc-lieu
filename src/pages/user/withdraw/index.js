@@ -5,9 +5,10 @@ import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import WithdrawForm from "@/components/Pages/User/Withdraw";
+import apiConfig from "@/constants/apiConfig";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function WithDrawPage() {
+function WithDrawPage({ slideList }) {
     const {
         data: balanceData,
         isLoading: balanceIsLoading,
@@ -19,9 +20,34 @@ function WithDrawPage() {
         <Fragment>
             <Breadcrumb title={"Đặt Lênh Rút"} />
             <WithdrawForm balanceData={balanceData} />
-            <LogoCarousel />
+            <LogoCarousel slideList={slideList} />
         </Fragment>
     );
+}
+export async function getStaticProps() {
+    try {
+        const resList = await fetch(apiConfig.slide.getList.url, {
+            cache: "force-cache",
+        });
+
+        const slideList = resList.ok ? await resList.json() : [];
+
+        return {
+            props: {
+                slideList,
+                errorList: resList.ok ? null : `Error ${resList.status}`,
+            },
+            revalidate: 500,
+        };
+    } catch (err) {
+        return {
+            props: {
+                slideList: [],
+                errorList: err.message,
+            },
+            revalidate: 60,
+        };
+    }
 }
 
 WithDrawPage.getLayout = function getLayout(page) {

@@ -20,7 +20,6 @@ export default function HomePage({ newsData,productsData }) {
             <ShopBanner />
             <AboutSection />
             <LatestNews newsData={newsData} />
-            <LogoCarousel />
         </div>
     );
 }
