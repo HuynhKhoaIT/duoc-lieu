@@ -41,6 +41,10 @@ export async function getStaticProps() {
     }
 }
 
+export async function getStaticPaths() {
+    return { paths: [], fallback: "blocking" };
+}
+
 SigninPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
