@@ -28,7 +28,6 @@ export default function CheckoutForm({ cartsData }) {
     const [ loading, setLoading ] = useState(false);
     const { cartItems, totalPrice, totalQty } = useCart(cartsData);
 
-    console.log("cartItems",cartItems);
     const toggle = (id) => {
         setOpen(open === id ? null : id);
     };

@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { CreditCard, Minus, Plus, ShoppingCart } from "lucide-react";
 
+import useAuth from "@/hooks/useAuth";
 import useProductDetail from "@/hooks/useProductDetail";
-
-import styles from "./ProductDetail.module.scss";
 import { sanitizeHTML } from "@/utils/sanitizeHTML";
 
+import styles from "./ProductDetail.module.scss";
+
 export default function ProductDetail({ dataDetail }) {
+    const { isAuthenticated } = useAuth();
+
     const {
         quantity,
         increaseQuantity,
@@ -40,42 +43,57 @@ export default function ProductDetail({ dataDetail }) {
                             {/* GIÁ + SỐ LƯỢNG */}
                             <div className="flex items-center justify-between px-3 py-2 mb-4">
                                 {/* Giá sản phẩm */}
-                                <div>
-                                    {dataDetail?.price_wholesale ? (
-                                        <div className="flex gap-2 items-center">
-                                            <span className="text-[24px] font-bold text-[#008080]">
+                                {isAuthenticated ? (
+                                    <div>
+                                        {dataDetail?.price_wholesale ? (
+                                            <div className="flex gap-2 items-center">
+                                                <span className="text-[24px] font-bold text-[#004c49]">
+                                                    {(
+                                                        dataDetail.price_wholesale *
+                                                        1
+                                                    ).toLocaleString(
+                                                        "vi-VN",
+                                                    )}{" "}
+                                                    ₫
+                                                </span>
+                                                <span className="text-[16px] text-gray-500 line-through">
+                                                    {(
+                                                        dataDetail.price_retail *
+                                                        1
+                                                    ).toLocaleString(
+                                                        "vi-VN",
+                                                    )}{" "}
+                                                    ₫
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <span className="text-[24px] font-bold text-[#004c49]">
                                                 {(
                                                     dataDetail.price_wholesale *
                                                     1
                                                 ).toLocaleString("vi-VN")}{" "}
                                                 ₫
                                             </span>
-                                            <span className="text-[16px] text-gray-500 line-through">
-                                                {(
-                                                    dataDetail.price_retail * 1
-                                                ).toLocaleString("vi-VN")}{" "}
-                                                ₫
-                                            </span>
-                                        </div>
-                                    ) : (
-                                        <span className="text-[24px] font-bold text-[#008080]">
-                                            {(
-                                                dataDetail.price_wholesale * 1
-                                            ).toLocaleString("vi-VN")}{" "}
-                                            ₫
-                                        </span>
-                                    )}
-                                </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <span className="text-[24px] font-bold text-[#004c49]">
+                                        {(
+                                            dataDetail.price_retail * 1
+                                        ).toLocaleString("vi-VN")}{" "}
+                                        ₫
+                                    </span>
+                                )}
 
                                 {/* Số lượng */}
                                 <div className="flex items-center">
                                     <button
                                         onClick={decreaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#008080] rounded-l-md hover:bg-[goldenrod]/10 transition"
+                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition"
                                     >
                                         <Minus
                                             size={16}
-                                            className="text-[#008080]"
+                                            className="text-[#004c49]"
                                         />
                                     </button>
                                     <input
@@ -85,18 +103,18 @@ export default function ProductDetail({ dataDetail }) {
                                         onChange={(e) =>
                                             changeQuantity(e.target.value)
                                         }
-                                        className="w-8 h-8 text-center border-t border-b border-[#008080] focus:outline-none text-[#008080] font-medium 
+                                        className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
                                         [&::-webkit-outer-spin-button]:appearance-none 
                                         [&::-webkit-inner-spin-button]:appearance-none 
                                         [-moz-appearance:textfield]"
                                     />
                                     <button
                                         onClick={increaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#008080] rounded-r-md hover:bg-[goldenrod]/10 transition"
+                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition"
                                     >
                                         <Plus
                                             size={16}
-                                            className="text-[#008080]"
+                                            className="text-[#004c49]"
                                         />
                                     </button>
                                 </div>
@@ -178,9 +196,7 @@ function Section({ title, content }) {
             <h5 className="blue-bg gold-text p-2 text-yellow-400 font-semibold flex items-center gap-2 mt-4">
                 <i className="fas fa-check-double"></i> {title}
             </h5>
-            <div
-                dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }} />
         </>
     );
 }

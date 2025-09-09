@@ -4,7 +4,7 @@ td.product-quantity input {
 }
 
 td.product-remove a {
-  color: #008080;
+  color: #004c49;
 }
 
 .total-section table.total-table {
@@ -14,7 +14,7 @@ td.product-remove a {
 
 tr.table-total-row {
   background-color: #efefef;
-  color: #008080;
+  color: #004c49;
 }
 
 tr.table-total-row th {
@@ -68,7 +68,7 @@ tr.total-data td strong {
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1.25rem;
-    color: #008080;
+    color: #004c49;
 }
 .card.single-accordion {
   margin-bottom: 15px;
@@ -89,7 +89,7 @@ tr.total-data td strong {
 }
 
 .card.single-accordion .card-header h5 button {
-  color: #008080;
+  color: #004c49;
   font-size: 15px;
   display: block;
   width: 100%;
@@ -113,7 +113,7 @@ tr.total-data td strong {
   padding: 15px;
   width: 100%;
   border-radius: 3px;
-  border: #008080 1px solid;
+  border: #004c49 1px solid;
 }
 
 .shipping-address-form p, .card-details p {
@@ -169,7 +169,7 @@ table.order-details tbody td {
 
 
 .custom-radio .form-check-input:checked {
-    background-color: #008080 !important;
+    background-color: #004c49 !important;
     border-color: goldenrod !important;
 }
 
@@ -182,8 +182,8 @@ table.order-details tbody td {
     text-align: center;
     line-height: 20px;
     margin-right: 5px;
-    background-color: #008080 !important;
-    color: #008080;
+    background-color: #004c49 !important;
+    color: #004c49;
 }
 .custom-radio .form-check-input {
     display: none;
@@ -201,5 +201,5 @@ table.order-details tbody td {
     text-align: center;
     line-height: 20px;
     margin-right: 5px;
-    background-color: #008080 !important;
+    background-color: #004c49 !important;
 }

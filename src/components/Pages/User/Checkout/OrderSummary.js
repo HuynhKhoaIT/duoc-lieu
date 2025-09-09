@@ -1,3 +1,5 @@
+import useAuth from "@/hooks/useAuth";
+
 import styles from "./Checkout.module.scss";
 
 export default function OrderSummary({
@@ -6,6 +8,8 @@ export default function OrderSummary({
     totalQty,
     loading,
 }) {
+    const { isAuthenticated } = useAuth();
+
     return (
         <div className={styles.accordion}>
             <div className={`${styles.card} ${styles.singleAccordion}`}>
@@ -41,10 +45,13 @@ export default function OrderSummary({
                                             <td>{item?.product?.name}</td>
                                             <td>{item?.quantity}</td>
                                             <td className="text-right">
-                                                {(
-                                                    item?.product
-                                                        ?.price_wholesale * 1
-                                                ).toLocaleString()}
+                                                {Number(
+                                                    isAuthenticated
+                                                        ? item?.product
+                                                            ?.price_wholesale
+                                                        : item?.product
+                                                            ?.price_retail,
+                                                ).toLocaleString("vi-VN")}
                                             </td>
                                         </tr>
                                     ))}
@@ -64,7 +71,9 @@ export default function OrderSummary({
                                         </th>
                                         <td colSpan="2">
                                             <strong>
-                                                {totalPrice.toLocaleString()}
+                                                {totalPrice.toLocaleString(
+                                                    "vi-VN",
+                                                )}
                                             </strong>
                                         </td>
                                     </tr>

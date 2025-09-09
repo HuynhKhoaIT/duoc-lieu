@@ -48,11 +48,11 @@ export default function PaymentMethod({ open, toggle }) {
                                     bạn&quot;
                                 </p>
                                 <p className="ml-4 pl-2">
-                                    Số tài khoản: 244985649
+                                    Số tài khoản: 0931003004
                                 </p>
-                                <p className="ml-4 pl-2">Ngân hàng: ACB</p>
+                                <p className="ml-4 pl-2">Ngân hàng: Sacombank chi nhánh tỉnh Hậu Giang</p>
                                 <p className="ml-4 pl-2">
-                                    Chủ tài khoản: Trương Đình Anh
+                                    Chủ tài khoản: Đặng Thị Kim Ngọc
                                 </p>
                             </label>
                         </div>

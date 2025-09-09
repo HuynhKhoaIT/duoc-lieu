@@ -111,7 +111,7 @@ export default function Header() {
                 className={`
                     ${styles.topHeaderArea} 
                     transition-colors duration-500 delay-150
-                    ${isSticky ? "bg-[#008080] !py-[15px]" : "bg-transparent"}
+                    ${isSticky ? "bg-[#004c49] !py-[15px]" : "bg-transparent"}
                 `}
                 id="sticker"
             >

@@ -18,7 +18,6 @@ export default function CartPage({ cartsData }) {
         decrementQty,
         removeItem,
     } = useCart(cartsData);
-    console.log(cartItems);
 
     return (
         <div className={`${styles.cartSection} mt-[48px] mb-[48px]`}>
@@ -96,10 +95,13 @@ export default function CartPage({ cartsData }) {
                                                     }
                                                 >
                                                     {(
-                                                        item?.product
-                                                            ?.price_wholesale *
+                                                        (isAuthenticated
+                                                            ? item?.product
+                                                                ?.price_wholesale
+                                                            : item?.product
+                                                                ?.price_retail) *
                                                         1
-                                                    ).toLocaleString()}
+                                                    ).toLocaleString("vi-VN")}
                                                 </td>
                                                 <td className={styles.quantity}>
                                                     <div
@@ -207,7 +209,7 @@ export default function CartPage({ cartsData }) {
                         <h5>Chưa có sản phẩm nào được chọn</h5>
                         <Link
                             className={`${styles.cartBtn} text-center`}
-                            href={paths.order}
+                            href={isAuthenticated ? paths.order : paths.shop}
                         >
                             Chọn sản phẩm
                         </Link>

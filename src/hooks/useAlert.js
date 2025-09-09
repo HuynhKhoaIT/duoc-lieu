@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function useAlert() {
     const router = useRouter();
-    const PRIMARY_COLOR = "#008080";
+    const PRIMARY_COLOR = "#004c49";
     const SUB_PRIMARY_COLOR = "goldenrod";
 
     const showAlert = (message, icon = "warning", redirectPath = null) => {

@@ -2,7 +2,7 @@
 table.cart-table {
     border: 1px solid #f9f9f9;
     width: 100%;
-    color: #008080;
+    color: #004c49;
 }
 thead.cart-table-head tr {
     background-color: #efefef;
@@ -19,13 +19,13 @@ tr.table-head-row th:last-child {
 .cart-table-wrap tbody tr td {
     border: 1px solid #efefef;
     padding: 20px 0;
-    color: #008080;
+    color: #004c49;
 }
 .cart-table-wrap tbody tr td {
     text-align: center;
 }
 td.product-remove a {
-    color: #008080;
+    color: #004c49;
 }
 .proqty {
     width: 140px;
@@ -56,7 +56,7 @@ td.product-remove a {
 .total-section table.total-table {
     border: 1px solid #efefef;
     width: 100%;
-    color: #008080;
+    color: #004c49;
 }
 tr.table-total-row {
     background-color: #efefef;
@@ -85,7 +85,7 @@ tr.total-data td strong {
     transition: 0.3s;
     border-radius: 50px;
     &:hover {
-        background-color: #008080;
+        background-color: #004c49;
         color: goldenrod;
     }
 }

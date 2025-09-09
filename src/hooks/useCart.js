@@ -216,16 +216,16 @@ export default function useCart(initialData) {
     };
 
     const totalPrice = useMemo(() => {
-        return Array.isArray(cartItems)
-            ? cartItems.reduce(
-                (acc, item) =>
-                    acc +
-                      (item?.product?.price_wholesale || 0) *
-                          (item?.quantity || 0),
-                0,
-            )
-            : 0;
-    }, [ cartItems ]);
+        if (!Array.isArray(cartItems)) return 0;
+
+        return cartItems.reduce((acc, item) => {
+            const price = isAuthenticated
+                ? item?.product?.price_wholesale
+                : item?.product?.price_retail;
+
+            return acc + (price || 0) * (item?.quantity || 0);
+        }, 0);
+    }, [ cartItems, isAuthenticated ]);
 
     const totalQty = useMemo(() => {
         return Array.isArray(cartItems)
