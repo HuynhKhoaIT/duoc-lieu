@@ -24,7 +24,15 @@ export default function App({ Component, pageProps }) {
                     name="viewport"
                     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
                 />
-                <title>Dược Liệu Xanh</title>
+                <meta property="og:title" content="TamPhucThanh" />
+                <meta
+                    property="og:description"
+                    content="Dược Liệu Xanh An Lành Cho Sức Khỏe"
+                />
+                <meta property="og:image" content="/images/logo.png" />
+                <link rel="icon" href="/images/logo.png" type="image/png" />
+                <meta property="og:type" content="website" />
+                <title>TamPhucThanh</title>
             </Head>
 
             <ThemeProvider theme={theme}>
