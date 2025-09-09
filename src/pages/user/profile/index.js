@@ -1,56 +1,28 @@
 import { Fragment } from "react";
+import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import Layout from "@/components/layouts/Layout";
 import ProfileForm from "@/components/Pages/User/Profile";
 import apiConfig from "@/constants/apiConfig";
-import fetcher from "@/services/fetcher";
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function ProfilePage({ profile, slideList }) {
+function ProfilePage({ slideList }) {
+    const { data, error, isLoading, mutate } = useSWR(
+        `/api/account/profile`,
+        fetcher,
+    );
+
     return (
         <Fragment>
             <Breadcrumb title="Đặt hàng" />
-            <ProfileForm profileData={profile} />
+            <ProfileForm profileData={data?.data} isLoading={isLoading} />
             <LogoCarousel slideList={slideList} />
         </Fragment>
     );
 }
 
-export async function getServerSideProps(context) {
-    const token = context.req.cookies.token;
-
-    try {
-        const res = await fetcher(apiConfig.profile.getDetail, {
-            context: { token },
-        });
-
-        return {
-            props: {
-                profile: res.data?.data || {},
-                loading: false,
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching profile:", error.message);
-
-        if (error?.response?.status === 401) {
-            return {
-                redirect: {
-                    destination: "/login",
-                    permanent: false,
-                },
-            };
-        }
-
-        return {
-            props: {
-                profile: {},
-                loading: false,
-            },
-        };
-    }
-}
 export async function getStaticProps() {
     try {
         const resList = await fetch(apiConfig.slide.getList.url, {
