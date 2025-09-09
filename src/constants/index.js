@@ -48,11 +48,11 @@ export const statusOrderOptions = {
 
 export const agentLevelOptions = {
     0: "Cộng tác viên",
-    1: "CTV 1 sao",
-    2: "CTV 2 sao",
-    3: "CTV 3 sao",
-    4: "CTV 4 sao",
-    5: "CTV 5 sao",
+    1: "CTV *",
+    2: "CTV **",
+    3: "CTV ***",
+    4: "CTV ****",
+    5: "CTV *****",
 };
 
 

@@ -6,9 +6,9 @@ import { cleanObject } from "@/utils";
 
 const RenderContext = ({ metadata, children }) => {
     const {
-        title,
-        description,
-        image,
+        title="TamPhucThanh",
+        description="Dược Liệu Xanh An Lành Cho Sức Khỏe",
+        image="/images/logo.png",
         url,
         type = "website",
         siteName = "My Website",
@@ -25,7 +25,6 @@ const RenderContext = ({ metadata, children }) => {
     return (
         <Fragment>
             <Head>
-                {/* Basic */}
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <meta name="robots" content="index, follow" />

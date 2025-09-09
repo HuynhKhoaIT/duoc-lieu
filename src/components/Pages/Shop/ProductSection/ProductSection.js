@@ -22,7 +22,7 @@ export default function ProductSection({ productsData, categories }) {
 
     return (
         <div className={styles.productSection}>
-            <div className="container mx-auto mt-5 mb-4">
+            <div className="container mx-auto mt-[48px] mb-4">
                 <div className="flex justify-center items-center">
                     <ProductFilters
                         onFilterChange={(filter) => setActiveFilter(filter)}

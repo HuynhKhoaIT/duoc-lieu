@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 
 import useAuth from "@/hooks/useAuth";
@@ -17,7 +18,8 @@ function AccordionItem({ item, level = 1 }) {
                 className={styles.btnItem}
                 onClick={() => hasChildren && setOpen(!open)}
             >
-                {item.name} | {item?.username} | {maskPhone(item.phone_number)} | {(item.personal_sales*1).toLocaleString("vi-VN")}
+                {item.name} | {item?.username} | {maskPhone(item.phone_number)}{" "}
+                | {(item.personal_sales * 1).toLocaleString("vi-VN")}
             </button>
 
             <div
@@ -73,17 +75,22 @@ export default function AgentPage({ usersData, isLoading }) {
                             ) : (
                                 <div className="flex justify-center items-center mt-2 flex-wrap gap-2 px-5">
                                     {images.map((src, index) => (
-                                        <img
+                                        <div
                                             key={index}
-                                            className={`p-1 rounded ${
+                                            className={`relative w-[80px] h-[80px] rounded ${
                                                 profile?.agent_level === index
                                                     ? styles.grayBg
                                                     : ""
                                             }`}
-                                            src={src}
-                                            width="80"
-                                            alt={`npp-${index}`}
-                                        />
+                                        >
+                                            <Image
+                                                src={src}
+                                                alt={`npp-${index}`}
+                                                fill
+                                                className="object-contain rounded p-1"
+                                                sizes="80px"
+                                            />
+                                        </div>
                                     ))}
                                 </div>
                             )}

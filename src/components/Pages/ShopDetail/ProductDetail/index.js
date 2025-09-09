@@ -20,7 +20,7 @@ export default function ProductDetail({ dataDetail }) {
     } = useProductDetail();
 
     return (
-        <div className="my-20">
+        <div className="my-[48px]">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row gap-6 pt-5 pb-5">
                     {/* LEFT: Hình ảnh + số lượng + nút hành động */}

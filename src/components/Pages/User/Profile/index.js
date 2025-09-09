@@ -98,7 +98,7 @@ export default function ProfileForm({ profileData, isLoading }) {
     };
 
     return (
-        <div className={`${styles["contact-form"]} mt-5 mb-5`}>
+        <div className={`${styles["contact-form"]} mt-[48px] mb-5`}>
             <div className="container">
                 <div className="flex flex-wrap">
                     <div className="w-full lg:w-9/12 mx-auto">
