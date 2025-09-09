@@ -3,6 +3,7 @@ import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import WithdrawForm from "@/components/Pages/User/Withdraw";
 import apiConfig from "@/constants/apiConfig";
@@ -17,11 +18,11 @@ function WithDrawPage({ slideList }) {
     } = useSWR("/api/wallet/balance", fetcher);
 
     return (
-        <Fragment>
+        <RenderContext>
             <Breadcrumb title={"Đặt Lênh Rút"} />
             <WithdrawForm balanceData={balanceData} />
             <LogoCarousel slideList={slideList} />
-        </Fragment>
+        </RenderContext>
     );
 }
 export async function getStaticProps() {

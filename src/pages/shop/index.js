@@ -1,14 +1,15 @@
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ShopPage from "@/components/Pages/Shop/ShopPage";
 import apiConfig from "@/constants/apiConfig";
 
 function Shop({ categories, products, slideList }) {
     return (
-        <>
+        <RenderContext>
             <ShopPage categories={categories} productsData={products} />
             <LogoCarousel slideList={slideList} />
-        </>
+        </RenderContext>
     );
 }
 

@@ -10,13 +10,14 @@ export default function ProductCardItem({ p }) {
         <div key={p.id} className="text-center">
             <div className={styles.singleProductItem}>
                 <Link href={`${paths.shop}/${p.slug}`}>
-                    <div className="relative w-full aspect-[4/3]">
+                    <div className="relative w-full aspect-[4/3] ">
                         <Image
                             src={p.thumbnail}
                             alt={p.slug}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 33vw"
+                            quality={75}
                         />
                     </div>
                 </Link>

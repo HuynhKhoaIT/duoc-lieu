@@ -2,16 +2,17 @@ import { Fragment } from "react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import SettingForm from "@/components/Pages/User/Setting";
 import apiConfig from "@/constants/apiConfig";
 function SettingPage({ slideList }) {
     return (
-        <Fragment>
+        <RenderContext>
             <Breadcrumb title={"Cài Đặt"} />
             <SettingForm />
             <LogoCarousel slideList={slideList} />
-        </Fragment>
+        </RenderContext>
     );
 }
 export async function getStaticProps() {

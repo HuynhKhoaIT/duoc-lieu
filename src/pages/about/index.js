@@ -1,14 +1,15 @@
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import AboutPage from "@/components/Pages/About/About";
 import apiConfig from "@/constants/apiConfig";
 
 function About({ newsList, slideList }) {
     return (
-        <>
+        <RenderContext>
             <AboutPage newsListData={newsList} />
             <LogoCarousel slideList={slideList}/>
-        </>
+        </RenderContext>
     );
 }
 export async function getStaticProps() {

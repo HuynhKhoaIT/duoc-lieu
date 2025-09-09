@@ -3,6 +3,7 @@ import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import WalletPage from "@/components/Pages/User/Wallet";
 import apiConfig from "@/constants/apiConfig";
@@ -29,7 +30,7 @@ function UserWallet({ slideList }) {
     } = useSWR("/api/wallet/balance", fetcher);
 
     return (
-        <Fragment>
+        <RenderContext>
             <Breadcrumb title="Giao Dịch" />
             <WalletPage
                 walletHistory={historyData?.data}
@@ -41,7 +42,7 @@ function UserWallet({ slideList }) {
                 setCurrentPage={setCurrentPage}
             />
             <LogoCarousel slideList={slideList} />
-        </Fragment>
+        </RenderContext>
     );
 }
 

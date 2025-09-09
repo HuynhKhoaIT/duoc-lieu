@@ -1,17 +1,16 @@
-import { Fragment } from "react";
-
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import CartPage from "@/components/Pages/User/Cart";
 import apiConfig from "@/constants/apiConfig";
 function Cart({ slideList }) {
     return (
-        <Fragment>
+        <RenderContext>
             <Breadcrumb title="Giỏ hàng" />
             <CartPage />
             <LogoCarousel slideList={slideList} />
-        </Fragment>
+        </RenderContext>
     );
 }
 

@@ -1,4 +1,5 @@
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import HomePage from "@/components/Pages/Home/Home";
 import apiConfig from "@/constants/apiConfig";
@@ -17,12 +18,12 @@ function Homepage({ slideList }) {
         error: errorProducts,
         refetch: refetchProducts,
     } = useListData(apiConfig.products.getList);
-
+ 
     return (
-        <>
+        <RenderContext>
             <HomePage newsData={news} productsData={products} />
             <LogoCarousel slideList={slideList} />
-        </>
+        </RenderContext>
     );
 }
 

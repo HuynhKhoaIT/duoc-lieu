@@ -1,18 +1,18 @@
-import { Fragment } from "react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import CheckoutForm from "@/components/Pages/User/Checkout";
 import apiConfig from "@/constants/apiConfig";
 
 function CheckOutPage({ slideList }) {
     return (
-        <Fragment>
+        <RenderContext>
             <Breadcrumb title={"Đặt hàng"} />
             <CheckoutForm />
             <LogoCarousel slideList={slideList} />
-        </Fragment>
+        </RenderContext>
     );
 }
 export async function getStaticProps() {

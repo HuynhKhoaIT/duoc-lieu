@@ -1,14 +1,15 @@
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ComboPage from "@/components/Pages/Combo/ComboPage";
 import apiConfig from "@/constants/apiConfig";
 
 function Combo({ categories, products, slideList }) {
     return (
-        <>
+        <RenderContext>
             <ComboPage categories={categories} data={products} />
             <LogoCarousel slideList={slideList} />
-        </>
+        </RenderContext>
     );
 }
 

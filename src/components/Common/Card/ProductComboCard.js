@@ -72,6 +72,7 @@ export default function ProductComboCard({ p, quantity }) {
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 33vw"
+                            quality={75}
                         />
                     </div>
 

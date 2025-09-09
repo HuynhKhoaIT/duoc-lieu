@@ -13,6 +13,7 @@ import theme from "../../theme";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
+import "@/assets/styles/fontawesome-override.scss"; 
 
 export default function App({ Component, pageProps }) {
     const getLayout = Component.getLayout || ((page) => page);
@@ -32,7 +33,6 @@ export default function App({ Component, pageProps }) {
                 <meta property="og:image" content="/images/logo.png" />
                 <link rel="icon" href="/images/logo.png" type="image/png" />
                 <meta property="og:type" content="website" />
-                <title>TamPhucThanh</title>
             </Head>
 
             <ThemeProvider theme={theme}>

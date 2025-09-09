@@ -1,14 +1,15 @@
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
+import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import LoginPage from "@/components/Pages/Login/Login";
 import apiConfig from "@/constants/apiConfig";
 
 function Login({ slideList }) {
     return (
-        <>
+        <RenderContext>
             <LoginPage />
             <LogoCarousel slideList={slideList} />
-        </>
+        </RenderContext>
     );
 }
 
