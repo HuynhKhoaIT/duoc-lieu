@@ -83,10 +83,44 @@ export default function RegisterForm() {
                 toast.success("Đăng ký thành công");
                 window.location.href = paths.user;
             } else {
-                showAlert(data.message || "Đăng ký thất bại");
+                const errorResponse = data.error;
+
+                if (errorResponse) {
+                    let message = "Có lỗi không xác định xảy ra!";
+
+                    if (errorResponse.errors) {
+                        const errorMessages = Object.values(
+                            errorResponse.errors,
+                        )
+                            .flat()
+                            .join("\n"); 
+
+                        message = errorMessages;
+                    }
+
+                    showAlert(message);
+                } else {
+                    showAlert("Có lỗi không xác định xảy ra!");
+                }
             }
         } catch (err) {
-            showAlert(err.message);
+            const errorResponse = err.error;
+
+            if (errorResponse) {
+                let message = errorResponse.message || "Có lỗi xảy ra";
+
+                if (errorResponse.errors) {
+                    const errorMessages = Object.values(errorResponse.errors)
+                        .flat() 
+                        .join("\n"); 
+
+                    message = errorMessages;
+                }
+
+                showAlert(message);
+            } else {
+                showAlert("Có lỗi không xác định xảy ra!");
+            }
         } finally {
             setLoading(false);
         }

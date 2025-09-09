@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
                     name="viewport"
                     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
                 />
-                <title>DATXE</title>
+                <title>Dược Liệu Xanh</title>
             </Head>
 
             <ThemeProvider theme={theme}>
