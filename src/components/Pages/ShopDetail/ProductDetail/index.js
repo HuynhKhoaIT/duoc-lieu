@@ -7,7 +7,7 @@ import { sanitizeHTML } from "@/utils/sanitizeHTML";
 
 import styles from "./ProductDetail.module.scss";
 
-export default function ProductDetail({ dataDetail }) {
+export default function ProductDetail({ dataDetail,cartData }) {
     const { isAuthenticated } = useAuth();
 
     const {
@@ -17,7 +17,7 @@ export default function ProductDetail({ dataDetail }) {
         changeQuantity,
         addToCart,
         buyNow,
-    } = useProductDetail();
+    } = useProductDetail(cartData);
 
     return (
         <div className="my-[48px]">

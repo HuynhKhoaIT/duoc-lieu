@@ -8,7 +8,7 @@ import { getLocalData, setLocalData } from "@/utils/localStorage";
 
 export default function useCart(initialData) {
     const { isAuthenticated } = useAuth();
-    const { cart, setCart, setData } = useGlobalContext();
+    const { cart, setCart,data, setData } = useGlobalContext();
 
     const [ cartItems, setCartItems ] = useState(initialData);
     const [ loading, setLoading ] = useState(false);
@@ -80,9 +80,10 @@ export default function useCart(initialData) {
             if (!res.ok) {
                 throw new Error(result?.message || "Thêm giỏ hàng thất bại");
             }
+            console.log("cartItems",cartItems);
 
             // Cập nhật state client-side
-            const existingIndex = cartItems.findIndex(
+            const existingIndex = cartItems?.findIndex(
                 (cartItem) => cartItem.product.id === item.id,
             );
             let updatedCart;

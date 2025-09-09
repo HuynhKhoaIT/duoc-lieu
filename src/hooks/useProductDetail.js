@@ -5,9 +5,9 @@ import paths from "@/constants/paths";
 import useAlert from "@/hooks/useAlert";
 import useCart from "@/hooks/useCart";
 
-export default function useProductDetail() {
+export default function useProductDetail(cartData) {
     const router = useRouter();
-    const { addToCart } = useCart();
+    const { addToCart } = useCart(cartData);
     const { showAlert } = useAlert();
 
     const [ quantity, setQuantity ] = useState(1);

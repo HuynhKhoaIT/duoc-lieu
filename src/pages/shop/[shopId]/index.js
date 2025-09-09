@@ -3,6 +3,7 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ShopDetailPage from "@/components/Pages/ShopDetail/ShopDetailPage";
 import apiConfig from "@/constants/apiConfig";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 function ShopDetail({ products, productsList, error, errorList, slideList }) {
     const metadata = {
@@ -11,6 +12,8 @@ function ShopDetail({ products, productsList, error, errorList, slideList }) {
             products?.description || products?.excerpt || "Chi tiết sản phẩm",
         image: products?.thumbnail || "/images/logo.png",
     };
+    const { data } = useGlobalContext();
+
     return (
         <RenderContext metadata={metadata}>
             <ShopDetailPage
@@ -18,6 +21,7 @@ function ShopDetail({ products, productsList, error, errorList, slideList }) {
                 productsList={productsList}
                 error={error}
                 errorList={errorList}
+                cartData={data}
             />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
