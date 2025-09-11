@@ -24,9 +24,10 @@ export default function ProductDetail({ dataDetail, cartData }) {
         buyNow,
     } = useProductDetail(cartData);
 
+
     const isHadToCar = useMemo(() => {
         if(dataDetail?.type === GIFT_TYPE){
-            return !!cartData?.find((item) => item.id === dataDetail?.id);
+            return !!cartData?.find((item) => item?.product?.id === dataDetail?.id);
         }
         return false;
     }, [ cartData ]);
