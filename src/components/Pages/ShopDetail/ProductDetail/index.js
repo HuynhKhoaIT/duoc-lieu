@@ -1,14 +1,19 @@
+import { useMemo } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { CreditCard, Minus, Plus, ShoppingCart } from "lucide-react";
 
+import { GIFT_TYPE } from "@/constants";
+import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
 import useProductDetail from "@/hooks/useProductDetail";
 import { sanitizeHTML } from "@/utils/sanitizeHTML";
 
 import styles from "./ProductDetail.module.scss";
 
-export default function ProductDetail({ dataDetail,cartData }) {
+export default function ProductDetail({ dataDetail, cartData }) {
     const { isAuthenticated } = useAuth();
+    const { push } = useRouter();
 
     const {
         quantity,
@@ -18,6 +23,13 @@ export default function ProductDetail({ dataDetail,cartData }) {
         addToCart,
         buyNow,
     } = useProductDetail(cartData);
+
+    const isHadToCar = useMemo(() => {
+        if(dataDetail?.type === GIFT_TYPE){
+            return !!cartData?.find((item) => item.id === dataDetail?.id);
+        }
+        return false;
+    }, [ cartData ]);
 
     return (
         <div className="my-[48px]">
@@ -41,12 +53,33 @@ export default function ProductDetail({ dataDetail,cartData }) {
                             </h4>
 
                             {/* GIÁ + SỐ LƯỢNG */}
-                            <div className="flex items-center justify-between px-3 py-2 mb-4">
-                                {/* Giá sản phẩm */}
-                                {isAuthenticated ? (
-                                    <div>
-                                        {dataDetail?.price_wholesale ? (
-                                            <div className="flex gap-2 items-center">
+                            {dataDetail?.type !== GIFT_TYPE && (
+                                <div className="flex items-center justify-between px-3 py-2 mb-4">
+                                    {/* Giá sản phẩm */}
+                                    {isAuthenticated ? (
+                                        <div>
+                                            {dataDetail?.price_wholesale ? (
+                                                <div className="flex gap-2 items-center">
+                                                    <span className="text-[24px] font-bold text-[#004c49]">
+                                                        {(
+                                                            dataDetail.price_wholesale *
+                                                            1
+                                                        ).toLocaleString(
+                                                            "vi-VN",
+                                                        )}{" "}
+                                                        ₫
+                                                    </span>
+                                                    <span className="text-[16px] text-gray-500 line-through">
+                                                        {(
+                                                            dataDetail.price_retail *
+                                                            1
+                                                        ).toLocaleString(
+                                                            "vi-VN",
+                                                        )}{" "}
+                                                        ₫
+                                                    </span>
+                                                </div>
+                                            ) : (
                                                 <span className="text-[24px] font-bold text-[#004c49]">
                                                     {(
                                                         dataDetail.price_wholesale *
@@ -56,93 +89,86 @@ export default function ProductDetail({ dataDetail,cartData }) {
                                                     )}{" "}
                                                     ₫
                                                 </span>
-                                                <span className="text-[16px] text-gray-500 line-through">
-                                                    {(
-                                                        dataDetail.price_retail *
-                                                        1
-                                                    ).toLocaleString(
-                                                        "vi-VN",
-                                                    )}{" "}
-                                                    ₫
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <span className="text-[24px] font-bold text-[#004c49]">
-                                                {(
-                                                    dataDetail.price_wholesale *
-                                                    1
-                                                ).toLocaleString("vi-VN")}{" "}
-                                                ₫
-                                            </span>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <span className="text-[24px] font-bold text-[#004c49]">
-                                        {(
-                                            dataDetail.price_retail * 1
-                                        ).toLocaleString("vi-VN")}{" "}
-                                        ₫
-                                    </span>
-                                )}
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <span className="text-[24px] font-bold text-[#004c49]">
+                                            {(
+                                                dataDetail.price_retail * 1
+                                            ).toLocaleString("vi-VN")}{" "}
+                                            ₫
+                                        </span>
+                                    )}
 
-                                {/* Số lượng */}
-                                <div className="flex items-center">
-                                    <button
-                                        onClick={decreaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition"
-                                    >
-                                        <Minus
-                                            size={16}
-                                            className="text-[#004c49]"
+                                    {/* Số lượng */}
+                                    <div className="flex items-center">
+                                        <button
+                                            onClick={decreaseQuantity}
+                                            className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition"
+                                        >
+                                            <Minus
+                                                size={16}
+                                                className="text-[#004c49]"
+                                            />
+                                        </button>
+                                        <input
+                                            type="number"
+                                            value={quantity}
+                                            min={1}
+                                            onChange={(e) =>
+                                                changeQuantity(e.target.value)
+                                            }
+                                            className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
+                                            [&::-webkit-outer-spin-button]:appearance-none 
+                                            [&::-webkit-inner-spin-button]:appearance-none 
+                                            [-moz-appearance:textfield]"
                                         />
-                                    </button>
-                                    <input
-                                        type="number"
-                                        value={quantity}
-                                        min={1}
-                                        onChange={(e) =>
-                                            changeQuantity(e.target.value)
-                                        }
-                                        className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
-                                        [&::-webkit-outer-spin-button]:appearance-none 
-                                        [&::-webkit-inner-spin-button]:appearance-none 
-                                        [-moz-appearance:textfield]"
-                                    />
-                                    <button
-                                        onClick={increaseQuantity}
-                                        className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition"
-                                    >
-                                        <Plus
-                                            size={16}
-                                            className="text-[#004c49]"
-                                        />
-                                    </button>
+                                        <button
+                                            onClick={increaseQuantity}
+                                            className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition"
+                                        >
+                                            <Plus
+                                                size={16}
+                                                className="text-[#004c49]"
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* NÚT HÀNH ĐỘNG */}
-                            <div className="flex flex-col lg:flex-row justify-between gap-4">
+                            {isHadToCar ? (
                                 <button
-                                    onClick={() =>
-                                        addToCart({
-                                            item: dataDetail,
-                                            qty: quantity,
-                                        })
-                                    }
-                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
+                                    onClick={() => push(paths.cart)}
+                                    className="read-more-btn !flex items-center justify-center w-full gap-2 hover:cursor-pointer"
                                 >
                                     <ShoppingCart size={18} />
-                                    Thêm vào giỏ hàng
+                                    Đã có trong giỏ hàng
                                 </button>
+                            ) : (
+                                <div className="flex flex-col lg:flex-row justify-between gap-4">
+                                    <button
+                                        onClick={() =>
+                                            addToCart({
+                                                item: dataDetail,
+                                                qty: quantity,
+                                            })
+                                        }
+                                        className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
+                                    >
+                                        <ShoppingCart size={18} />
+                                        Thêm vào giỏ hàng
+                                    </button>
 
-                                <button
-                                    onClick={() => buyNow(dataDetail)}
-                                    className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
-                                >
-                                    <CreditCard size={18} />
-                                    Mua ngay
-                                </button>
-                            </div>
+                                    <button
+                                        onClick={() => buyNow(dataDetail)}
+                                        className="flex-1 read-more-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
+                                    >
+                                        <CreditCard size={18} />
+                                        Mua ngay
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
 

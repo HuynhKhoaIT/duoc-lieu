@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@mui/material";
 
+import { GIFT_TYPE } from "@/constants";
 import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
@@ -141,16 +142,19 @@ export default function CartPage({ cartsData, isLoading }) {
                                                             styles.proqty
                                                         }
                                                     >
-                                                        <button
-                                                            className={`${styles.qtybtn} dec`}
-                                                            onClick={() =>
-                                                                decrementQty(
-                                                                    item,
-                                                                )
-                                                            }
-                                                        >
-                                                            -
-                                                        </button>
+                                                        {item?.product?.type !==
+                                                            GIFT_TYPE && (
+                                                            <button
+                                                                className={`${styles.qtybtn} dec`}
+                                                                onClick={() =>
+                                                                    decrementQty(
+                                                                        item,
+                                                                    )
+                                                                }
+                                                            >
+                                                                -
+                                                            </button>
+                                                        )}
                                                         <input
                                                             type="text"
                                                             min="1"
@@ -160,16 +164,19 @@ export default function CartPage({ cartsData, isLoading }) {
                                                             }
                                                             readOnly
                                                         />
-                                                        <button
-                                                            className={`${styles.qtybtn} inc`}
-                                                            onClick={() =>
-                                                                incrementQty(
-                                                                    item,
-                                                                )
-                                                            }
-                                                        >
-                                                            +
-                                                        </button>
+                                                        {item?.product?.type !==
+                                                            GIFT_TYPE && (
+                                                            <button
+                                                                className={`${styles.qtybtn} inc`}
+                                                                onClick={() =>
+                                                                    incrementQty(
+                                                                        item,
+                                                                    )
+                                                                }
+                                                            >
+                                                                +
+                                                            </button>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

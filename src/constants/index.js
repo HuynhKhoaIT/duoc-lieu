@@ -22,6 +22,7 @@ export const storageKeys = {
     PROFILE: `${appName}-profile`,
     IS_LOGIN: `${appName}-isLogin`,
     CART_DATA: `${appName}-cartData`,
+    REFERRAL_PHONE:  `${appName}-referral-phone`,
 };
 
 export const ROLES_CODE = {
@@ -81,3 +82,6 @@ export const userStatusOptions = [
 
 export const COMMISSION_TYPE = "commission";
 export const WITHDRAW_TYPE = "withdraw";
+
+export const GIFT_TYPE = 'gift';
+export const NORMAL_TYPE = 'normal';

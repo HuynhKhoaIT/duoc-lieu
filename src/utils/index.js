@@ -209,3 +209,9 @@ export function maskPhone(phone) {
     if (str.length < 7) return str;
     return str.slice(0, 3) + "****" + str.slice(-3);
 }
+
+export function getFirstErrorMessage(errors) {
+    if (!errors) return null;
+    const firstKey = Object.keys(errors)[0];
+    return errors[firstKey]?.[0] || null;
+}

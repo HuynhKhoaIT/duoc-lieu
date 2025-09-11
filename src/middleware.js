@@ -1,8 +1,6 @@
 
 import { NextResponse } from "next/server";
 
-import { storageKeys } from "./constants";
-
 const publicPaths = [
     "/",
     "/about",
@@ -20,6 +18,7 @@ const publicPaths = [
     "/signin/*",
     "/cart",
     "/checkout",
+    "/gift",
 ];
 
 const isPublicPath = (pathname) => {

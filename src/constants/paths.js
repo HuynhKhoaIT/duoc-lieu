@@ -3,6 +3,7 @@ const paths = {
     about: "/about",
     contact: "/contact",
     shop: "/shop",
+    gift: "/gift",
     shopDetail: "/shop/[shopId]",
     combo: "/combo",
     news: "/news",

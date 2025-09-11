@@ -11,7 +11,8 @@ import useAlert from "@/hooks/useAlert";
 import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
 import fetcher from "@/services/fetcher";
-import { removeLocalItem } from "@/utils/localStorage";
+import { cleanObject, getFirstErrorMessage } from "@/utils";
+import { getLocalData, removeLocalItem } from "@/utils/localStorage";
 
 import OrderSummary from "./OrderSummary";
 import PaymentMethod from "./PaymentMethod";
@@ -27,6 +28,7 @@ export default function CheckoutForm({ cartsData }) {
     const [ open, setOpen ] = useState("payment");
     const [ loading, setLoading ] = useState(false);
     const { cartItems, totalPrice, totalQty } = useCart(cartsData);
+    const referral = getLocalData(storageKeys.REFERRAL_PHONE);
 
     const toggle = (id) => {
         setOpen(open === id ? null : id);
@@ -68,6 +70,7 @@ export default function CheckoutForm({ cartsData }) {
             address: formData.get("address"),
             note: formData.get("note") || "",
             payment_method: formData.get("payment"),
+            referrer_phone: referral,
         };
 
         if (!validateForm(data)) {
@@ -79,7 +82,7 @@ export default function CheckoutForm({ cartsData }) {
                 const res = await fetch("/api/checkOut", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(cleanObject(data)),
                 });
 
                 const result = await res.json();
@@ -89,11 +92,23 @@ export default function CheckoutForm({ cartsData }) {
                     setCart(0);
                     setData([]);
                 } else {
-
-                    showAlert(result?.message);
+                    const errorMessage = getFirstErrorMessage(result.errors);
+                    showAlert(
+                        errorMessage ||
+                            result.message ||
+                            "Có lỗi xảy ra, vui lòng thử lại",
+                    );
                 }
             } catch (error) {
                 console.error(error);
+                const errorMessage = getFirstErrorMessage(
+                    error?.response?.data?.errors,
+                );
+                showAlert(
+                    errorMessage ||
+                        error?.response?.data.message ||
+                        "Có lỗi xảy ra, vui lòng thử lại",
+                );
             } finally {
                 setLoading(false);
             }
@@ -118,10 +133,22 @@ export default function CheckoutForm({ cartsData }) {
                     setData([]);
                     removeLocalItem(storageKeys.CART_DATA);
                 } else {
-                    showAlert(res?.message);
+                    const errorMessage = getFirstErrorMessage(res.errors);
+                    showAlert(
+                        errorMessage ||
+                            res.message ||
+                            "Có lỗi xảy ra, vui lòng thử lại",
+                    );
                 }
             } catch (error) {
-                console.error(error);
+                const errorMessage = getFirstErrorMessage(
+                    error?.response?.data?.errors,
+                );
+                showAlert(
+                    errorMessage ||
+                        error?.response?.data.message ||
+                        "Có lỗi xảy ra, vui lòng thử lại",
+                );
             } finally {
                 setLoading(false);
             }
@@ -145,11 +172,14 @@ export default function CheckoutForm({ cartsData }) {
 
                             <div className={styles.checkoutAccordionWrap}>
                                 <ShippingInfo
-                                    open={'shippingInfo'}
+                                    open={"shippingInfo"}
                                     toggle={toggle}
                                     profile={profile}
                                 />
-                                <PaymentMethod open={"payment"} toggle={toggle} />
+                                <PaymentMethod
+                                    open={"payment"}
+                                    toggle={toggle}
+                                />
                             </div>
                         </div>
 

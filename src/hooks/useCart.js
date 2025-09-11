@@ -43,6 +43,7 @@ export default function useCart(initialData) {
                         thumbnail: item.thumbnail,
                         price_wholesale: item.price_wholesale,
                         price_retail: item.price_retail || null,
+                        type: item.type,
                     },
                     quantity: qty,
                 });

@@ -60,6 +60,11 @@ const apiConfig = {
             method: "GET",
             headers: baseHeader,
         },
+        getProductByType: {
+            url: `${apiUrl}api/v2/products/type/:id`,
+            method: "GET",
+            headers: baseHeader,
+        },
     },
     category: {
         getList: {

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
@@ -9,24 +9,17 @@ import WalletPage from "@/components/Pages/User/Wallet";
 import apiConfig from "@/constants/apiConfig";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-
 function UserWallet({ slideList }) {
     const [ currentPage, setCurrentPage ] = useState(1);
 
-    // Fetch history data with pagination
     const {
         data: historyData,
-        error,
         isLoading,
         mutate,
     } = useSWR(`/api/wallet/history?page=${currentPage}`, fetcher);
 
-    // Fetch balance data
     const {
         data: balanceData,
-        isLoading: balanceIsLoading,
-        error: balanceError,
-        mutate: balanceMutate,
     } = useSWR("/api/wallet/balance", fetcher);
 
     return (
