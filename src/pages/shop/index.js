@@ -3,11 +3,13 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ShopPage from "@/components/Pages/Shop/ShopPage";
 import apiConfig from "@/constants/apiConfig";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 function Shop({ categories, products, slideList }) {
+    const { data } = useGlobalContext();
     return (
         <RenderContext>
-            <ShopPage categories={categories} productsData={products} />
+            <ShopPage categories={categories} productsData={products} cartData={data}/>
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );

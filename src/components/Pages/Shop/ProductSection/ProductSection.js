@@ -7,7 +7,7 @@ import ProductFilters from "@/components/Common/Fillter/ProductFilters";
 
 import styles from "./ProductSection.module.scss";
 
-export default function ProductSection({ productsData, categories }) {
+export default function ProductSection({ productsData, categories,cartData }) {
     const [ activeFilter, setActiveFilter ] = useState(null);
     const products = useMemo(() => {
         if (!productsData) return [];
@@ -32,7 +32,7 @@ export default function ProductSection({ productsData, categories }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products?.map((p) => (
-                        <ProductCardItem key={p.id} p={p} />
+                        <ProductCardItem key={p.id} p={p} cartData={cartData}/>
                     ))}
                 </div>
             </div>

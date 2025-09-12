@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import paths from "@/constants/paths";
+import useCart from "@/hooks/useCart";
 
 import styles from "./ProductCardItem.module.scss";
 
-export default function ProductCardItem({ p }) {
+export default function ProductCardItem({ p, cartData }) {
+    const { addToCart } = useCart(cartData);
     return (
         <div key={p.id} className="text-center">
             <div className={styles.singleProductItem}>
@@ -25,11 +27,18 @@ export default function ProductCardItem({ p }) {
                 <div
                     className={`blue-bg p-3 m-0 flex justify-between align-end`}
                 >
-                    <Link href="/combo">
-                        <button className={`bordered-btn  w-[110px]`}>
-                            Đặt hàng
-                        </button>
-                    </Link>
+                    <button
+                        onClick={() =>
+                            addToCart({
+                                item: p,
+                                qty: 1,
+                            })
+                        }
+                        className={`bordered-btn  `}
+                    >
+                        Thêm vào giỏ
+                    </button>
+
                     <Link href={`${paths.shop}/${p.slug}`}>
                         <button className={`bordered-btn`}>Xem thêm</button>
                     </Link>
