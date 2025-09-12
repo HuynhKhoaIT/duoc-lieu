@@ -1,0 +1,87 @@
+
+.modalContent{
+  padding: 8px;
+}
+  .title {
+    margin-top: -12px;
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+
+
+  .socialButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+
+  
+    svg {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      padding: 8px;
+      color: #fff;
+      fill: #fff;
+      margin-bottom: 4px;
+    }
+
+    span {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    &.facebook svg {
+      background-color: #1877f2;
+    }
+
+    &.linkedin svg {
+      background-color: #0a66c2;
+    }
+
+    &.twitter svg {
+      background-color: #1da1f2;
+    }
+
+    &.whatsapp svg {
+      background-color: #25d366;
+    }
+
+    &.email svg {
+      background-color: #6c757d;
+    }
+  }
+}
+
+
+  .copyLink {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
