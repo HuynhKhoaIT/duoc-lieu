@@ -34,8 +34,8 @@ export default function WithdrawForm({ balanceData }) {
             return false;
         }
 
-        if (amount < 10000) {
-            showAlert("Số tiền rút tối thiểu là 10,000.");
+        if (amount < 500000) {
+            showAlert("Số tiền rút tối thiểu là 500,000.");
             return false;
         }
 

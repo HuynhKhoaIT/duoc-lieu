@@ -33,8 +33,8 @@ export default function TransferForm({ balanceData }) {
             return false;
         }
 
-        if (amount < 10000) {
-            showAlert("Số tiền tối thiểu 10,000.");
+        if (amount < 100000) {
+            showAlert("Số tiền tối thiểu 100,000.");
             return false;
         }
 

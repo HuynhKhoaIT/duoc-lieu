@@ -9,6 +9,8 @@ import paths from "@/constants/paths";
 import useAuth from "@/hooks/useAuth";
 import { formatDateString } from "@/utils";
 
+import ModalBillDetail from "./ModalBillDetail";
+
 import styles from "./BillTable.module.scss";
 
 export default function BillTable({
@@ -25,6 +27,8 @@ export default function BillTable({
     const [ orderFeedback, setOrderFeedback ] = useState(null);
     const [ totalPages, setTotalPages ] = useState(metaData?.last_page || 1);
 
+    const [ dataDetail, setDataDetail ] = useState(null);
+
     const columns = [
         { key: "id", label: "#" },
         { key: "order_code", label: "Mã ĐH" },
@@ -40,7 +44,10 @@ export default function BillTable({
         order_code: order.order_code,
         created_at: formatDateString(order.created_at),
         total_amount: (
-            <span className="gold-text cursor-pointer">
+            <span
+                onClick={() => setDataDetail(order)}
+                className="gold-text cursor-pointer hover:!text-[#0056b3] hover:underline"
+            >
                 {(order.total_amount * 1).toLocaleString()}
             </span>
         ),
@@ -173,6 +180,11 @@ export default function BillTable({
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 onSubmit={handleFeedback}
+            />
+            <ModalBillDetail
+                isOpen={!!dataDetail}
+                onClose={() => setDataDetail(null)}
+                data={dataDetail}
             />
         </div>
     );
