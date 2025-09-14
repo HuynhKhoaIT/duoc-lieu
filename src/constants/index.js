@@ -1,6 +1,7 @@
 export const ssrMode = typeof window === "undefined";
 export const appMode = process.env.NEXT_PUBLIC_APP_MODE;
 export const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+import StarIcon from "@mui/icons-material/Star";
 
 export const appName = "duoc-lieu-xanh";
 export const DEFAULT_LOCALE = "vi";
@@ -22,7 +23,7 @@ export const storageKeys = {
     PROFILE: `${appName}-profile`,
     IS_LOGIN: `${appName}-isLogin`,
     CART_DATA: `${appName}-cartData`,
-    REFERRAL_PHONE:  `${appName}-referral-phone`,
+    REFERRAL_PHONE: `${appName}-referral-phone`,
 };
 
 export const ROLES_CODE = {
@@ -49,39 +50,67 @@ export const statusOrderOptions = {
 
 export const agentLevelOptions = {
     0: "Cộng tác viên",
-    1: "CTV *",
-    2: "CTV **",
-    3: "CTV ***",
-    4: "CTV ****",
-    5: "CTV *****",
+    1: (
+        <div className="flex items-center">
+            CTV <StarIcon sx={{ width: 20 }} />
+        </div>
+    ),
+    2: (
+        <div className="flex items-center">
+            CTV
+            <StarIcon sx={{ width: 20 }} />
+            <StarIcon sx={{ width: 20 }} />
+        </div>
+    ),
+    3: (
+        <div className="flex items-center">
+            CTV
+            {[ ...Array(3) ].map((_, i) => (
+                <StarIcon key={i} sx={{ width: 20 }} />
+            ))}
+        </div>
+    ),
+    4: (
+        <div className="flex items-center">
+            CTV
+            {[ ...Array(4) ].map((_, i) => (
+                <StarIcon key={i} sx={{ width: 20 }} />
+            ))}
+        </div>
+    ),
+    5: (
+        <div className="flex items-center">
+            CTV
+            {[ ...Array(5) ].map((_, i) => (
+                <StarIcon key={i} sx={{ width: 20 }} />
+            ))}
+        </div>
+    ),
 };
 
-
-
 export const userStatusOptions = [
-    { 
-        label: "Hoạt động", 
-        value: "active", 
+    {
+        label: "Hoạt động",
+        value: "active",
         color: "#00FF7F",
         icon: "fas fa-check",
     },
-    { 
-        label: "Gần hết hạn", 
-        value: "expiring_soon", 
+    {
+        label: "Gần hết hạn",
+        value: "expiring_soon",
         color: "#daa520",
         icon: "fa-solid fa-exclamation",
     },
-    { 
-        label: "Hết hạn", 
-        value: "expired", 
+    {
+        label: "Hết hạn",
+        value: "expired",
         color: "#FF6347",
         icon: "fas fa-times",
     },
 ];
 
-
 export const COMMISSION_TYPE = "commission";
 export const WITHDRAW_TYPE = "withdraw";
 
-export const GIFT_TYPE = 'gift';
-export const NORMAL_TYPE = 'normal';
+export const GIFT_TYPE = "gift";
+export const NORMAL_TYPE = "normal";

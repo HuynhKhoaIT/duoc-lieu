@@ -11,12 +11,14 @@ export default function AboutSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Left side */}
                     <div className={styles["abt-bg"]}>
-                        <a
+                        <Link
                             href="https://www.youtube.com/watch?v=LYdT8bNDm24"
                             className={`${styles["video-play-btn"]} popup-youtube`}
+                            target="_blank"
+                            rel="noreferrer"
                         >
                             <i className="fas fa-play"></i>
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Right side */}

@@ -59,7 +59,7 @@ export default function useCart(initialData) {
             );
             setCart(totalQty);
 
-            toast.success("Thêm vào giỏ hàng thành công (local)");
+            toast.success("Thêm vào giỏ hàng thành công");
             return;
         }
 

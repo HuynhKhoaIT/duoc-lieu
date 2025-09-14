@@ -41,10 +41,12 @@ export default function ProductDetail({ dataDetail, cartData }) {
     useEffect(() => {
         if (typeof window !== "undefined" && isAuthenticated) {
             setShareUrl(
-                window.location.origin + asPath + `?referral=${profile?.phone_number}`,
+                window.location.origin +
+                    asPath +
+                    `?referral=${profile?.phone_number}`,
             );
         }
-    }, [ asPath,isAuthenticated ]);
+    }, [ asPath, isAuthenticated ]);
     return (
         <div className="my-[48px]">
             <div className="container mx-auto px-4">
@@ -77,86 +79,68 @@ export default function ProductDetail({ dataDetail, cartData }) {
 
                             {/* GIÁ + SỐ LƯỢNG */}
                             {dataDetail?.type !== GIFT_TYPE && (
-                                <div className="flex items-center justify-between px-3 py-2 mb-4">
+                                <div className="flex flex-col mb-4">
                                     {/* Giá sản phẩm */}
-                                    {isAuthenticated ? (
-                                        <div>
-                                            {dataDetail?.price_wholesale ? (
-                                                <div className="flex gap-2 items-center">
-                                                    <span className="text-[24px] font-bold text-[#004c49]">
-                                                        {(
-                                                            dataDetail.price_wholesale *
-                                                            1
-                                                        ).toLocaleString(
-                                                            "vi-VN",
-                                                        )}{" "}
-                                                        ₫
-                                                    </span>
-                                                    <span className="text-[16px] text-gray-500 line-through">
-                                                        {(
-                                                            dataDetail.price_retail *
-                                                            1
-                                                        ).toLocaleString(
-                                                            "vi-VN",
-                                                        )}{" "}
-                                                        ₫
-                                                    </span>
-                                                </div>
-                                            ) : (
-                                                <span className="text-[24px] font-bold text-[#004c49]">
-                                                    {(
-                                                        dataDetail.price_wholesale *
-                                                        1
-                                                    ).toLocaleString(
-                                                        "vi-VN",
-                                                    )}{" "}
-                                                    ₫
-                                                </span>
-                                            )}
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center justify-between">
+                                            <h6 className="!m-0">Giá sỉ:</h6>
+                                            <span className="text-[24px] font-bold text-[#004c49]">
+                                                {(
+                                                    dataDetail.price_wholesale *
+                                                    1
+                                                ).toLocaleString("vi-VN")}{" "}
+                                                ₫
+                                            </span>
                                         </div>
-                                    ) : (
-                                        <span className="text-[24px] font-bold text-[#004c49]">
-                                            {(
-                                                dataDetail.price_retail * 1
-                                            ).toLocaleString("vi-VN")}{" "}
-                                            ₫
-                                        </span>
-                                    )}
-
-                                    {/* Số lượng */}
-                                    <div className="flex items-center">
-                                        <button
-                                            onClick={decreaseQuantity}
-                                            className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
-                                        >
-                                            <Minus
-                                                size={16}
-                                                className="text-[#004c49]"
-                                            />
-                                        </button>
-                                        <input
-                                            type="number"
-                                            value={quantity}
-                                            min={1}
-                                            onChange={(e) =>
-                                                changeQuantity(e.target.value)
-                                            }
-                                            readOnly
-                                            className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
+                                        <div className="flex items-center justify-between">
+                                            <h6 className="!m-0">Giá lẻ:</h6>
+                                            <span className="text-[24px] font-bold text-[#004c49]">
+                                                {(
+                                                    dataDetail.price_retail * 1
+                                                ).toLocaleString("vi-VN")}{" "}
+                                                ₫
+                                            </span>
+                                        </div>
+                                    <div className="flex items-center justify-between">
+                                        <h6 className="!m-0">Số lượng:</h6>
+                                        <div className="flex items-center">
+                                            <button
+                                                onClick={decreaseQuantity}
+                                                className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
+                                            >
+                                                <Minus
+                                                    size={16}
+                                                    className="text-[#004c49]"
+                                                />
+                                            </button>
+                                            <input
+                                                type="number"
+                                                value={quantity}
+                                                min={1}
+                                                onChange={(e) =>
+                                                    changeQuantity(
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                readOnly
+                                                className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
                                             [&::-webkit-outer-spin-button]:appearance-none 
                                             [&::-webkit-inner-spin-button]:appearance-none 
                                             [-moz-appearance:textfield]"
-                                        />
-                                        <button
-                                            onClick={increaseQuantity}
-                                            className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
-                                        >
-                                            <Plus
-                                                size={16}
-                                                className="text-[#004c49]"
                                             />
-                                        </button>
+                                            <button
+                                                onClick={increaseQuantity}
+                                                className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
+                                            >
+                                                <Plus
+                                                    size={16}
+                                                    className="text-[#004c49]"
+                                                />
+                                            </button>
+                                        </div>
                                     </div>
+                                    </div>
+
                                 </div>
                             )}
 
@@ -198,7 +182,7 @@ export default function ProductDetail({ dataDetail, cartData }) {
 
                     {/* RIGHT: Thông tin sản phẩm */}
                     <div className="md:w-7/12">
-                        <div className="p-3">
+                        <div className="">
                             <Section
                                 title="ĐẶC TÍNH"
                                 content={dataDetail?.features}

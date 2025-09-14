@@ -4,7 +4,6 @@ import { agentLevelOptions, userStatusOptions } from "@/constants";
 import { formatDateString } from "@/utils";
 
 import styles from "./User.module.scss";
-
 export default function UserDashboardPage({ dashboardData, loading }) {
     const statusInfo = userStatusOptions.find(
         (item) => item.value === dashboardData?.user?.status,
@@ -68,7 +67,8 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                             <div className="mb-2">
                                 <h6 className={"!text-red-600"}>
                                     <i>
-                                        # Cảnh báo: {formatDateString(
+                                        # Cảnh báo:{" "}
+                                        {formatDateString(
                                             dashboardData?.user
                                                 ?.commission_expired_at,
                                         )}{" "}
