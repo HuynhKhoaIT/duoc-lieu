@@ -29,17 +29,14 @@ export default function RegisterForm() {
         const username = formData.get("username")?.trim();
         const phoneNumber = formData.get("phone_number")?.trim();
         const address = formData.get("address")?.trim();
-        const email = formData.get("email")?.trim();
         const password = formData.get("password")?.trim();
         const confirmPassword = formData.get("confirmPassword")?.trim();
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^(0|\+84)\d{9}$/;
 
         if (!name) return "Vui lòng nhập họ tên";
         if (!username) return "Vui lòng nhập tên đăng nhập";
         if (!phoneRegex.test(phoneNumber)) return "Số điện thoại không hợp lệ";
-        if (!emailRegex.test(email)) return "Email không hợp lệ";
         if (!address) return "Vui lòng nhập địa chỉ";
         if (!password || password.length < 8)
             return "Mật khẩu phải tối thiểu 8 ký tự";
@@ -70,7 +67,6 @@ export default function RegisterForm() {
                     username: formData.get("username"),
                     phone_number: formData.get("phone_number"),
                     address: formData.get("address"),
-                    email: formData.get("email"),
                     password: formData.get("password"),
                     referrer_phone: phone,
                     password_confirmation: formData.get("confirmPassword"),
@@ -163,11 +159,6 @@ export default function RegisterForm() {
                                     {
                                         name: "phone_number",
                                         label: "Số điện thoại",
-                                    },
-                                    {
-                                        name: "email",
-                                        label: "Email",
-                                        type: "email",
                                     },
                                     { name: "address", label: "Địa chỉ" },
                                     {
