@@ -48,11 +48,13 @@ export default function WalletPage({
             case "deduct":
                 typeLabel = "Mua hàng";
                 break;
+            case "agent_override":
+                typeLabel = "Hoa hồng thu nhập";
+                break;
             default:
                 typeLabel = "Khác";
                 break;
         }
-
         return {
             id: index + 1 + (currentPage - 1) * metaData?.per_page, // đánh số đúng theo page
             amount: (item.amount * 1).toLocaleString("vi-VN") || "0",
