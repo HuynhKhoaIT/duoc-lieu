@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Share2 } from "lucide-react";
 
+import paths from "@/constants/paths";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
@@ -20,15 +21,6 @@ export default function ProductComboCard({ p, quantity }) {
     const { addToCart } = useCart(data);
     const [ shareUrl, setShareUrl ] = useState("");
 
-    useEffect(() => {
-        if (typeof window !== "undefined" && isAuthenticated) {
-            const referralParam = profile?.phone_number
-                ? `?referral=${profile.phone_number}`
-                : "";
-
-            setShareUrl(`${window.location.origin}${asPath}${referralParam}`);
-        }
-    }, [ asPath, isAuthenticated, profile?.phone_number ]);
     return (
         <div
             className={`w-full hover:shadow-xl rounded-md text-center mb-1 p-2 ${styles.pro1}`}
@@ -65,6 +57,13 @@ export default function ProductComboCard({ p, quantity }) {
                             onClick={(e) => {
                                 e.stopPropagation();
                                 e.preventDefault();
+                                const referralParam = profile?.phone_number
+                                    ? `?referral=${profile.phone_number}`
+                                    : "";
+                                setShareUrl(
+                                    `${window.location.origin}${paths.shop}/${p.slug}${referralParam}`,
+                                );
+
                                 setOpen(true);
                             }}
                             className="absolute top-3 right-3 flex items-center justify-center bg-white rounded-full w-10 h-10 shadow-md hover:shadow-[goldenrod]"

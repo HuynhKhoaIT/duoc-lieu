@@ -39,14 +39,14 @@ export default function ProductDetail({ dataDetail, cartData }) {
     const [ shareUrl, setShareUrl ] = useState("");
 
     useEffect(() => {
-        if (typeof window !== "undefined" && isAuthenticated) {
+        if (typeof window !== "undefined") {
             const referralParam = profile?.phone_number
                 ? `?referral=${profile.phone_number}`
                 : "";
 
             setShareUrl(`${window.location.origin}${asPath}${referralParam}`);
         }
-    }, [ asPath, isAuthenticated, profile?.phone_number ]);
+    }, [ asPath, isAuthenticated ]);
     return (
         <div className="my-[48px]">
             <div className="container mx-auto px-4">

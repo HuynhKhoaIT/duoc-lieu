@@ -1,27 +1,22 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { createTheme, TextField, ThemeProvider } from "@mui/material";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 import { storageKeys } from "@/constants";
 import paths from "@/constants/paths";
-import useAlert from "@/hooks/useAlert"; // import hook SweetAlert
+import useAlert from "@/hooks/useAlert";
 import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./RegisterForm.module.scss";
-const customTheme = createTheme({
-    palette: {
-        primary: {
-            main: "#DAA520", // Màu chính (ví dụ xanh teal)
-            contrastText: "#fff", // Màu chữ trên nền primary
-        },
-    },
-});
+
 export default function RegisterForm() {
     const router = useRouter();
     const { phone } = router.query;
-    const [ loading, setLoading ] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); // 👈 Toggle mật khẩu
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 👈 Toggle xác nhận mật khẩu
     const { showAlert } = useAlert();
 
     const validate = (formData) => {
@@ -72,6 +67,7 @@ export default function RegisterForm() {
                     password_confirmation: formData.get("confirmPassword"),
                 }),
             });
+
             const data = await res.json();
 
             if (data.success) {
@@ -80,40 +76,22 @@ export default function RegisterForm() {
                 window.location.href = paths.user;
             } else {
                 const errorResponse = data.error;
-
-                if (errorResponse) {
-                    let message = "Có lỗi không xác định xảy ra!";
-
-                    if (errorResponse.errors) {
-                        const errorMessages = Object.values(
-                            errorResponse.errors,
-                        )
-                            .flat()
-                            .join("\n"); 
-
-                        message = errorMessages;
-                    }
-
-                    showAlert(message);
+                if (errorResponse?.errors) {
+                    const errorMessages = Object.values(errorResponse.errors)
+                        .flat()
+                        .join("\n");
+                    showAlert(errorMessages);
                 } else {
                     showAlert("Có lỗi không xác định xảy ra!");
                 }
             }
         } catch (err) {
             const errorResponse = err.error;
-
-            if (errorResponse) {
-                let message = errorResponse.message || "Có lỗi xảy ra";
-
-                if (errorResponse.errors) {
-                    const errorMessages = Object.values(errorResponse.errors)
-                        .flat() 
-                        .join("\n"); 
-
-                    message = errorMessages;
-                }
-
-                showAlert(message);
+            if (errorResponse?.errors) {
+                const errorMessages = Object.values(errorResponse.errors)
+                    .flat()
+                    .join("\n");
+                showAlert(errorMessages);
             } else {
                 showAlert("Có lỗi không xác định xảy ra!");
             }
@@ -148,63 +126,94 @@ export default function RegisterForm() {
                         <div className={styles.contactForm}>
                             <form
                                 onSubmit={handleSubmit}
-                                className="text-center flex flex-col gap-4"
+                                className="text-center flex flex-col gap-4 items-center"
                             >
-                                {[
-                                    { name: "name", label: "Họ tên" },
-                                    {
-                                        name: "username",
-                                        label: "Tên đăng nhập",
-                                    },
-                                    {
-                                        name: "phone_number",
-                                        label: "Số điện thoại",
-                                    },
-                                    { name: "address", label: "Địa chỉ" },
-                                    {
-                                        name: "password",
-                                        label: "Mật khẩu",
-                                        type: "password",
-                                    },
-                                    {
-                                        name: "confirmPassword",
-                                        label: "Xác nhận mật khẩu",
-                                        type: "password",
-                                    },
-                                ].map((field) => (
-                                    <div
-                                        key={field.name}
-                                        className="w-full flex flex-col items-center"
-                                    >
-                                        <input
-                                            type={field.type || "text"}
-                                            name={field.name}
-                                            placeholder={field.label}
-                                            className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
-                                        />
-                                        {/* <ThemeProvider theme={customTheme}>
-                                            <TextField
-                                                type={field.type || "text"}
-                                                name={field.name}
-                                                label={field.label}
-                                                fullWidth
-                                                variant="outlined"
-                                                size="medium"
-                                                sx={{ maxWidth: 400 }}
-                                            />
-                                        </ThemeProvider> */}
-                                    </div>
-                                ))}
+                                {/* Input Họ tên */}
+                                <div className="max-w-md w-full flex flex-col items-center">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Họ tên"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
+                                    />
+                                </div>
 
+                                {/* Input Tên đăng nhập */}
+                                <div className="max-w-md w-full flex flex-col items-center">
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        placeholder="Tên đăng nhập"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
+                                    />
+                                </div>
+
+                                {/* Input Số điện thoại */}
+                                <div className="max-w-md w-full flex flex-col items-center">
+                                    <input
+                                        type="tel"
+                                        name="phone_number"
+                                        placeholder="Số điện thoại"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
+                                    />
+                                </div>
+
+                                {/* Input Địa chỉ */}
+                                <div className="max-w-md w-full flex flex-col items-center">
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        placeholder="Địa chỉ"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
+                                    />
+                                </div>
+
+                                {/* Input Mật khẩu */}
+                                <div className="relative w-full max-w-md flex flex-col items-center">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        placeholder="Mật khẩu"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 pr-10"
+                                    />
+                                    <span
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </span>
+                                </div>
+
+                                {/* Input Xác nhận mật khẩu */}
+                                <div className="relative w-full max-w-md flex flex-col items-center">
+                                    <input
+                                        type={showConfirmPassword ? "text" : "password"}
+                                        name="confirmPassword"
+                                        placeholder="Xác nhận mật khẩu"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 pr-10"
+                                    />
+                                    <span
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                                        onClick={() =>
+                                            setShowConfirmPassword(!showConfirmPassword)
+                                        }
+                                    >
+                                        {showConfirmPassword ? (
+                                            <EyeOff size={20} />
+                                        ) : (
+                                            <Eye size={20} />
+                                        )}
+                                    </span>
+                                </div>
+
+                                {/* Nút đăng ký */}
                                 <div className={styles.searchBarTablecell}>
                                     <button
                                         type="submit"
                                         disabled={loading}
                                         className="max-w-md bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
                                     >
-                                        {loading
-                                            ? "Đang đăng ký..."
-                                            : "Đăng ký"}
+                                        {loading ? "Đang đăng ký..." : "Đăng ký"}
                                     </button>
                                 </div>
                             </form>

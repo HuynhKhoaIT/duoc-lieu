@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import useAuth from "@/hooks/useAuth";
 
 import styles from "./Checkout.module.scss";
@@ -9,6 +11,11 @@ export default function OrderSummary({
     loading,
 }) {
     const { isAuthenticated } = useAuth();
+    const isGift = useMemo(() => {
+        return cartItems?.find((item) => {
+            return item?.product?.type === "gift";
+        });
+    }, [ cartItems ]);
 
     return (
         <div className={styles.accordion}>
@@ -77,6 +84,20 @@ export default function OrderSummary({
                                             </strong>
                                         </td>
                                     </tr>
+                                    {!isAuthenticated && isGift && (
+                                        <tr className={styles.totalData}>
+                                            <th className={styles.pl3}>
+                                                Phí ship
+                                            </th>
+                                            <td colSpan="2">
+                                                <strong>
+                                                    {Number(
+                                                        39000,
+                                                    ).toLocaleString("vi-VN")}
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
 
