@@ -40,13 +40,13 @@ export default function ProductDetail({ dataDetail, cartData }) {
 
     useEffect(() => {
         if (typeof window !== "undefined" && isAuthenticated) {
-            setShareUrl(
-                window.location.origin +
-                    asPath +
-                    `?referral=${profile?.phone_number}`,
-            );
+            const referralParam = profile?.phone_number
+                ? `?referral=${profile.phone_number}`
+                : "";
+
+            setShareUrl(`${window.location.origin}${asPath}${referralParam}`);
         }
-    }, [ asPath, isAuthenticated ]);
+    }, [ asPath, isAuthenticated, profile?.phone_number ]);
     return (
         <div className="my-[48px]">
             <div className="container mx-auto px-4">
@@ -62,15 +62,13 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                     height={600}
                                     className="w-full h-auto rounded-md object-contain"
                                 />
-                                {isAuthenticated && (
-                                    <button
-                                        onClick={() => setOpen(true)}
-                                        className="absolute top-2 right-2 main-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
-                                    >
-                                        <Share2 size={18} />
-                                        Chia sẻ
-                                    </button>
-                                )}
+                                <button
+                                    onClick={() => setOpen(true)}
+                                    className="absolute top-2 right-2 main-btn !flex items-center justify-center gap-2 hover:cursor-pointer"
+                                >
+                                    <Share2 size={18} />
+                                    Chia sẻ
+                                </button>
                             </div>
 
                             <h4 className="gold-bg text-center p-3 mb-4 text-blue-600 text-lg font-semibold">
@@ -93,7 +91,7 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                             </span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <h6 className="!m-0">Giá lẻ:</h6>
+                                            <h6 className="!m-0">Giá CTV:</h6>
                                             <span className="text-[24px] font-bold text-[#004c49]">
                                                 {(
                                                     dataDetail.price_retail * 1
@@ -101,46 +99,45 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                                 ₫
                                             </span>
                                         </div>
-                                    <div className="flex items-center justify-between">
-                                        <h6 className="!m-0">Số lượng:</h6>
-                                        <div className="flex items-center">
-                                            <button
-                                                onClick={decreaseQuantity}
-                                                className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
-                                            >
-                                                <Minus
-                                                    size={16}
-                                                    className="text-[#004c49]"
-                                                />
-                                            </button>
-                                            <input
-                                                type="number"
-                                                value={quantity}
-                                                min={1}
-                                                onChange={(e) =>
-                                                    changeQuantity(
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                readOnly
-                                                className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
+                                        <div className="flex items-center justify-between">
+                                            <h6 className="!m-0">Số lượng:</h6>
+                                            <div className="flex items-center">
+                                                <button
+                                                    onClick={decreaseQuantity}
+                                                    className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-l-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
+                                                >
+                                                    <Minus
+                                                        size={16}
+                                                        className="text-[#004c49]"
+                                                    />
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    value={quantity}
+                                                    min={1}
+                                                    onChange={(e) =>
+                                                        changeQuantity(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    readOnly
+                                                    className="w-8 h-8 text-center border-t border-b border-[#004c49] focus:outline-none text-[#004c49] font-medium 
                                             [&::-webkit-outer-spin-button]:appearance-none 
                                             [&::-webkit-inner-spin-button]:appearance-none 
                                             [-moz-appearance:textfield]"
-                                            />
-                                            <button
-                                                onClick={increaseQuantity}
-                                                className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
-                                            >
-                                                <Plus
-                                                    size={16}
-                                                    className="text-[#004c49]"
                                                 />
-                                            </button>
+                                                <button
+                                                    onClick={increaseQuantity}
+                                                    className="w-8 h-8 flex items-center justify-center border border-[#004c49] rounded-r-md hover:bg-[goldenrod]/10 transition hover:cursor-pointer"
+                                                >
+                                                    <Plus
+                                                        size={16}
+                                                        className="text-[#004c49]"
+                                                    />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    </div>
-
                                 </div>
                             )}
 

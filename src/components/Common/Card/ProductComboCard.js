@@ -1,20 +1,38 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Share2 } from "lucide-react";
 
-import paths from "@/constants/paths";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
+
+import ShareModal from "../ShareModal";
 
 import styles from "./ProductComboCard.module.scss";
 
 export default function ProductComboCard({ p, quantity }) {
     const { setCart, cart, setData, data } = useGlobalContext();
+    const { asPath } = useRouter();
 
+    const { isAuthenticated, profile } = useAuth();
+    const [ openModal, setOpen ] = useState(false);
     const { addToCart } = useCart(data);
+    const [ shareUrl, setShareUrl ] = useState("");
 
+    useEffect(() => {
+        if (typeof window !== "undefined" && isAuthenticated) {
+            const referralParam = profile?.phone_number
+                ? `?referral=${profile.phone_number}`
+                : "";
+
+            setShareUrl(`${window.location.origin}${asPath}${referralParam}`);
+        }
+    }, [ asPath, isAuthenticated, profile?.phone_number ]);
     return (
-        <div className={`w-full  text-center mb-1 p-2 ${styles.pro1}`}>
+        <div
+            className={`w-full hover:shadow-xl rounded-md text-center mb-1 p-2 ${styles.pro1}`}
+        >
             <div
                 className={styles.card}
                 onClick={() =>
@@ -34,7 +52,7 @@ export default function ProductComboCard({ p, quantity }) {
                             sizes="(max-width: 768px) 100vw, 33vw"
                             quality={75}
                         />
-                        <div className="absolute top-3 left-3 inline-block">
+                        <div className="absolute top-3 left-3 flex items-center justify-center  bg-white rounded-full w-10 h-10 shadow-md">
                             <i className="fas fa-shopping-cart text-[goldenrod] text-xl"></i>
 
                             {quantity > 0 && (
@@ -43,12 +61,22 @@ export default function ProductComboCard({ p, quantity }) {
                                 </span>
                             )}
                         </div>
+                        <div
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setOpen(true);
+                            }}
+                            className="absolute top-3 right-3 flex items-center justify-center bg-white rounded-full w-10 h-10 shadow-md hover:shadow-[goldenrod]"
+                        >
+                            <Share2 size={24} color="goldenrod" />
+                        </div>
                     </div>
                     <h6 className={`gold-bg blue-text p-2 !mb-0`}>{p.name}</h6>
 
                     <div className={`p-2 blue-bg`}>
                         <div className="flex justify-between items-end px-1">
-                            <h6 className={`gold-text !m-0 pr-2`}>Giá sỉ:</h6>
+                            <h6 className={`gold-text !m-0 pr-2`}>Giá lẻ:</h6>
                             <h4 className={`gold-text !m-0 pr-2`}>
                                 {(p?.price_retail * 1).toLocaleString("vi-VN")}
                             </h4>
@@ -58,7 +86,7 @@ export default function ProductComboCard({ p, quantity }) {
                         <div className="flex justify-between items-end px-1">
                             <div className="relative text-white inline-block">
                                 <h6 className={`gold-text !m-0 pr-2`}>
-                                    Giá lẻ:
+                                    Giá CTV:
                                 </h6>
                             </div>
                             <h4 className={`gold-text !m-0 pr-2`}>
@@ -70,6 +98,11 @@ export default function ProductComboCard({ p, quantity }) {
                     </div>
                 </div>
             </div>
+            <ShareModal
+                isOpen={openModal}
+                onClose={() => setOpen(false)}
+                shareUrl={shareUrl}
+            />
         </div>
     );
 }
