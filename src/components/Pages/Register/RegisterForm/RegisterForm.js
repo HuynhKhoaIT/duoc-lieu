@@ -15,8 +15,8 @@ export default function RegisterForm() {
     const router = useRouter();
     const { phone } = router.query;
     const [loading, setLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false); // 👈 Toggle mật khẩu
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 👈 Toggle xác nhận mật khẩu
+    const [showPassword, setShowPassword] = useState(false); 
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const { showAlert } = useAlert();
 
     const validate = (formData) => {
@@ -128,7 +128,6 @@ export default function RegisterForm() {
                                 onSubmit={handleSubmit}
                                 className="text-center flex flex-col gap-4 items-center"
                             >
-                                {/* Input Họ tên */}
                                 <div className="max-w-md w-full flex flex-col items-center">
                                     <input
                                         type="text"
@@ -138,7 +137,6 @@ export default function RegisterForm() {
                                     />
                                 </div>
 
-                                {/* Input Tên đăng nhập */}
                                 <div className="max-w-md w-full flex flex-col items-center">
                                     <input
                                         type="text"
@@ -148,7 +146,6 @@ export default function RegisterForm() {
                                     />
                                 </div>
 
-                                {/* Input Số điện thoại */}
                                 <div className="max-w-md w-full flex flex-col items-center">
                                     <input
                                         type="tel"
@@ -158,7 +155,6 @@ export default function RegisterForm() {
                                     />
                                 </div>
 
-                                {/* Input Địa chỉ */}
                                 <div className="max-w-md w-full flex flex-col items-center">
                                     <input
                                         type="text"
@@ -168,7 +164,6 @@ export default function RegisterForm() {
                                     />
                                 </div>
 
-                                {/* Input Mật khẩu */}
                                 <div className="relative w-full max-w-md flex flex-col items-center">
                                     <input
                                         type={showPassword ? "text" : "password"}
@@ -184,7 +179,6 @@ export default function RegisterForm() {
                                     </span>
                                 </div>
 
-                                {/* Input Xác nhận mật khẩu */}
                                 <div className="relative w-full max-w-md flex flex-col items-center">
                                     <input
                                         type={showConfirmPassword ? "text" : "password"}
@@ -206,7 +200,6 @@ export default function RegisterForm() {
                                     </span>
                                 </div>
 
-                                {/* Nút đăng ký */}
                                 <div className={styles.searchBarTablecell}>
                                     <button
                                         type="submit"

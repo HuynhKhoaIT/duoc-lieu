@@ -1,26 +1,16 @@
-import { Fragment } from "react";
-import useSWR from "swr";
-
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import CheckoutForm from "@/components/Pages/User/Checkout";
 import apiConfig from "@/constants/apiConfig";
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function CheckOutPage({ slideList }) {
-    const {
-        data: cartsData,
-        error,
-        isLoading,
-        mutate,
-    } = useSWR("/api/cart", fetcher);
 
     return (
         <RenderContext>
             <Breadcrumb title={"Đặt hàng"} />
-            <CheckoutForm cartsData={cartsData?.data} />
+            <CheckoutForm />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );

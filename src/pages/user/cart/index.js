@@ -7,22 +7,11 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import CartPage from "@/components/Pages/User/Cart";
 import apiConfig from "@/constants/apiConfig";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 function Cart({ slideList }) {
-    const { data, error, isLoading, mutate } = useSWR("/api/cart", fetcher);
-
-    if (error) return <p>Lỗi tải giỏ hàng!</p>;
-
     return (
         <RenderContext>
             <Breadcrumb title="Giỏ hàng" />
-            <CartPage
-                cartsData={data?.data || []}
-                refetch={mutate}
-                isLoading={isLoading}
-            />
+            <CartPage />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );

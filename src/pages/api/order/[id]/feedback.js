@@ -13,12 +13,12 @@ export default async function handler(req, res) {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
-    if (req.method !== "PUT") {
+    if (req.method !== "POST") {
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 
     try {
-        const response = await axios.put(
+        const response = await axios.post(
             apiConfig.feedback.create.url.replace(":id", id),
             req.body,
             { headers: { Authorization: `Bearer ${token}` } },

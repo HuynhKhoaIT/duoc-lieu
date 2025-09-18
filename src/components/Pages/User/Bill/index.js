@@ -15,9 +15,8 @@ import styles from "./BillTable.module.scss";
 
 export default function BillTable({
     ordersData,
-    refetch,
-    loading,
     mutate,
+    loading,
     metaData,
     currentPage,
     setCurrentPage,
@@ -59,33 +58,37 @@ export default function BillTable({
                     : "Phiếu mua hàng",
         status: statusOrderOptions[order.status],
 
-        action: order?.feedback ? (
-            order.feedback
-        ) : (
-            <button
-                onClick={() => {
-                    setOrderFeedback(order);
-                    setIsOpen(true);
-                }}
-                type="button"
-                className="main-btn text-sm cursor-pointer"
-            >
-                <strong>Phản Hồi</strong>
-            </button>
-        ),
+        action:
+            order?.feedbacks?.length > 0 &&
+            order?.feedbacks[order?.feedbacks?.length - 1]?.user?.role ===
+                "member" ? (
+                    order.feedbacks[order?.feedbacks?.length - 1]?.content
+                ) : (
+                    <button
+                        onClick={() => {
+                            setOrderFeedback(order);
+                            setIsOpen(true);
+                        }}
+                        type="button"
+                        className="main-btn text-sm cursor-pointer"
+                    >
+                        <strong>Phản Hồi</strong>
+                    </button>
+                ),
     }));
 
     const handleFeedback = async ({ feedback }) => {
         try {
             const res = await fetch(`/api/order/${orderFeedback.id}/feedback`, {
-                method: "PUT",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ feedback }),
+                body: JSON.stringify({ content: feedback }),
             });
-            if (res.status === 200) {
+            console.log(res);
+            if (res.status == 200) {
                 toast.success("Phản hồi thành công");
                 setIsOpen(false);
-                refetch();
+                mutate();
             }
         } catch (error) {
             toast.error("Phản hồi thất bại");

@@ -82,7 +82,17 @@ export default function CheckoutForm({ cartsData }) {
                 const res = await fetch("/api/checkOut", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(cleanObject(data)),
+                    body: JSON.stringify(
+                        cleanObject({
+                            ...data,
+                            items: cartItems?.map((item) => {
+                                return {
+                                    product_id: item.product.id,
+                                    quantity: item.quantity,
+                                };
+                            }),
+                        }),
+                    ),
                 });
 
                 const result = await res.json();
@@ -91,6 +101,7 @@ export default function CheckoutForm({ cartsData }) {
                     push(paths.bill);
                     setCart(0);
                     setData([]);
+                    removeLocalItem(storageKeys.CART_DATA);
                 } else {
                     const errorMessage = getFirstErrorMessage(result.errors);
                     showAlert(

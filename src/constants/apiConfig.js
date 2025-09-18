@@ -126,11 +126,12 @@ const apiConfig = {
     },
     checkOut: {
         create: {
-            url: `${apiUrl}api/v2/orders/create-from-cart`,
+            url: `${apiUrl}api/v2/order/checkout`,
             method: "POST",
             headers: baseHeader,
             isAuth: true,
         },
+        
     },
     checkOutV3: {
         create: {
@@ -150,8 +151,8 @@ const apiConfig = {
     },
     feedback: {
         create: {
-            url: `${apiUrl}api/v2/orders/:id/feedback`,
-            method: "PUT",
+            url: `${apiUrl}api/v2/orders/feedbacks/:id`, 
+            method: "POST",
             headers: baseHeader,
             isAuth: true,
         },

@@ -81,11 +81,10 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                     {/* Giá sản phẩm */}
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center justify-between">
-                                            <h6 className="!m-0">Giá sỉ:</h6>
+                                            <h6 className="!m-0">Giá lẻ:</h6>
                                             <span className="text-[24px] font-bold text-[#004c49]">
                                                 {(
-                                                    dataDetail.price_wholesale *
-                                                    1
+                                                    dataDetail.price_retail * 1
                                                 ).toLocaleString("vi-VN")}{" "}
                                                 ₫
                                             </span>
@@ -94,7 +93,8 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                             <h6 className="!m-0">Giá CTV:</h6>
                                             <span className="text-[24px] font-bold text-[#004c49]">
                                                 {(
-                                                    dataDetail.price_retail * 1
+                                                    dataDetail.price_wholesale *
+                                                    1
                                                 ).toLocaleString("vi-VN")}{" "}
                                                 ₫
                                             </span>
@@ -184,34 +184,48 @@ export default function ProductDetail({ dataDetail, cartData }) {
                                 title="ĐẶC TÍNH"
                                 content={dataDetail?.features}
                             />
-                            <Section
-                                title="QUY CÁCH"
-                                content={dataDetail?.specifications}
-                            />
-                            <Section
-                                title="CÔNG DỤNG"
-                                content={dataDetail?.usage}
-                            />
-                            <Section
-                                title="ĐẶC ĐIỂM NỔI BẬT"
-                                content={dataDetail?.highlights}
-                            />
-                            <Section
-                                title="HƯỚNG DẪN SỬ DỤNG"
-                                content={dataDetail?.instructions}
-                            />
-                            <Section
-                                title="Thành Phần"
-                                content={dataDetail?.ingredients}
-                            />
-                            <Section
-                                title="Cảnh báo an toàn"
-                                content={dataDetail?.safety_warning}
-                            />
-                            <Section
-                                title="Thông tin quan trọng cần lưu ý"
-                                content={dataDetail?.important_info}
-                            />
+                            {dataDetail?.specifications?.length > 0 && (
+                                <Section
+                                    title="QUY CÁCH"
+                                    content={dataDetail?.specifications}
+                                />
+                            )}
+                            {dataDetail?.usage?.length > 0 && (
+                                <Section
+                                    title="CÔNG DỤNG"
+                                    content={dataDetail?.usage}
+                                />
+                            )}
+                            {dataDetail?.highlights?.length > 0 && (
+                                <Section
+                                    title="ĐẶC ĐIỂM NỔI BẬT"
+                                    content={dataDetail?.highlights}
+                                />
+                            )}
+                            {dataDetail?.instructions?.length > 0 && (
+                                <Section
+                                    title="HƯỚNG DẪN SỬ DỤNG"
+                                    content={dataDetail?.instructions}
+                                />
+                            )}
+                            {dataDetail?.ingredients?.length > 0 && (
+                                <Section
+                                    title="Thành Phần"
+                                    content={dataDetail?.ingredients}
+                                />
+                            )}
+                            {dataDetail?.safety_warning?.length > 0 && (
+                                <Section
+                                    title="Cảnh báo an toàn"
+                                    content={dataDetail?.safety_warning}
+                                />
+                            )}
+                            {dataDetail?.important_info?.length > 0 && (
+                                <Section
+                                    title="Thông tin quan trọng cần lưu ý"
+                                    content={dataDetail?.important_info}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

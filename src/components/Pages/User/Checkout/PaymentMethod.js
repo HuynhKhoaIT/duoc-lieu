@@ -50,7 +50,10 @@ export default function PaymentMethod({ open, toggle }) {
                                 <p className="ml-4 pl-2">
                                     Số tài khoản: 0931003004
                                 </p>
-                                <p className="ml-4 pl-2">Ngân hàng: Sacombank chi nhánh tỉnh Hậu Giang</p>
+                                <p className="ml-4 pl-2">
+                                    Ngân hàng: Sacombank chi nhánh tỉnh Hậu
+                                    Giang
+                                </p>
                                 <p className="ml-4 pl-2">
                                     Chủ tài khoản: Đặng Thị Kim Ngọc
                                 </p>
@@ -58,7 +61,7 @@ export default function PaymentMethod({ open, toggle }) {
                         </div>
 
                         {/* Ví */}
-                        {isAuthenticated ? (
+                        {isAuthenticated && (
                             <div
                                 className={`${styles.formCheck} ${styles.customRadio} flex items-start mb-4`}
                             >
@@ -79,29 +82,6 @@ export default function PaymentMethod({ open, toggle }) {
                                     <p className="ml-4 pl-2">
                                         Thanh toán bằng số dư có sẵn trong tài
                                         khoản ví
-                                    </p>
-                                </label>
-                            </div>
-                        ) : (
-                            <div
-                                className={`${styles.formCheck} ${styles.customRadio} flex items-start mb-4`}
-                            >
-                                <input
-                                    className={`${styles.formCheckInput} mt-2`}
-                                    type="radio"
-                                    name="payment"
-                                    id="code"
-                                    value="code"
-                                />
-                                <label
-                                    className={styles.formCheckLabel}
-                                    htmlFor="code"
-                                >
-                                    <strong className="gold-text">
-                                        Thanh toán tiền mặt
-                                    </strong>
-                                    <p className="ml-4 pl-2">
-                                        Thanh toán khi nhận hàng.
                                     </p>
                                 </label>
                             </div>
