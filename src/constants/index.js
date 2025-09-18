@@ -44,7 +44,7 @@ export const statusOrderOptions = {
     pending: "Chờ xử lý",
     paid: "Đã thanh toán",
     shipped: "Đang giao",
-    completed: "Hoàn tất",
+    completed: "Đã duyệt",
     cancelled: "Đã hủy",
 };
 

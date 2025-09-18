@@ -1,6 +1,6 @@
 "use client";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function useAlert() {
     const router = useRouter();
@@ -26,17 +26,20 @@ export default function useAlert() {
 
                 if (icon === "success") {
                     const successRing = swalIcon.querySelector(
-                        ".swal2-success-ring"
+                        ".swal2-success-ring",
                     );
                     const successLineTip = swalIcon.querySelector(
-                        ".swal2-success-line-tip"
+                        ".swal2-success-line-tip",
                     );
                     const successLineLong = swalIcon.querySelector(
-                        ".swal2-success-line-long"
+                        ".swal2-success-line-long",
                     );
-                    if (successRing) successRing.style.borderColor = PRIMARY_COLOR;
-                    if (successLineTip) successLineTip.style.backgroundColor = PRIMARY_COLOR;
-                    if (successLineLong) successLineLong.style.backgroundColor = PRIMARY_COLOR;
+                    if (successRing)
+                        successRing.style.borderColor = PRIMARY_COLOR;
+                    if (successLineTip)
+                        successLineTip.style.backgroundColor = PRIMARY_COLOR;
+                    if (successLineLong)
+                        successLineLong.style.backgroundColor = PRIMARY_COLOR;
                 }
 
                 if (icon === "error") {

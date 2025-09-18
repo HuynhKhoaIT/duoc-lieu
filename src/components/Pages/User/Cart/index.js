@@ -5,6 +5,7 @@ import { Skeleton } from "@mui/material";
 
 import { GIFT_TYPE } from "@/constants";
 import paths from "@/constants/paths";
+import useAlert from "@/hooks/useAlert";
 import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
 
@@ -12,6 +13,7 @@ import styles from "./Cart.module.scss";
 
 export default function CartPage({ cartsData, isLoading }) {
     const { isAuthenticated } = useAuth();
+    const { showAlert } = useAlert();
     const {
         cartItems,
         totalPrice,
@@ -231,6 +233,18 @@ export default function CartPage({ cartsData, isLoading }) {
                                                                     ? paths.userCheckOut
                                                                     : paths.checkOut
                                                             }
+                                                            onClick={(e) => {
+                                                                if (
+                                                                    isAuthenticated &&
+                                                                    totalPrice <=
+                                                                        500000
+                                                                ) {
+                                                                    e.preventDefault();
+                                                                    showAlert(
+                                                                        "CTV phải đặt đơn hàng có giá trị từ 500,000 trở lên, sẽ nhận Được giá sỉ và miễn phí giao hàng",
+                                                                    );
+                                                                }
+                                                            }}
                                                             className="main-btn text-center"
                                                         >
                                                             Đặt Hàng
