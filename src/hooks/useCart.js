@@ -94,6 +94,38 @@ export default function useCart(initialData) {
         setCart(cart - item.quantity);
         return;
     };
+    /** --------------------------
+     *  Cập nhật số lượng nhập trực tiếp
+     * -------------------------- */
+    const updateQty = async (item, newQty) => {
+        // Nếu value là "" thì giữ nguyên để user tiếp tục nhập
+        if (newQty === "") {
+            const updatedCart = cartItems.map((i) =>
+                i.id === item.id ? { ...i, quantity: "" } : i,
+            );
+            setCartItems(updatedCart);
+            return;
+        }
+
+        // Sau khi có số hợp lệ, đảm bảo trong khoảng 1 - 100
+        let qty = parseInt(newQty, 10);
+        if (isNaN(qty) || qty < 1) qty = 1;
+        if (qty > 100) qty = 100;
+
+        const updatedCart = cartItems.map((i) =>
+            i.id === item.id ? { ...i, quantity: qty } : i,
+        );
+
+        setCartItems(updatedCart);
+        setData(updatedCart);
+        setLocalData(storageKeys.CART_DATA, updatedCart);
+
+        const totalQty = updatedCart.reduce(
+            (sum, cartItem) => sum + (parseInt(cartItem.quantity, 10) || 0),
+            0,
+        );
+        setCart(totalQty);
+    };
 
     const totalPrice = useMemo(() => {
         if (!Array.isArray(cartItems)) return 0;
@@ -123,5 +155,6 @@ export default function useCart(initialData) {
         decrementQty,
         removeItem,
         setCartItems,
+        updateQty,
     };
 }

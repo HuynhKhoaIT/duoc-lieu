@@ -22,6 +22,7 @@ export default function CartPage({ cartsData, isLoading }) {
         incrementQty,
         decrementQty,
         removeItem,
+        updateQty,
     } = useCart(cartsData);
 
     return (
@@ -164,8 +165,78 @@ export default function CartPage({ cartsData, isLoading }) {
                                                             value={
                                                                 item.quantity
                                                             }
-                                                            readOnly
+                                                            onChange={(e) => {
+                                                                let value =
+                                                                    e.target
+                                                                        .value;
+
+                                                                if (
+                                                                    value === ""
+                                                                ) {
+                                                                    updateQty(
+                                                                        item,
+                                                                        "",
+                                                                    );
+                                                                    return;
+                                                                }
+
+                                                                if (
+                                                                    !/^\d+$/.test(
+                                                                        value,
+                                                                    )
+                                                                )
+                                                                    return;
+
+                                                                // Parse về số nguyên
+                                                                let numValue =
+                                                                    parseInt(
+                                                                        value,
+                                                                        10,
+                                                                    );
+
+                                                                // Giới hạn trong khoảng 1 - 100
+                                                                if (
+                                                                    numValue < 1
+                                                                )
+                                                                    numValue = 1;
+                                                                if (
+                                                                    numValue >
+                                                                    100
+                                                                )
+                                                                    numValue = 100;
+
+                                                                updateQty(
+                                                                    item,
+                                                                    numValue,
+                                                                );
+                                                            }}
+                                                            onBlur={(e) => {
+                                                                let value =
+                                                                    parseInt(
+                                                                        e.target
+                                                                            .value,
+                                                                        10,
+                                                                    );
+
+                                                                // Nếu blur mà chưa nhập gì thì tự động set về 1
+                                                                if (
+                                                                    isNaN(
+                                                                        value,
+                                                                    ) ||
+                                                                    value < 1
+                                                                )
+                                                                    value = 1;
+                                                                if (value > 100)
+                                                                    value = 100;
+
+                                                                updateQty(
+                                                                    item,
+                                                                    value,
+                                                                );
+                                                            }}
+                                                            className="text-center w-[50px] border rounded"
                                                         />
+
                                                         {item?.product?.type !==
                                                             GIFT_TYPE && (
                                                             <button
@@ -236,7 +307,7 @@ export default function CartPage({ cartsData, isLoading }) {
                                                             onClick={(e) => {
                                                                 if (
                                                                     isAuthenticated &&
-                                                                    totalPrice <=
+                                                                    totalPrice <
                                                                         500000
                                                                 ) {
                                                                     e.preventDefault();

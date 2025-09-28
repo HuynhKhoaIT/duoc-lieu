@@ -174,11 +174,13 @@ export default function CheckoutForm({ cartsData }) {
                         {/* Left side */}
                         <div className="w-full lg:w-1/2 px-4">
                             <div className="alert alert-warning bg-yellow-100 border border-yellow-400 text-yellow-700 p-4 rounded">
-                                <i className="fas fa-exclamation-triangle mb-1 mr-2 gold-text"></i>
-                                Vui lòng kiểm tra chính xác các thông tin trước
+                                <i className="fas fa-exclamation-triangle mb-1 mr-2 gold-text" style={{ color:'#ff4d4f' }}></i>
+                                {/* Vui lòng kiểm tra chính xác các thông tin trước
                                 khi xác nhận đơn hàng. Không thể hủy hoặc thay
                                 đổi thông tin khi đơn hàng đã duyệt. <br />
-                                Xin trân trọng cảm ơn!
+                                Xin trân trọng cảm ơn! */}
+                                <span style={{ color:'#ff4d4f' }}>Nếu bạn chưa có tài khoản HÃY Liên hệ ngay với người đưa đường link trang web cho bạn để được hướng dẫn tạo tài khoản. <br />
+                                QUYỀN LỢI: ĐƯỢC MUA HÀNG VỚI GIÁ SỈ =&gt; giảm đến 20% </span>
                             </div>
 
                             <div className={styles.checkoutAccordionWrap}>

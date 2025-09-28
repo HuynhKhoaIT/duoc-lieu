@@ -44,8 +44,7 @@ export default function PaymentMethod({ open, toggle }) {
                                     Chuyển Khoản
                                 </strong>
                                 <p className="ml-4 pl-2">
-                                    Với nội dung: &quot;Mã đơn hàng của
-                                    bạn&quot;
+                                    Với nội dung: &quot;Số điện thoại của bạn&quot;
                                 </p>
                                 <p className="ml-4 pl-2">
                                     Số tài khoản: 0931003004
