@@ -17,7 +17,7 @@ function ProfilePage({ slideList }) {
 
     return (
         <RenderContext>
-            <Breadcrumb title="Đặt hàng" />
+            <Breadcrumb title="Thông tin" />
             <ProfileForm profileData={data?.data} isLoading={isLoading} />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
