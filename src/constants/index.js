@@ -90,6 +90,12 @@ export const agentLevelOptions = {
 
 export const userStatusOptions = [
     {
+        label: 'Chờ hoạt động',
+        value: "pending",
+        icon: "fas fa-check",
+        color: "#FF6347",
+    },
+    {
         label: "Hoạt động",
         value: "active",
         color: "#00FF7F",
