@@ -15,7 +15,7 @@ function Agent({ slideList }) {
     );
     return (
         <RenderContext>
-            <Breadcrumb title="Đại lý" />
+            <Breadcrumb title="Cộng tác viên" />
             <AgentPage
                 usersData={data?.data}
                 isLoading={isLoading}

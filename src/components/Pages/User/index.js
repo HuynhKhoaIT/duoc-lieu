@@ -250,7 +250,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                         <span
                                             className={`text-center blue-text`}
                                         >
-                                            Số Đại Lý 1
+                                            Số CTV 1
                                         </span>
                                         <h4 className="text-center text-light">
                                             {dashboardData?.network?.f1_count} |{" "}
@@ -274,7 +274,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                         <span
                                             className={`text-center blue-text`}
                                         >
-                                            Tổng Số Đại Lý
+                                            Tổng Số CTV
                                         </span>
                                         <h4 className="text-center text-light">
                                             {

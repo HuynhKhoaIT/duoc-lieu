@@ -44,7 +44,7 @@ export default function OrderType({ open, toggle }) {
                                         htmlFor="agent"
                                     >
                                         <strong className="gold-text">
-                                            Đại Lý
+                                            Cộng tác viên
                                         </strong>
                                     </label>
                                 </div>

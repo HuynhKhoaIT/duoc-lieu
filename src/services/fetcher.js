@@ -20,7 +20,6 @@ const fetcher = async (
 
         const token = context?.token;
         
-
         if (token && isAuth) {
             headers.Authorization = `Bearer ${token}`;
         }

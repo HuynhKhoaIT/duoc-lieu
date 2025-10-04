@@ -110,7 +110,6 @@ export default function useCart(initialData) {
         // Sau khi có số hợp lệ, đảm bảo trong khoảng 1 - 100
         let qty = parseInt(newQty, 10);
         if (isNaN(qty) || qty < 1) qty = 1;
-        if (qty > 100) qty = 100;
 
         const updatedCart = cartItems.map((i) =>
             i.id === item.id ? { ...i, quantity: qty } : i,

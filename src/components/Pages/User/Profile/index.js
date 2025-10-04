@@ -9,7 +9,6 @@ import useAlert from "@/hooks/useAlert";
 import useAuth from "@/hooks/useAuth";
 
 import styles from "./Profile.module.scss";
-
 export default function ProfileForm({ profileData, isLoading }) {
     const [ showModal, setShowModal ] = useState(false);
     const [ loading, setLoading ] = useState(false);
@@ -65,6 +64,7 @@ export default function ProfileForm({ profileData, isLoading }) {
             const data = await res.json();
             if (data?.success) {
                 toast.success("Cập nhật thành công!");
+                                
             } else {
                 showAlert(data?.message || "Cập nhật thất bại.");
             }

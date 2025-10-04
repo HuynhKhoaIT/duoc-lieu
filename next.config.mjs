@@ -56,7 +56,10 @@ const nextConfig = {
         // Modify the file loader rule to ignore *.svg, since we have it handled now.
         fileSvgLoaderRule.exclude = /\.svg$/i;
         return config;
-    },
+    }, 
+    rewrites: async () => [
+        // { "source": "/api/(.*)", "destination": "https://n22.re1.vn/$1" }
+    ],
 };
 
 export default nextConfig;

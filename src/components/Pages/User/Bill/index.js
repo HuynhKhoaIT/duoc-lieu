@@ -128,7 +128,7 @@ export default function BillTable({
                                                 <h5
                                                     className={`gold-text !mb-0`}
                                                 >
-                                                    Đại lý 1:
+                                                    CTV 1:
                                                 </h5>
                                                 <h4 className="mb-1 !text-white">
                                                     0

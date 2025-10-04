@@ -1,3 +1,5 @@
+import { serialize } from "cookie";
+
 import apiConfig from "@/constants/apiConfig";
 
 export default async function handler(req, res) {
@@ -17,9 +19,21 @@ export default async function handler(req, res) {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
+                Accept: "application/json",
             },
         });
-
+        if (response.status === 401) {
+            res.setHeader(
+                "Set-Cookie",
+                serialize("token", "", {
+                    path: "/",
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: "strict",
+                    expires: new Date(0),
+                }),
+            );
+        }
         const data = await response.json();
         res.status(200).json(data);
     } catch (err) {

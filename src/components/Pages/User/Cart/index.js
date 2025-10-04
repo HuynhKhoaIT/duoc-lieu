@@ -161,7 +161,6 @@ export default function CartPage({ cartsData, isLoading }) {
                                                         <input
                                                             type="text"
                                                             min="1"
-                                                            max="100"
                                                             value={
                                                                 item.quantity
                                                             }
@@ -199,11 +198,7 @@ export default function CartPage({ cartsData, isLoading }) {
                                                                     numValue < 1
                                                                 )
                                                                     numValue = 1;
-                                                                if (
-                                                                    numValue >
-                                                                    100
-                                                                )
-                                                                    numValue = 100;
+                                                             
 
                                                                 updateQty(
                                                                     item,
@@ -226,8 +221,6 @@ export default function CartPage({ cartsData, isLoading }) {
                                                                     value < 1
                                                                 )
                                                                     value = 1;
-                                                                if (value > 100)
-                                                                    value = 100;
 
                                                                 updateQty(
                                                                     item,
