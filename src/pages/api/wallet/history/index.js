@@ -38,6 +38,7 @@ export default async function handler(req, res) {
                     expires: new Date(0),
                 }),
             );
+            return res.status(401).json({ message: "Unauthorized" });
         }
         const data = await response.json();
 

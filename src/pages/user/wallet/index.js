@@ -7,8 +7,8 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import WalletPage from "@/components/Pages/User/Wallet";
 import apiConfig from "@/constants/apiConfig";
+import fetcherSWR from "@/services/fetcherSWR";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
 function UserWallet({ slideList }) {
     const [ currentPage, setCurrentPage ] = useState(1);
 
@@ -16,11 +16,11 @@ function UserWallet({ slideList }) {
         data: historyData,
         isLoading,
         mutate,
-    } = useSWR(`/api/wallet/history?page=${currentPage}`, fetcher);
+    } = useSWR(`/api/wallet/history?page=${currentPage}`, fetcherSWR);
 
     const {
         data: balanceData,
-    } = useSWR("/api/wallet/balance", fetcher);
+    } = useSWR("/api/wallet/balance", fetcherSWR);
 
     return (
         <RenderContext>

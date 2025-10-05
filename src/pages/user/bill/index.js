@@ -7,14 +7,14 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import BillTable from "@/components/Pages/User/Bill";
 import apiConfig from "@/constants/apiConfig";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import fetcherSWR from "@/services/fetcherSWR";
 
 function BillPage({ slideList }) {
     const [ currentPage, setCurrentPage ] = useState(1);
 
     const { data, error, isLoading, mutate } = useSWR(
         `/api/order?page=${currentPage}`,
-        fetcher,
+        fetcherSWR,
     );
 
     return (

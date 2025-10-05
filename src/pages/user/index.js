@@ -6,12 +6,12 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import UserDashboardPage from "@/components/Pages/User";
 import apiConfig from "@/constants/apiConfig";
+import fetcherSWR from "@/services/fetcherSWR";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
 function UserPage({ slideList }) {
     const { data, error, isLoading, mutate } = useSWR(
         "/api/dashboard",
-        fetcher,
+        fetcherSWR,
     );
 
     if (error) return <p>Lỗi tải giỏ hàng!</p>;

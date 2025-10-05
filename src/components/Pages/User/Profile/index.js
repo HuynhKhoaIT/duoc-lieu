@@ -4,9 +4,11 @@ import Skeleton from "@mui/material/Skeleton";
 import { toast } from "sonner";
 
 import ConfirmTransactionModal from "@/components/Common/Modal/ConfirmTransactionModal/ConfirmUpdateModal";
+import { storageKeys } from "@/constants";
 import paths from "@/constants/paths";
 import useAlert from "@/hooks/useAlert";
 import useAuth from "@/hooks/useAuth";
+import { removeLocalItem } from "@/utils/localStorage";
 
 import styles from "./Profile.module.scss";
 export default function ProfileForm({ profileData, isLoading }) {
@@ -61,10 +63,15 @@ export default function ProfileForm({ profileData, isLoading }) {
                     ...payload,
                 }),
             });
+            if (res.status === 401) {
+                removeLocalItem(storageKeys.PROFILE);
+                removeLocalItem(storageKeys.IS_LOGIN);
+                window.location.href = paths.login;
+                return;
+            }
             const data = await res.json();
             if (data?.success) {
                 toast.success("Cập nhật thành công!");
-                                
             } else {
                 showAlert(data?.message || "Cập nhật thất bại.");
             }
@@ -148,7 +155,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                             window?.location
                                                                 ?.origin +
                                                             paths.signin +
-                                                            `/${profile.phone_number}`
+                                                            `/${profile?.phone_number}`
                                                         }
                                                         readOnly
                                                     />
@@ -200,7 +207,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="name"
                                                                 defaultValue={
-                                                                    profileData.name
+                                                                    profileData?.name
                                                                 }
                                                             />
                                                         </p>
@@ -222,7 +229,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="phone_number"
                                                                 defaultValue={
-                                                                    profileData.phone_number
+                                                                    profileData?.phone_number
                                                                 }
                                                                 readOnly
                                                             />
@@ -245,7 +252,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="address"
                                                                 defaultValue={
-                                                                    profileData.address
+                                                                    profileData?.address
                                                                 }
                                                             />
                                                         </p>
@@ -267,7 +274,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="referrer_phone"
                                                                 defaultValue={
-                                                                    profileData.referrer_phone
+                                                                    profileData?.referrer_phone
                                                                 }
                                                                 readOnly
                                                             />
@@ -295,7 +302,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="bank_name"
                                                                 defaultValue={
-                                                                    profileData.bank_name
+                                                                    profileData?.bank_name
                                                                 }
                                                             />
                                                         </p>
@@ -317,7 +324,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="bank_account_number"
                                                                 defaultValue={
-                                                                    profileData.bank_account_number
+                                                                    profileData?.bank_account_number
                                                                 }
                                                             />
                                                         </p>
@@ -340,7 +347,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 type="text"
                                                                 name="bank_account_name"
                                                                 defaultValue={
-                                                                    profileData.bank_account_name
+                                                                    profileData?.bank_account_name
                                                                 }
                                                             />
                                                         </p>

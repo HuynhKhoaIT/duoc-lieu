@@ -7,7 +7,7 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import WithdrawForm from "@/components/Pages/User/Withdraw";
 import apiConfig from "@/constants/apiConfig";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import fetcherSWR from "@/services/fetcherSWR";
 
 function WithDrawPage({ slideList }) {
     const {
@@ -15,7 +15,7 @@ function WithDrawPage({ slideList }) {
         isLoading: balanceIsLoading,
         error: balanceError,
         mutate: balanceMutate,
-    } = useSWR("/api/wallet/balance", fetcher);
+    } = useSWR("/api/wallet/balance", fetcherSWR);
 
     return (
         <RenderContext>

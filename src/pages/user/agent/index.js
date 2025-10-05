@@ -6,12 +6,12 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import AgentPage from "@/components/Pages/User/Agent/AgentPage";
 import apiConfig from "@/constants/apiConfig";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import fetcherSWR from "@/services/fetcherSWR";
 
 function Agent({ slideList }) {
     const { data, error, isLoading, mutate } = useSWR(
         `/api/referrals`,
-        fetcher,
+        fetcherSWR,
     );
     return (
         <RenderContext>

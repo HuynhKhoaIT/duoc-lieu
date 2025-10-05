@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             req.body,
             { headers: { Authorization: `Bearer ${token}` } },
         );
-        res.status(200).json(response.data);
+        res.status(response.status).json(response.data);
     } catch (err) {
         console.error(err.response?.data || err.message);
         res.status(err.response?.status || 500).json({

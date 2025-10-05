@@ -34,9 +34,10 @@ export default async function handler(req, res) {
                     expires: new Date(0),
                 }),
             );
+            return res.status(401).json({ message: "Unauthorized" });
         }
         const data = await response.json();
-        res.status(200).json(data);
+        res.status(response.status).json(data);
     } catch (err) {
         console.error("Error fetching order:", err);
         res.status(500).json({ message: "Error fetching order" });

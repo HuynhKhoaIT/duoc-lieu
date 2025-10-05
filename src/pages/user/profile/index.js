@@ -7,18 +7,18 @@ import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ProfileForm from "@/components/Pages/User/Profile";
 import apiConfig from "@/constants/apiConfig";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import fetcherSWR from "@/services/fetcherSWR";
 
 function ProfilePage({ slideList }) {
     const { data, error, isLoading, mutate } = useSWR(
         `/api/account/profile`,
-        fetcher,
+        fetcherSWR,
     );
 
     return (
         <RenderContext>
             <Breadcrumb title="Thông tin" />
-            {/* <ProfileForm profileData={data?.data} isLoading={isLoading} /> */}
+            <ProfileForm profileData={data?.data} isLoading={isLoading} />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
