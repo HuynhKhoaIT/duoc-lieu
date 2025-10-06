@@ -67,7 +67,7 @@ export default function Header() {
     const menuUserConfig = [
         { path: paths.user, label: "Tổng quát" },
         { path: paths.wallet, label: "Giao dịch" },
-        { path: paths.agent, label: "CTV" },
+        { path: paths.agent, label: "Cộng tác viên" },
         { path: paths.order, label: "Đặt hàng" },
         { path: paths.bill, label: "Đơn hàng" },
         { path: paths.setting, label: "Cài đặt" },
