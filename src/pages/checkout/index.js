@@ -1,4 +1,3 @@
-
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import RenderContext from "@/components/context/RenderContext";
@@ -18,7 +17,7 @@ function CheckOutPage({ slideList }) {
 export async function getStaticProps() {
     try {
         const resList = await fetch(apiConfig.slide.getList.url, {
-            cache: "force-cache",
+            next: { revalidate: 600 },
         });
 
         const slideList = resList.ok ? await resList.json() : [];

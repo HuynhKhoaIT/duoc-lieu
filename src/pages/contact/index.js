@@ -16,7 +16,7 @@ function Contact({ slideList }) {
 export async function getStaticProps() {
     try {
         const resList = await fetch(apiConfig.slide.getList.url, {
-            cache: "force-cache",
+            next: { revalidate: 600 },
         });
 
         const slideList = resList.ok ? await resList.json() : [];

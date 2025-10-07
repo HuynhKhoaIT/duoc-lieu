@@ -8,7 +8,7 @@ function About({ newsList, slideList }) {
     return (
         <RenderContext>
             <AboutPage newsListData={newsList} />
-            <LogoCarousel slideList={slideList}/>
+            <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
 }
@@ -16,10 +16,10 @@ export async function getStaticProps() {
     try {
         const [ resSlide, resNews ] = await Promise.all([
             fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
             fetch(apiConfig.news.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
         ]);
         const slideList = resSlide.ok ? await resSlide.json() : [];

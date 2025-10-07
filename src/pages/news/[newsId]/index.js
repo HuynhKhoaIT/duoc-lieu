@@ -27,13 +27,13 @@ export async function getStaticProps({ params }) {
     try {
         const [ res, resList, resSlide ] = await Promise.all([
             fetch(apiConfig.news.getDetail.url.replace(":id", params.newsId), {
-                cache: "force-cache",
+                cache: "no-store",
             }),
             fetch(apiConfig.news.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
             fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
         ]);
 

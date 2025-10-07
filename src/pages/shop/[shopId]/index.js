@@ -34,14 +34,14 @@ export async function getStaticProps({ params }) {
             fetch(
                 apiConfig.products.getDetail.url.replace(":id", params.shopId),
                 {
-                    cache: "force-cache",
+                    cache: "no-store",
                 },
             ),
             fetch(apiConfig.products.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 60 },
             }),
             fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
         ]);
 

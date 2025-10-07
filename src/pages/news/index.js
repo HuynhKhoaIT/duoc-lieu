@@ -15,10 +15,10 @@ export async function getStaticProps() {
     try {
         const [ resSlide, resList ] = await Promise.all([
             fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
             fetch(apiConfig.news.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
         ]);
 

@@ -17,10 +17,12 @@ function OrderPage({ categories, products, slideList }) {
 export async function getStaticProps() {
     try {
         const [ res, productsRes, resSlide ] = await Promise.all([
-            fetch(apiConfig.category.getList.url, { cache: "force-cache" }),
-            fetch(apiConfig.products.getList.url, { cache: "force-cache" }),
+            fetch(apiConfig.category.getList.url, {
+                next: { revalidate: 3600 },
+            }),
+            fetch(apiConfig.products.getList.url, { next: { revalidate: 60 } }),
             fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
+                next: { revalidate: 600 },
             }),
         ]);
 

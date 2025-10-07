@@ -18,7 +18,7 @@ function Homepage({ slideList }) {
         error: errorProducts,
         refetch: refetchProducts,
     } = useListData(apiConfig.products.getList);
- 
+
     return (
         <RenderContext>
             <HomePage newsData={news} productsData={products} />
@@ -30,7 +30,7 @@ function Homepage({ slideList }) {
 export async function getStaticProps() {
     try {
         const resList = await fetch(apiConfig.slide.getList.url, {
-            cache: "force-cache",
+            next: { revalidate: 600 },
         });
 
         const slideList = resList.ok ? await resList.json() : [];

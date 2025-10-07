@@ -9,7 +9,11 @@ function Shop({ categories, products, slideList }) {
     const { data } = useGlobalContext();
     return (
         <RenderContext>
-            <ShopPage categories={categories} productsData={products} cartData={data}/>
+            <ShopPage
+                categories={categories}
+                productsData={products}
+                cartData={data}
+            />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
@@ -18,11 +22,11 @@ function Shop({ categories, products, slideList }) {
 export async function getStaticProps() {
     try {
         const [ res, productsRes, slideRes ] = await Promise.all([
-            fetch(apiConfig.category.getList.url, { cache: "force-cache" }),
-            fetch(apiConfig.products.getList.url, { cache: "force-cache" }),
-            fetch(apiConfig.slide.getList.url, {
-                cache: "force-cache",
-            }),
+            fetch(apiConfig.category.getList.url, {
+                next: { revalidate: 3600 },
+            }), // 1h
+            fetch(apiConfig.products.getList.url, { next: { revalidate: 60 } }), // 1m
+            fetch(apiConfig.slide.getList.url, { next: { revalidate: 600 } }), // 10m
         ]);
 
         const categories = res.ok ? await res.json() : null;
