@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./Footer.module.scss";
@@ -24,6 +25,20 @@ export default function Footer() {
                                     liệu. Mang lại giá trị thiết thực, Tin Cậy,
                                     An Toàn, Hiệu Quả cho người tiêu dùng.
                                 </p>
+                                <div
+                                    style={{
+                                        position: "relative",
+                                        width: "200px",
+                                        height: "100px",
+                                    }}
+                                >
+                                    <Image
+                                        src="/images/logo-da-thong-bao-bo-cong-thuong.webp"
+                                        alt="logo-cong-thuong"
+                                        fill
+                                        style={{ objectFit: "contain" }}
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -35,7 +50,8 @@ export default function Footer() {
                                 <h2 className={styles.widgetTitle}>Liên hệ</h2>
                                 <ul>
                                     <li>
-                                        Địa chỉ: Âp 10, xã Vị Thuỷ, thành phố Cần Thơ
+                                        Địa chỉ: Âp 10, xã Vị Thuỷ, thành phố
+                                        Cần Thơ
                                     </li>
                                     <li>Hotline: 0931.003.004</li>
                                 </ul>
@@ -111,34 +127,22 @@ export default function Footer() {
                                 className={`${styles.socialIcons} flex space-x-4`}
                             >
                                 <li>
-                                    <Link
-                                        href="/"
-                                        target="_blank"
-                                    >
+                                    <Link href="/" target="_blank">
                                         <i className="fab fa-facebook-f"></i>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/"
-                                        target="_blank"
-                                    >
+                                    <Link href="/" target="_blank">
                                         <i className="fab fa-twitter"></i>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/"
-                                        target="_blank"
-                                    >
+                                    <Link href="/" target="_blank">
                                         <i className="fab fa-instagram"></i>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/"
-                                        target="_blank"
-                                    >
+                                    <Link href="/" target="_blank">
                                         <i className="fab fa-linkedin"></i>
                                     </Link>
                                 </li>
