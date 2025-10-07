@@ -35,7 +35,7 @@ function BillPage({ slideList }) {
 export async function getStaticProps() {
     try {
         const resList = await fetch(apiConfig.slide.getList.url, {
-            next: { revalidate: 600 },
+            cache: "force-cache",
         });
 
         const slideList = resList.ok ? await resList.json() : [];

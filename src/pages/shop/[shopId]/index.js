@@ -34,14 +34,14 @@ export async function getStaticProps({ params }) {
             fetch(
                 apiConfig.products.getDetail.url.replace(":id", params.shopId),
                 {
-                    cache: "no-store",
+                    cache: "force-cache",
                 },
             ),
             fetch(apiConfig.products.getList.url, {
-                next: { revalidate: 60 },
+                cache: "force-cache",
             }),
             fetch(apiConfig.slide.getList.url, {
-                next: { revalidate: 600 },
+                cache: "force-cache",
             }),
         ]);
 
@@ -58,7 +58,7 @@ export async function getStaticProps({ params }) {
                 slideList,
                 errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
-            revalidate: 300, // sau 300s sẽ build lại
+            revalidate: 60, // sau 300s sẽ build lại
         };
     } catch (err) {
         return {

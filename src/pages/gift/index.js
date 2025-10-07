@@ -18,9 +18,9 @@ function GiftContainer({ products, slideList }) {
 export async function getStaticProps() {
     try {
         const [ productsRes, slideRes ] = await Promise.all([
-            fetch(`${apiConfig.products.getList.url}?type=gift`, { next: { revalidate: 60 } }),
+            fetch(`${apiConfig.products.getList.url}?type=gift`, { cache: "force-cache" }),
             fetch(apiConfig.slide.getList.url, {
-                next: { revalidate: 600 },
+                cache: "force-cache",
             }),
         ]);
 

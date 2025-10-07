@@ -30,10 +30,10 @@ export async function getStaticProps({ params }) {
                 cache: "no-store",
             }),
             fetch(apiConfig.news.getList.url, {
-                next: { revalidate: 600 },
+                cache: "force-cache",
             }),
             fetch(apiConfig.slide.getList.url, {
-                next: { revalidate: 600 },
+                cache: "force-cache",
             }),
         ]);
 

@@ -23,10 +23,11 @@ export async function getStaticProps() {
     try {
         const [ res, productsRes, slideRes ] = await Promise.all([
             fetch(apiConfig.category.getList.url, {
-                next: { revalidate: 3600 },
-            }), // 1h
-            fetch(apiConfig.products.getList.url, { next: { revalidate: 60 } }), // 1m
-            fetch(apiConfig.slide.getList.url, { next: { revalidate: 600 } }), // 10m
+                cache: "force-cache",
+                
+            }), 
+            fetch(apiConfig.products.getList.url, { cache: "force-cache" }), 
+            fetch(apiConfig.slide.getList.url, { cache: "force-cache" }),
         ]);
 
         const categories = res.ok ? await res.json() : null;
@@ -44,7 +45,7 @@ export async function getStaticProps() {
                 slideList,
                 errorSlide: slideRes.ok ? null : `Error ${slideRes.status}`,
             },
-            revalidate: 3600,
+            revalidate: 60,
         };
     } catch (err) {
         return {
