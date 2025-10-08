@@ -105,10 +105,10 @@ export default function Footer() {
                             <p>
                                 Bản quyền © 2025 -{" "}
                                 <Link
-                                    href="https://duoclieuxanh.com/"
+                                    href="https://www.duoclieuxanhn22.com/"
                                     className="text-blue-600 hover:underline"
                                 >
-                                    Duoclieuxanh.net
+                                    duoclieuxanhn22.com
                                 </Link>
                                 <br />
                                 Thiết kế bởi{" "}
