@@ -16,8 +16,8 @@ function Combo({ categories, products, slideList }) {
 export async function getStaticProps() {
     try {
         const [ res, productsRes, resSlide ] = await Promise.all([
-            fetch(apiConfig.category.getList.url, { cache: "force-cache" }),
-            fetch(apiConfig.products.getList.url, { cache: "force-cache" }),
+            fetch(`${apiConfig.category.getList.url}?per_page=999`, { cache: "force-cache" }),
+            fetch(`${apiConfig.products.getList.url}?per_page=999`, { cache: "force-cache" }),
             fetch(apiConfig.slide.getList.url, {
                 cache: "force-cache",
             }),

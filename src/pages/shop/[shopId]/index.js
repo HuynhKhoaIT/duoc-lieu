@@ -37,7 +37,7 @@ export async function getStaticProps({ params }) {
                     cache: "force-cache",
                 },
             ),
-            fetch(apiConfig.products.getList.url, {
+            fetch(`${apiConfig.products.getList.url}?per_page=999`, {
                 cache: "force-cache",
             }),
             fetch(apiConfig.slide.getList.url, {

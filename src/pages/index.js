@@ -17,7 +17,11 @@ function Homepage({ slideList }) {
         loading: loadingProducts,
         error: errorProducts,
         refetch: refetchProducts,
-    } = useListData(apiConfig.products.getList);
+    } = useListData(apiConfig.products.getList,{
+        defaultParams: {
+            per_page: 999,
+        },
+    });
 
     return (
         <RenderContext>
