@@ -25,7 +25,7 @@ export default function Footer() {
                                     liệu. Mang lại giá trị thiết thực, Tin Cậy,
                                     An Toàn, Hiệu Quả cho người tiêu dùng.
                                 </p>
-                                <div
+                                {/* <div
                                     style={{
                                         position: "relative",
                                         width: "200px",
@@ -38,7 +38,7 @@ export default function Footer() {
                                         fill
                                         style={{ objectFit: "contain" }}
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -89,6 +89,21 @@ export default function Footer() {
                                         </li>
                                         <li>
                                             <Link href="/contact">Liên hệ</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/news/86509f0e-feb1-4af8-a3fc-af5d7d155a44">
+                                                Chính sách
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/news/42cd9951-d85c-465c-815d-1d07c1558d0c">
+                                                Điều khoản
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/news/49c104de-9f0d-4c11-a9f4-8564aa71c3c5">
+                                                Vận chuyển và thanh toán
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
