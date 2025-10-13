@@ -191,14 +191,16 @@ export default function Header() {
                                             className={`${styles.iconLink} ${styles.mobileHide}`}
                                             onClick={handleLogout}
                                         >
-                                            <i className="fas fa-sign-in-alt"></i>
+                                            {/* <i className="fas fa-sign-in-alt"></i> */}
+                                            Đăng xuất
                                         </a>
                                     ) : (
                                         <Link
                                             className={`${styles.iconLink} ${styles.mobileHide}`}
                                             href={paths.login}
                                         >
-                                            <i className="fas fa-sign-in-alt"></i>
+                                            {/* <i className="fas fa-sign-in-alt"></i> */}
+                                            Đăng nhập
                                         </Link>
                                     )}
 

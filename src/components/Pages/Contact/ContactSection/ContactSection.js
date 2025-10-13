@@ -15,7 +15,7 @@ export default function ContactSection() {
                                     trụ sở chính
                                 </h4>
                                 <p>
-                                    Âp 10, xã Vị Thuỷ, thành phố Cần Thơ
+                                    Ấp 10, xã Vị Thuỷ, thành phố Cần Thơ
                                 </p>
                             </div>
                             <div className={styles["contact-form-box"]}>
