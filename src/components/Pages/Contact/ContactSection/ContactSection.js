@@ -23,7 +23,7 @@ export default function ContactSection() {
                                     <i className="fas fa-address-book ml-4"></i>{" "}
                                     Điện thoại hỗ trợ
                                 </h4>
-                                <p>Hotline: 0931.003.004</p>
+                                <p>Hotline: 0941.003.004</p>
                             </div>
                         </div>
                     </div>

@@ -52,7 +52,7 @@ export default function Footer() {
                                         Địa chỉ: Âp 10, xã Vị Thuỷ, thành phố
                                         Cần Thơ
                                     </li>
-                                    <li>Hotline: 0931.003.004</li>
+                                    <li>Hotline: 0941.003.004</li>
                                 </ul>
                             </div>
                         </div>

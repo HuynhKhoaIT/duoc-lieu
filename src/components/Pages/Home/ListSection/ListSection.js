@@ -23,7 +23,7 @@ export default function ListSection() {
                         </div>
                         <div className={styles.content}>
                             <h3>Hỗ trợ 24/7</h3>
-                            <p>Hotline: 0931.003.004</p>
+                            <p>Hotline: 0941.003.004</p>
                         </div>
                     </div>
 
