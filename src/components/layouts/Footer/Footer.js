@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./Footer.module.scss";
@@ -11,7 +10,7 @@ export default function Footer() {
             <div className={styles.footerArea}>
                 <div className="container mx-auto">
                     <div className="flex flex-wrap -mx-4">
-                        <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div className="w-full md:w-1/2 lg:w-1/4 px-4">
                             <div
                                 className={`${styles.footerBox} ${styles.aboutWidget}`}
                             >
@@ -43,7 +42,7 @@ export default function Footer() {
                         </div>
 
                         {/* Contact */}
-                        <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div className="w-full md:w-1/2 lg:w-1/4 px-4">
                             <div
                                 className={`${styles.footerBox} ${styles.getInTouch}`}
                             >
@@ -59,7 +58,7 @@ export default function Footer() {
                         </div>
 
                         {/* Pages */}
-                        <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div className="w-full md:w-1/2 lg:w-1/4 px-4">
                             <div
                                 className={`${styles.footerBox} ${styles.pages}`}
                             >
@@ -67,7 +66,7 @@ export default function Footer() {
                                     Thông tin
                                 </h2>
                                 <div className="flex flex-wrap -mx-4">
-                                    <ul className="!pl-3 w-1/2">
+                                    <ul className="w-full">
                                         <li>
                                             <Link href="/">Trang chủ</Link>
                                         </li>
@@ -79,8 +78,6 @@ export default function Footer() {
                                         <li>
                                             <Link href="/shop">Sản phẩm</Link>
                                         </li>
-                                    </ul>
-                                    <ul className="w-1/2">
                                         <li>
                                             <Link href="/cart">Giỏ hàng</Link>
                                         </li>
@@ -90,18 +87,37 @@ export default function Footer() {
                                         <li>
                                             <Link href="/contact">Liên hệ</Link>
                                         </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2 lg:w-1/4 px-4">
+                            <div
+                                className={`${styles.footerBox} ${styles.pages}`}
+                            >
+                                <h2 className={styles.widgetTitle}>
+                                    Chính sách
+                                </h2>
+                                <div className="flex flex-wrap -mx-4">
+                                 
+                                    <ul className="w-full">
+                                        <li>
+                                            <Link href="/news/2acb0ab0-9d43-42cb-9852-47abf821cb57">
+                                                Chính sách về thuế
+                                            </Link>
+                                        </li>
                                         <li>
                                             <Link href="/news/86509f0e-feb1-4af8-a3fc-af5d7d155a44">
-                                                Chính sách
+                                                Chính sách mua hàng và đổi trả
+                                            </Link>
+                                        </li>
+                                        <li>    
+                                            <Link href="/news/c6e3cfff-5c62-4d34-ac29-51764b6542d4">
+                                                Bảo mật thông tin
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/news/42cd9951-d85c-465c-815d-1d07c1558d0c">
-                                                Điều khoản
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/news/49c104de-9f0d-4c11-a9f4-8564aa71c3c5">
+                                            <Link href="/news/ecaf0e70-c79e-4786-a3c5-a559185f2a1b">
                                                 Vận chuyển và thanh toán
                                             </Link>
                                         </li>
