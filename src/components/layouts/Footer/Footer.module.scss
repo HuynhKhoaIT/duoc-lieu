@@ -57,12 +57,12 @@
 }
 
 .copyright {
-    background-color: #004c49;
+    background-color: #f58733;
     border-top: 1px solid #1f685f;
     p {
         margin: 0;
         color: #fff;
-        opacity: 0.7;
+        // opacity: 0.7;
         padding: 16px 0;
         font-size: 15px;
         font-family: "Play", sans-serif;
@@ -71,23 +71,26 @@
         line-height: 1.8;
     }
     a{
-        color: #daa520;
+        color: #fff;
         font-weight: 700;
         
     }
     a:hover{
-            color: #ffc430;
+            color: #fff;
             text-decoration: none;
         }
     .socialIcons li:hover a{
-        color: goldenrod;
+        color: #fff;
     }
     .socialIcons a {
         font-size: 16px;
         color: #fff;
-        opacity: 0.7;
+        // opacity: 0.7;
         padding: 16px 10px;
         display: block;
+    }
+    li{
+        color: #fff;
     }
 }
 @media only screen and (max-width: 991px) {
