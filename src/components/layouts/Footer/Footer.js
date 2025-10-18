@@ -138,12 +138,17 @@ export default function Footer() {
             </div>
             <div className={`${styles.copyright}`}>
                 <div className="container">
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-3 items-center">
                         {/* Left */}
                         <div className="py-4">
-                            <p className="m-0 !p-0">Giấy chứng nhận đăng ký doanh nghiệp: số 6300288132 do</p>
-                            <p className="m-0 !p-0">Sở kế hoạch và đầu tư tỉnh Hậu Giang cấp ngày 08 tháng 05 năm 2017</p>
+                            <p className="m-0 !p-0">
+                                Giấy chứng nhận đăng ký doanh nghiệp: số
+                                6300288132 do
+                            </p>
+                            <p className="m-0 !p-0 mb-2">
+                                Sở kế hoạch và đầu tư tỉnh Hậu Giang cấp ngày 08
+                                tháng 05 năm 2017
+                            </p>
                             <p className="m-0 !p-0">
                                 Bản quyền © 2025 -{" "}
                                 <Link
@@ -161,6 +166,9 @@ export default function Footer() {
                                     Avaz
                                 </Link>
                             </p>
+                        </div>
+                        <div>
+                            <h3 className="m-0 !p-0 !text-white flex justify-center items-center">Chạy Demo</h3>
                         </div>
 
                         {/* Right */}

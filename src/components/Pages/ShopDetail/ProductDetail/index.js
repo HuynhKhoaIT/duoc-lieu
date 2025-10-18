@@ -181,51 +181,37 @@ export default function ProductDetail({ dataDetail, cartData }) {
                     <div className="md:w-7/12">
                         <div className="">
                             <Section
+                                title="QUY CÁCH"
+                                content={dataDetail?.specifications}
+                            />
+                            <Section
+                                title="Thành Phần"
+                                content={dataDetail?.ingredients}
+                            />
+                            <Section
+                                title="CÔNG DỤNG"
+                                content={dataDetail?.benefits}
+                            />
+                            <Section
+                                title="HƯỚNG DẪN SỬ DỤNG"
+                                content={dataDetail?.usage}
+                            />
+                            <Section
+                                title="Cảnh báo an toàn"
+                                content={dataDetail?.safety_warning}
+                            />
+                            <Section
                                 title="ĐẶC TÍNH"
                                 content={dataDetail?.features}
                             />
-                            {dataDetail?.specifications?.length > 0 && (
-                                <Section
-                                    title="QUY CÁCH"
-                                    content={dataDetail?.specifications}
-                                />
-                            )}
-                            {dataDetail?.usage?.length > 0 && (
-                                <Section
-                                    title="CÔNG DỤNG"
-                                    content={dataDetail?.usage}
-                                />
-                            )}
-                            {dataDetail?.highlights?.length > 0 && (
-                                <Section
-                                    title="ĐẶC ĐIỂM NỔI BẬT"
-                                    content={dataDetail?.highlights}
-                                />
-                            )}
-                            {dataDetail?.instructions?.length > 0 && (
-                                <Section
-                                    title="HƯỚNG DẪN SỬ DỤNG"
-                                    content={dataDetail?.instructions}
-                                />
-                            )}
-                            {dataDetail?.ingredients?.length > 0 && (
-                                <Section
-                                    title="Thành Phần"
-                                    content={dataDetail?.ingredients}
-                                />
-                            )}
-                            {dataDetail?.safety_warning?.length > 0 && (
-                                <Section
-                                    title="Cảnh báo an toàn"
-                                    content={dataDetail?.safety_warning}
-                                />
-                            )}
-                            {dataDetail?.important_info?.length > 0 && (
-                                <Section
-                                    title="Thông tin quan trọng cần lưu ý"
-                                    content={dataDetail?.important_info}
-                                />
-                            )}
+                            <Section
+                                title="ĐẶC ĐIỂM NỔI BẬT"
+                                content={dataDetail?.highlights}
+                            />
+                            <Section
+                                title="Thông tin quan trọng cần lưu ý"
+                                content={dataDetail?.important_info}
+                            />
                         </div>
                     </div>
                 </div>
