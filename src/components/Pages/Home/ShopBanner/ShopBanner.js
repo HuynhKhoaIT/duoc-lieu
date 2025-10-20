@@ -16,7 +16,7 @@ export default function ShopBanner() {
 
                 <div className={styles.salePercent}>
                     <span>
-                        Cùng nhiều phần thưởng cực hot!
+                        Cùng nhiều phần thưởng cực <span className="!text-red-600 !font-bold !text-[48px]">HOT</span>!
                     </span>
                 </div>
 

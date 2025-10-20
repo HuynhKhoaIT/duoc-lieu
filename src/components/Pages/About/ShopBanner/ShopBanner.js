@@ -15,10 +15,7 @@ export default function ShopBanner() {
                 </h3>
 
                 <div className={styles.salePercent}>
-                    <span>
-                        Cùng nhiều phần thưởng! <br /> Lên đến
-                    </span>
-                    53% <span>Cực hot</span>
+                    <span>Cùng nhiều phần thưởng cực <span className="!text-red-600 !font-bold !text-[48px]">HOT</span>!</span>
                 </div>
 
                 <Link href={paths.shop} className={styles.cartBtn}>
