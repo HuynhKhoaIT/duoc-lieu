@@ -34,6 +34,12 @@ const apiConfig = {
             headers: baseHeader,
             isAuth: true,
         },
+        checkTransaction:{
+            url: `${apiUrl}api/v2/check-transaction-password`,
+            method: "GET",
+            headers: baseHeader,
+            isAuth: true,
+        },
     },
     profile: {
         getDetail: {

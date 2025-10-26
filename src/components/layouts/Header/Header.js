@@ -80,7 +80,7 @@ export default function Header() {
 
     useEffect(() => {
         if (profile?.phone_number) {
-            setUsername(`${profile.username} | ${profile.member_sequence}`);
+            setUsername(`${profile.phone_number} | ${profile.member_sequence}`);
         }
     }, []);
 

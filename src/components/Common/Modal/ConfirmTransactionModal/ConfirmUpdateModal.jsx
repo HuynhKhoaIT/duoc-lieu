@@ -1,15 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
 
 import ModalBase from "@/components/Common/Modal/ModalBase";
+import useAlert from "@/hooks/useAlert";
 
 import styles from "./ConfirmTransactionModal.module.scss";
+import paths from "@/constants/paths";
 
 const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
     const [ transactionPassword, setTransactionPassword ] = useState("");
     const [ showPassword, setShowPassword ] = useState(false);
+    const { showAlert } = useAlert();
+    const { push } = useRouter();
 
     useEffect(() => {
         if (!isOpen) {
@@ -17,10 +22,24 @@ const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
         }
     }, [ isOpen ]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit({ transactionPassword });
-        setTransactionPassword("");
+        try {
+            const res = await fetch("/api/account/check-transaction-password", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
+            if (data?.has_transaction_password) {
+                onSubmit({ transactionPassword });
+                setTransactionPassword("");
+            } else {
+                push(paths.setting);
+                showAlert("Vui lòng cài mật khẩu giao dịch");
+            }
+        } catch (error) {
+            showAlert(error.message || "Lỗi hệ thống.");
+        }
     };
 
     return (

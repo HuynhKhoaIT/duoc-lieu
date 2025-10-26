@@ -21,16 +21,14 @@ export default function RegisterForm() {
 
     const validate = (formData) => {
         const name = formData.get("name")?.trim();
-        const username = formData.get("username")?.trim();
         const phoneNumber = formData.get("phone_number")?.trim();
         const address = formData.get("address")?.trim();
         const password = formData.get("password")?.trim();
         const confirmPassword = formData.get("confirmPassword")?.trim();
 
-        const phoneRegex = /^(0|\+84)\d{9}$/;
+        const phoneRegex = /^\d{10}$/;
 
         if (!name) return "Vui lòng nhập họ tên";
-        if (!username) return "Vui lòng nhập tên đăng nhập";
         if (!phoneRegex.test(phoneNumber)) return "Số điện thoại không hợp lệ";
         if (!address) return "Vui lòng nhập địa chỉ";
         if (!password || password.length < 8)
@@ -59,7 +57,6 @@ export default function RegisterForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name: formData.get("name"),
-                    username: formData.get("username"),
                     phone_number: formData.get("phone_number"),
                     address: formData.get("address"),
                     password: formData.get("password"),
@@ -133,15 +130,6 @@ export default function RegisterForm() {
                                         type="text"
                                         name="name"
                                         placeholder="Họ tên"
-                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
-                                    />
-                                </div>
-
-                                <div className="max-w-md w-full flex flex-col items-center">
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        placeholder="Tên đăng nhập"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
                                     />
                                 </div>

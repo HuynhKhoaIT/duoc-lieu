@@ -83,8 +83,28 @@ export default function ProfileForm({ profileData, isLoading }) {
         }
     };
 
-    const handleConfirmTransaction = async () => {
-        await handleSubmit();
+    const handleConfirmTransaction = async ({ transactionPassword }) => {
+        
+        try {
+            const res = await fetch(
+                "/api/account/verify-transaction-password",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        transaction_password: transactionPassword,
+                    }),
+                },
+            );
+            const data = await res.json();
+            if (data?.success) {
+                await handleSubmit();
+            } else {
+                showAlert(data?.message || "Xác minh mật khẩu thất bại.");
+            }
+        } catch (error) {
+            showAlert(error.message || "Lỗi hệ thống.");
+        }
     };
 
     const [ copied, setCopied ] = useState(false);
