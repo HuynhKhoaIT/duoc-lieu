@@ -18,8 +18,8 @@ function AccordionItem({ item, level = 1 }) {
                 className={styles.btnItem}
                 onClick={() => hasChildren && setOpen(!open)}
             >
-                {item.name} | {maskPhone(item.phone_number)}{" "}
-                | {(item.personal_sales * 1).toLocaleString("vi-VN")}
+                {item.name} | {maskPhone(item.phone_number)}{" "} | {item.member_sequence}
+                {/* | {(item.member_sequence * 1).toLocaleString("vi-VN")} */}
             </button>
 
             <div
