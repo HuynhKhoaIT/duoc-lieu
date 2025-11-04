@@ -62,7 +62,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
         <div className="pt-[48px] pb-[24px] mb-2">
             <div className="container">
                 <div className="flex flex-wrap">
-                    <div className="w-full lg:w-9/12 mx-auto">
+                    <div className="w-full mx-auto">
                         {statusInfo?.value === "expiring_soon" && (
                             <div className="mb-2">
                                 <h6 className={"!text-red-600"}>
@@ -95,7 +95,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center blue-text`}
                                             >
-                                                Danh Hiệu Cá Nhân
+                                                TK KHÁCH HÀNG THÂN THIẾT
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {
@@ -113,9 +113,9 @@ export default function UserDashboardPage({ dashboardData, loading }) {
 
                         {/* Thống kê 3 ô */}
                         <div className="flex flex-wrap -mx-2">
-                            <div className="w-full md:w-1/2 lg:w-1/3 px-2">
+                            <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-3">
                                 <div
-                                    className={`${styles.card} blue-bg p-3 mb-3 flex justify-center items-center`}
+                                    className={`${styles.card} h-full blue-bg p-3  flex justify-center items-center`}
                                 >
                                     <div className="flex items-center">
                                         <div className="flex justify-center items-center mr-3">
@@ -129,7 +129,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Số Dư Tài Khoản
+                                                Điểm Thưởng Tích Lũy Hiện Tại
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(
@@ -142,9 +142,9 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                 </div>
                             </div>
 
-                            <div className="w-full md:w-1/2 lg:w-1/3 px-2">
+                            <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-3 ">
                                 <div
-                                    className={`${styles.card} blue-bg p-3 mb-3 flex justify-center items-center`}
+                                    className={`${styles.card} h-full blue-bg p-3 flex justify-center items-center`}
                                 >
                                     <div className="flex items-center">
                                         <div className="flex justify-center items-center mr-3">
@@ -167,7 +167,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Trạng thái
+                                                Tài khoản
                                             </span>
                                             <h4 className="text-center text-light mb-1">
                                                 {statusInfo?.label}
@@ -177,9 +177,9 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                 </div>
                             </div>
 
-                            <div className="w-full md:w-1/2 lg:w-1/3 px-2">
+                            <div className="w-full md:w-1/2 lg:w-1/3  mb-3 px-2">
                                 <div
-                                    className={`${styles.card} blue-bg p-3 mb-3 flex justify-center items-center`}
+                                    className={`${styles.card} h-full blue-bg p-3 flex justify-center items-center`}
                                 >
                                     <div className="flex items-center">
                                         <div className="flex justify-center items-center mr-3">
@@ -193,7 +193,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Đơn Hàng Cá Nhân
+                                                Số Đơn Hàng Bạn Đã Mua
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {
@@ -227,7 +227,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                         <span
                                             className={`text-center blue-text`}
                                         >
-                                            Lượt đăng ký
+                                            Lượt Đăng Ký Phát Sinh Từ Bạn Chưa Hoạt Động
                                         </span>
                                         <h4 className="text-center text-light">
                                             {
@@ -250,7 +250,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                         <span
                                             className={`text-center blue-text`}
                                         >
-                                            Số CTV 1
+                                            Khách Hàng Trực Tiếp Của Bạn
                                         </span>
                                         <h4 className="text-center text-light">
                                             {dashboardData?.network?.f1_count} |{" "}
@@ -274,7 +274,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                         <span
                                             className={`text-center blue-text`}
                                         >
-                                            Tổng Số CTV
+                                            Tổng Khách Hàng Phát Sinh Từ Bạn
                                         </span>
                                         <h4 className="text-center text-light">
                                             {
@@ -305,7 +305,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Tiêu Dùng Cá Nhân
+                                                DS Cá Nhân Bạn Tiêu Dùng
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(
@@ -334,7 +334,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Doanh Số Giới Thiệu
+                                                DS Trực Tiếp Của Bạn
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(
@@ -363,7 +363,7 @@ export default function UserDashboardPage({ dashboardData, loading }) {
                                             <span
                                                 className={`text-center gold-text`}
                                             >
-                                                Tổng Doanh Số
+                                                Tổng DS Phát Sinh Từ Bạn
                                             </span>
                                             <h4 className="text-center text-light">
                                                 {(
