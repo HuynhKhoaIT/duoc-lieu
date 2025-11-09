@@ -29,17 +29,17 @@ export default function TransferForm({ balanceData }) {
 
         const amount = parseFloat(formData.amount);
         if (isNaN(amount)) {
-            showAlert("Số tiền phải là số hợp lệ.");
+            showAlert("Số điểm phải là số hợp lệ.");
             return false;
         }
 
         if (amount < 100000) {
-            showAlert("Số tiền tối thiểu 100,000.");
+            showAlert("Số điểm tối thiểu 100,000.");
             return false;
         }
 
         if (amount > balance) {
-            showAlert("Số tiền vượt quá số dư hiện tại.");
+            showAlert("Số điểm vượt quá số điểm hiện tại.");
             return false;
         }
 
@@ -130,7 +130,7 @@ export default function TransferForm({ balanceData }) {
                         <div className={styles.contactForm}>
                             <form className="text-center">
                                 <h5 className="gold-text">
-                                    Số dư:{" "}
+                                    Số điểm:{" "}
                                     <b className="text-light">
                                         {balanceData?.balance
                                             ? (balanceData?.balance*1).toLocaleString(

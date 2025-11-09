@@ -52,7 +52,6 @@ export const GlobalContextProvider = ({ children }) => {
         //     setData(cartData || []);
         // }
         const cartData = getLocalData(storageKeys.CART_DATA);
-        console.log(cartData);
         const totalQuantity = Array.isArray(cartData)
             ? cartData.reduce((acc, item) => acc + (item?.quantity || 0), 0)
             : 0;

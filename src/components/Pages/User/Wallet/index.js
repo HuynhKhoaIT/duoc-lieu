@@ -80,7 +80,7 @@ export default function WalletPage({
                     <div className="lg:col-span-10 lg:col-start-3 col-start-0 col-span-14 ">
                         <div className="p-3 rounded-sm shadow blue-bg">
                             <div className="text-center">
-                                <h5 className="!mb-1 gold-text">Số dư</h5>
+                                <h5 className="!mb-1 gold-text">Số điểm</h5>
                                 <h4 className="mb-1 text-light">
                                     {balanceData?.balance
                                         ? (
@@ -96,7 +96,7 @@ export default function WalletPage({
                                             push(paths.transfer);
                                         } else {
                                             toast.error(
-                                                "Số dư không đủ để chuyển!",
+                                                "Số điểm không đủ để chuyển!",
                                             );
                                         }
                                     }}
@@ -110,7 +110,7 @@ export default function WalletPage({
                                             push(paths.withdraw);
                                         } else {
                                             toast.error(
-                                                "Số dư không đủ để rút!",
+                                                "Số điểm không đủ để rút!",
                                             );
                                         }
                                     }}

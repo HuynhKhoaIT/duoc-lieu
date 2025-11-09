@@ -14,7 +14,6 @@ export default async function handler(req, res) {
             body: JSON.stringify({ phone_number, password }),
             headers: { "Content-Type": "application/json" },
         }).then((r) => r.json());
-
         if (result.token) {
             res.setHeader(
                 "Set-Cookie",

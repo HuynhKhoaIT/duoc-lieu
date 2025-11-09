@@ -121,12 +121,17 @@ export default function Footer() {
                                         </li>
                                         <li>
                                             <Link href="/news/c6e3cfff-5c62-4d34-ac29-51764b6542d4">
-                                                Bảo mật thông tin
+                                                Chỉnh sách bảo mật thông tin
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href="/news/ecaf0e70-c79e-4786-a3c5-a559185f2a1b">
-                                                Vận chuyển và thanh toán
+                                                Chính sách vận chuyển và thanh toán
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/news/9e6d63c9-8503-4b8c-9272-b07cee22db74">
+                                                Chính sách khách hàng thân thiết và cộng tác viên
                                             </Link>
                                         </li>
                                     </ul>

@@ -78,7 +78,7 @@ export default function PaymentMethod({ open, toggle }) {
                                         Tài Khoản Ví
                                     </strong>
                                     <p className="ml-4 pl-2">
-                                        Thanh toán bằng số dư có sẵn trong tài
+                                        Thanh toán bằng số điểm có sẵn trong tài
                                         khoản ví
                                     </p>
                                 </label>

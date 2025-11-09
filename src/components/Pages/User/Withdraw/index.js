@@ -23,24 +23,24 @@ export default function WithdrawForm({ balanceData }) {
         const balance = balanceData?.balance || 0;
 
         if (!formData.amount) {
-            showAlert("Bạn phải nhập số tiền.");
+            showAlert("Bạn phải nhập số điểm.");
             return false;
         }
 
         const amount = parseFloat(formData.amount);
 
         if (isNaN(amount)) {
-            showAlert("Số tiền phải là số hợp lệ.");
+            showAlert("Số điểm phải là số hợp lệ.");
             return false;
         }
 
         if (amount < 500000) {
-            showAlert("Số tiền rút tối thiểu là 500,000.");
+            showAlert("Số điểm rút tối thiểu là 500,000.");
             return false;
         }
 
         if (amount > balance) {
-            showAlert("Số tiền phải nhỏ hơn hoặc bằng số dư hiện tại.");
+            showAlert("Số điểm rút phải nhỏ hơn hoặc bằng số điểm hiện tại.");
             return false;
         }
 
@@ -119,7 +119,7 @@ export default function WithdrawForm({ balanceData }) {
                         <div className={styles.contactForm}>
                             <form className="text-center">
                                 <h5 className="gold-text">
-                                    Số dư:{" "}
+                                    Số điểm:{" "}
                                     <b className="text-light">
                                         {balanceData?.balance
                                             ? (
