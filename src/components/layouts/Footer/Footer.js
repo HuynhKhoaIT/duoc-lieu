@@ -173,7 +173,7 @@ export default function Footer() {
                             </p>
                         </div>
                         <div className={styles.logoBCT}>
-                            <Link href={"http://online.gov.vn/Home/HoatDongThuongMaiDienTu/2"} target="_blank">
+                            <Link href={"http://online.gov.vn/Website/chi-tiet-137815"} target="_blank">
                                 <img src="/images/logo-da-thong-bao-bo-cong-thuong.webp" alt="logo-cong-thuong"/>
                             </Link>
                         </div>
