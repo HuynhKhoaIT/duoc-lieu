@@ -172,8 +172,10 @@ export default function Footer() {
                                 </Link>
                             </p>
                         </div>
-                        <div>
-                            <h3 className="m-0 !p-0 !text-white flex justify-center items-center">Chạy Demo</h3>
+                        <div className={styles.logoBCT}>
+                            <Link href={"http://online.gov.vn/Home/HoatDongThuongMaiDienTu/2"} target="_blank">
+                                <img src="/images/logo-da-thong-bao-bo-cong-thuong.webp" alt="logo-cong-thuong"/>
+                            </Link>
                         </div>
 
                         {/* Right */}
