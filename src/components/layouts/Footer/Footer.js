@@ -110,7 +110,7 @@ export default function Footer() {
                                 <div className="flex flex-wrap">
                                     <ul className="w-full !list-none !p-0">
                                         <li>
-                                            <Link href="/news/2acb0ab0-9d43-42cb-9852-47abf821cb57">
+                                            <Link href="/news/chinh-sach-ve-thue">
                                                 Chính sách về thuế
                                             </Link>
                                         </li>
@@ -120,17 +120,17 @@ export default function Footer() {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/news/c6e3cfff-5c62-4d34-ac29-51764b6542d4">
+                                            <Link href="/news/chinh-sach-bao-mat-thong-tin-khach-hang">
                                                 Chỉnh sách bảo mật thông tin
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/news/ecaf0e70-c79e-4786-a3c5-a559185f2a1b">
+                                            <Link href="/news/chinh-sach-van-chuyen-thanh-toan">
                                                 Chính sách vận chuyển và thanh toán
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/news/9e6d63c9-8503-4b8c-9272-b07cee22db74">
+                                            <Link href="/news/chinh-sach-khach-hang-than-thiet-va-cong-tac-vien">
                                                 Chính sách khách hàng thân thiết và cộng tác viên
                                             </Link>
                                         </li>
