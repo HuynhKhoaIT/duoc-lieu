@@ -26,6 +26,14 @@ export default function ProfileForm({ profileData, isLoading }) {
             showAlert("Địa chỉ không được để trống.");
             return false;
         }
+        // Validation cho CCCD
+        if (
+            payload.card_id &&
+            !/^\d{9}$|^\d{12}$/.test(payload.card_id.trim())
+        ) {
+            showAlert("Số CCCD phải là 9 hoặc 12 chữ số.");
+            return false;
+        }
         if (!payload.bank_name?.trim()) {
             showAlert("Tên ngân hàng không được để trống.");
             return false;
@@ -51,7 +59,7 @@ export default function ProfileForm({ profileData, isLoading }) {
 
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
-
+        console.log("payload", payload);
         if (!validateForm(payload)) return;
 
         setLoading(true);
@@ -84,7 +92,6 @@ export default function ProfileForm({ profileData, isLoading }) {
     };
 
     const handleConfirmTransaction = async ({ transactionPassword }) => {
-        
         try {
             const res = await fetch(
                 "/api/account/verify-transaction-password",
@@ -276,6 +283,7 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 }
                                                             />
                                                         </p>
+
                                                         <p className="flex justify-between items-center px-0">
                                                             <span
                                                                 className="blue-text"
@@ -303,6 +311,30 @@ export default function ProfileForm({ profileData, isLoading }) {
 
                                                     {/* Right */}
                                                     <div className="w-full md:w-1/2 px-[15px]">
+                                                        <p className="flex justify-between items-center px-0">
+                                                            <span
+                                                                className="blue-text"
+                                                                style={{
+                                                                    width: "40%",
+                                                                }}
+                                                            >
+                                                                <strong>
+                                                                    CCCD
+                                                                </strong>
+                                                            </span>
+                                                            <input
+                                                                style={{
+                                                                    width: "60%",
+                                                                }}
+                                                                type="text"
+                                                                name="card_id"
+                                                                placeholder="9 hoặc 12 số"
+                                                                defaultValue={
+                                                                    profileData?.card_id
+                                                                }
+                                                                maxLength={12}
+                                                            />
+                                                        </p>
                                                         <p className="flex justify-between items-center px-0">
                                                             <span
                                                                 className="blue-text"
@@ -371,49 +403,46 @@ export default function ProfileForm({ profileData, isLoading }) {
                                                                 }
                                                             />
                                                         </p>
+                                                    </div>
+                                                    <div className="w-full flex justify-center text-center mt-2">
+                                                        <button
+                                                            className="main-btn hover:cursor-pointer min-w-[150px]"
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const form =
+                                                                    document.querySelector(
+                                                                        "#profileForm",
+                                                                    );
+                                                                if (!form)
+                                                                    return;
 
-                                                        <div className="text-center">
-                                                            <button
-                                                                className="main-btn hover:cursor-pointer"
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    const form =
-                                                                        document.querySelector(
-                                                                            "#profileForm",
-                                                                        );
-                                                                    if (!form)
-                                                                        return;
+                                                                const formData =
+                                                                    new FormData(
+                                                                        form,
+                                                                    );
+                                                                const payload =
+                                                                    Object.fromEntries(
+                                                                        formData.entries(),
+                                                                    );
 
-                                                                    const formData =
-                                                                        new FormData(
-                                                                            form,
-                                                                        );
-                                                                    const payload =
-                                                                        Object.fromEntries(
-                                                                            formData.entries(),
-                                                                        );
-
-                                                                    if (
-                                                                        validateForm(
-                                                                            payload,
-                                                                        )
-                                                                    ) {
-                                                                        setShowModal(
-                                                                            true,
-                                                                        );
-                                                                    }
-                                                                }}
-                                                                disabled={
-                                                                    loading
+                                                                if (
+                                                                    validateForm(
+                                                                        payload,
+                                                                    )
+                                                                ) {
+                                                                    setShowModal(
+                                                                        true,
+                                                                    );
                                                                 }
-                                                            >
-                                                                <strong>
-                                                                    {loading
-                                                                        ? "Đang cập nhật..."
-                                                                        : "Cập nhật"}
-                                                                </strong>
-                                                            </button>
-                                                        </div>
+                                                            }}
+                                                            disabled={loading}
+                                                        >
+                                                            <strong>
+                                                                {loading
+                                                                    ? "Đang cập nhật..."
+                                                                    : "Cập nhật"}
+                                                            </strong>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </form>

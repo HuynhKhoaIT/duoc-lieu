@@ -14,23 +14,27 @@ import styles from "./RegisterForm.module.scss";
 export default function RegisterForm() {
     const router = useRouter();
     const { phone } = router.query;
-    const [loading, setLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false); 
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+    const [ loading, setLoading ] = useState(false);
+    const [ showPassword, setShowPassword ] = useState(false);
+    const [ showConfirmPassword, setShowConfirmPassword ] = useState(false);
     const { showAlert } = useAlert();
 
     const validate = (formData) => {
         const name = formData.get("name")?.trim();
         const phoneNumber = formData.get("phone_number")?.trim();
         const address = formData.get("address")?.trim();
+        const card_id = formData.get("card_id")?.trim();
         const password = formData.get("password")?.trim();
         const confirmPassword = formData.get("confirmPassword")?.trim();
 
         const phoneRegex = /^\d{10}$/;
+        const cccdRegex = /^\d{9}$|^\d{12}$/; // CCCD có thể là 9 số (CMND cũ) hoặc 12 số (CCCD mới)
 
         if (!name) return "Vui lòng nhập họ tên";
         if (!phoneRegex.test(phoneNumber)) return "Số điện thoại không hợp lệ";
         if (!address) return "Vui lòng nhập địa chỉ";
+        if (card_id && !cccdRegex.test(card_id))
+            return "Số CCCD phải là 9 hoặc 12 chữ số";
         if (!password || password.length < 8)
             return "Mật khẩu phải tối thiểu 8 ký tự";
         if (confirmPassword !== password) return "Xác nhận mật khẩu không khớp";
@@ -59,6 +63,7 @@ export default function RegisterForm() {
                     name: formData.get("name"),
                     phone_number: formData.get("phone_number"),
                     address: formData.get("address"),
+                    card_id: formData.get("card_id"),
                     password: formData.get("password"),
                     referrer_phone: phone,
                     password_confirmation: formData.get("confirmPassword"),
@@ -152,24 +157,48 @@ export default function RegisterForm() {
                                     />
                                 </div>
 
+                                <div className="max-w-md w-full flex flex-col items-center">
+                                    <input
+                                        type="text"
+                                        name="card_id"
+                                        placeholder="Số CCCD (9 hoặc 12 số)"
+                                        className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
+                                        maxLength={12}
+                                        autoComplete="new-password"
+                                    />
+                                </div>
+
                                 <div className="relative w-full max-w-md flex flex-col items-center">
                                     <input
-                                        type={showPassword ? "text" : "password"}
+                                        type={
+                                            showPassword ? "text" : "password"
+                                        }
                                         name="password"
                                         placeholder="Mật khẩu"
+                                        autoComplete="new-password"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 pr-10"
                                     />
                                     <span
                                         className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
-                                        onClick={() => setShowPassword(!showPassword)}
+                                        onClick={() =>
+                                            setShowPassword(!showPassword)
+                                        }
                                     >
-                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                        {showPassword ? (
+                                            <EyeOff size={20} />
+                                        ) : (
+                                            <Eye size={20} />
+                                        )}
                                     </span>
                                 </div>
 
                                 <div className="relative w-full max-w-md flex flex-col items-center">
                                     <input
-                                        type={showConfirmPassword ? "text" : "password"}
+                                        type={
+                                            showConfirmPassword
+                                                ? "text"
+                                                : "password"
+                                        }
                                         name="confirmPassword"
                                         placeholder="Xác nhận mật khẩu"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 pr-10"
@@ -177,7 +206,9 @@ export default function RegisterForm() {
                                     <span
                                         className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
                                         onClick={() =>
-                                            setShowConfirmPassword(!showConfirmPassword)
+                                            setShowConfirmPassword(
+                                                !showConfirmPassword,
+                                            )
                                         }
                                     >
                                         {showConfirmPassword ? (
@@ -194,7 +225,9 @@ export default function RegisterForm() {
                                         disabled={loading}
                                         className="max-w-md bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
                                     >
-                                        {loading ? "Đang đăng ký..." : "Đăng ký"}
+                                        {loading
+                                            ? "Đang đăng ký..."
+                                            : "Đăng ký"}
                                     </button>
                                 </div>
                             </form>

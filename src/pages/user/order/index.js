@@ -1,14 +1,30 @@
+import useSWR from "swr";
+
 import Breadcrumb from "@/components/Common/Breadcrumb/Breadcrumb";
 import LogoCarousel from "@/components/Common/Carousel/LogoCarousel/LogoCarousel";
 import RenderContext from "@/components/context/RenderContext";
 import Layout from "@/components/layouts/Layout";
 import ProductOrderPage from "@/components/Pages/User/Order/ProductOrderPage";
 import apiConfig from "@/constants/apiConfig";
-function OrderPage({ categories, products, slideList }) {
+import fetcherSWR from "@/services/fetcherSWR";
+function OrderPage({ slideList }) {
+    const { data: categoriesData } = useSWR(
+        `/api/category?per_page=999`,
+        fetcherSWR,
+    );
+
+    const { data: productsData } = useSWR(
+        `/api/product?per_page=999`,
+        fetcherSWR,
+    );
+
     return (
         <RenderContext>
             <Breadcrumb title={"Đặt hàng"} />
-            <ProductOrderPage categories={categories} productsData={products} />
+            <ProductOrderPage
+                categories={categoriesData?.data || []}
+                productsData={productsData?.data || []}
+            />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
     );
@@ -16,40 +32,24 @@ function OrderPage({ categories, products, slideList }) {
 
 export async function getStaticProps() {
     try {
-        const [ res, productsRes, resSlide ] = await Promise.all([
-            fetch(`${apiConfig.category.getList.url}?per_page=999`, {
-                cache: "force-cache",
-            }),
-            fetch(`${apiConfig.products.getList.url}?per_page=999`, { cache: "force-cache" }),
+        const [ resSlide ] = await Promise.all([
             fetch(apiConfig.slide.getList.url, {
                 cache: "force-cache",
             }),
         ]);
 
-        const categories = res.ok ? await res.json() : null;
-        const products = productsRes.ok ? await productsRes.json() : null;
         const slideList = resSlide.ok ? await resSlide.json() : null;
 
         return {
             props: {
-                categories: categories?.data || null,
-                products: products?.data || null,
-                error: res.ok ? null : `Error ${res.status}`,
-                errorProducts: productsRes.ok
-                    ? null
-                    : `Error ${productsRes.status}`,
                 slideList,
                 errorSlide: resSlide.ok ? null : `Error ${resSlide.status}`,
             },
-            revalidate: 60,
+            revalidate: 500,
         };
     } catch (err) {
         return {
             props: {
-                categories: null,
-                products: null,
-                error: err.message,
-                errorProducts: err.message,
                 slideList: [],
                 errorSlide: err.message,
             },

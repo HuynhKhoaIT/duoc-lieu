@@ -81,6 +81,7 @@ export default function LoginForm() {
                                         type="tel"
                                         placeholder="Số điện thoại"
                                         name="phone"
+                                        autoComplete="new-password"
                                         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2"
                                     />
                                 </p>
@@ -92,7 +93,7 @@ export default function LoginForm() {
                                         }
                                         placeholder="Mật khẩu"
                                         name="password"
-                                        autoComplete="off"
+                                        autoComplete="new-password"
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 pr-10"
                                     />
 
