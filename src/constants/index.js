@@ -1,6 +1,6 @@
 export const ssrMode = typeof window === "undefined";
 export const appMode = process.env.NEXT_PUBLIC_APP_MODE;
-export const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const apiUrl = process.env.NEXT_PUBLIC_API_BASE_DEV_URL;
 import StarIcon from "@mui/icons-material/Star";
 
 export const appName = "duoc-lieu-xanh";
