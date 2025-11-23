@@ -49,7 +49,7 @@ export default function WalletPage({
                 typeLabel = "Mua hàng";
                 break;
             case "agent_override":
-                typeLabel = "Điểm thưởng thu nhập";
+                typeLabel = "Điểm thưởng hỗ trợ phí";
                 break;
             default:
                 typeLabel = "Khác";
