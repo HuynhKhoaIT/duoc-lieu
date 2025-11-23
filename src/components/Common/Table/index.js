@@ -77,7 +77,7 @@ export default function TableBase({
                             <tr>
                                 <td
                                     colSpan={columns.length}
-                                    className="text-center py-6"
+                                    className="text-center py-6 h-120"
                                 >
                                     <span className="animate-pulse text-gray-500">
                                         Đang tải dữ liệu...
