@@ -31,16 +31,16 @@ export default function WalletPage({
 
         switch (item?.type) {
             case "transfer_out":
-                typeLabel = `Gửi từ ví - ${item?.sender?.username || "N/A"}`;
+                typeLabel = `Gửi từ ví - ${item?.sender?.name || item?.sender?.phone_number}`;
                 break;
             case "transfer_in":
-                typeLabel = `Nhận từ ví - ${item?.sender?.username || "N/A"}`;
+                typeLabel = `Nhận từ ví - ${item?.sender?.name || item?.sender?.phone_number}`;
                 break;
             case "withdraw":
                 typeLabel = "Rút tiền";
                 break;
             case "commission":
-                typeLabel = `CTV- ${item?.sender?.username || "N/A"}`;
+                typeLabel = `CTV- ${item?.sender?.name || item?.sender?.phone_number}`;
                 break;
             case "refund":
                 typeLabel = "Hoàn tiền";
