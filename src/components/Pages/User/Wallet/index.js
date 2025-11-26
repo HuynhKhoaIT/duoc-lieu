@@ -18,7 +18,6 @@ export default function WalletPage({
 }) {
     const { push } = useRouter();
     const [ totalPages, setTotalPages ] = useState(metaData?.last_page || 1);
-
     const columns = [
         { key: "id", label: "#" },
         { key: "amount", label: "Số tiền" },
@@ -31,7 +30,7 @@ export default function WalletPage({
 
         switch (item?.type) {
             case "transfer_out":
-                typeLabel = `Gửi từ ví - ${item?.sender?.name || item?.sender?.phone_number}`;
+                typeLabel = `Chuyển đến ví - ${item?.sender?.name || item?.sender?.phone_number}`;
                 break;
             case "transfer_in":
                 typeLabel = `Nhận từ ví - ${item?.sender?.name || item?.sender?.phone_number}`;
