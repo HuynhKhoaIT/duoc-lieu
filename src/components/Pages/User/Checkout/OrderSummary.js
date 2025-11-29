@@ -105,6 +105,7 @@ export default function OrderSummary({
                                 <button
                                     type="submit"
                                     className="main-btn cursor-pointer"
+                                    disabled={loading}
                                 >
                                     {loading ? "Đang xử lý" : "Xác Nhận"}
                                 </button>
