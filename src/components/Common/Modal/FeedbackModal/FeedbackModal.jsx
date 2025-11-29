@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import useAlert from "@/hooks/useAlert";
 
 import ModalBase from "../ModalBase";
 
@@ -8,6 +10,8 @@ import styles from "./FeedbackModal.module.scss";
 
 const FeedbackModal = ({ isOpen, onClose, onSubmit }) => {
     const [ feedback, setFeedback ] = useState("");
+    const [ loading, setLoading ] = useState(false);
+    const { showAlert } = useAlert();
 
     useEffect(() => {
         if (!isOpen) {
@@ -15,11 +19,24 @@ const FeedbackModal = ({ isOpen, onClose, onSubmit }) => {
         }
     }, [ isOpen ]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit({ feedback });
-        setFeedback(""); // reset sau khi submit
-        onClose(); // đóng modal sau khi gửi
+        setLoading(true);
+        if (feedback?.length <= 0) {
+            showAlert("Vui lòng nhập phản hồi.");
+            setLoading(false);
+            return;
+        }
+        try {
+            await onSubmit({ feedback });
+
+            setFeedback("");
+            onClose();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -52,6 +69,7 @@ const FeedbackModal = ({ isOpen, onClose, onSubmit }) => {
                         type="submit"
                         className={"bordered-btn"}
                         onClick={handleSubmit}
+                        disabled={loading}
                     >
                         Xác nhận
                     </button>

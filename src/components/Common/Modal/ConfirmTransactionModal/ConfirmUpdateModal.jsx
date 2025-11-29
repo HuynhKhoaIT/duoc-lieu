@@ -5,16 +5,17 @@ import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
 
 import ModalBase from "@/components/Common/Modal/ModalBase";
+import paths from "@/constants/paths";
 import useAlert from "@/hooks/useAlert";
 
 import styles from "./ConfirmTransactionModal.module.scss";
-import paths from "@/constants/paths";
 
 const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
     const [ transactionPassword, setTransactionPassword ] = useState("");
     const [ showPassword, setShowPassword ] = useState(false);
     const { showAlert } = useAlert();
     const { push } = useRouter();
+    const [ loading, setLoading ] = useState(false);
 
     useEffect(() => {
         if (!isOpen) {
@@ -24,6 +25,7 @@ const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const res = await fetch("/api/account/check-transaction-password", {
                 method: "GET",
@@ -39,6 +41,8 @@ const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
             }
         } catch (error) {
             showAlert(error.message || "Lỗi hệ thống.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -82,6 +86,7 @@ const ConfirmTransactionModal = ({ isOpen, onClose, onSubmit }) => {
                         type="submit"
                         className={"bordered-btn"}
                         onClick={handleSubmit}
+                        disabled={loading}
                     >
                         Xác nhận
                     </button>
