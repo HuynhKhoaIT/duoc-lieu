@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
         switch (req.method) {
             case "GET": {
-                response = await fetch(apiConfig.products.getList.url, {
+                response = await fetch(apiConfig.products.getList.url+'?per_page=999', {
                     method: apiConfig.products.getList.method,
                     headers: {
                         "Content-Type": "application/json",
