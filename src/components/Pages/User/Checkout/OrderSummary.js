@@ -87,7 +87,7 @@ export default function OrderSummary({
                                     {!isAuthenticated && isGift && (
                                         <tr className={styles.totalData}>
                                             <th className={styles.pl3}>
-                                                Phí ship
+                                                THANH TOÁN 35% THEO GIÁ LẺ CỦA SẢN PHẨM CHỌN
                                             </th>
                                             <td colSpan="2">
                                                 <strong>

@@ -8,7 +8,7 @@ import apiConfig from "@/constants/apiConfig";
 function GiftContainer({ products, slideList }) {
     return (
         <RenderContext>
-            <Breadcrumb title={"Quà Tặng"} />
+            <Breadcrumb title={"Tri ân"} />
             <GiftPage  productsData={products} />
             <LogoCarousel slideList={slideList} />
         </RenderContext>

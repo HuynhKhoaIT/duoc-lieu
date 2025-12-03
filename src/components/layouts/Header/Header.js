@@ -58,7 +58,7 @@ export default function Header() {
         { path: paths.home, label: "Trang Chủ" },
         { path: paths.about, label: "Giới thiệu" },
         { path: paths.shop, label: "Sản Phẩm" },
-        { path: paths.gift, label: "Quà tặng" },
+        { path: paths.gift, label: "Tri ân" },
         { path: paths.combo, label: "Đặt Hàng" },
         { path: paths.news, label: "Bài Viết" },
         { path: paths.contact, label: "Liên Hệ" },
