@@ -91,9 +91,9 @@ export default function OrderSummary({
                                             </th>
                                             <td colSpan="2">
                                                 <strong>
-                                                    {Number(
+                                                    {/* {Number(
                                                         39000,
-                                                    ).toLocaleString("vi-VN")}
+                                                    ).toLocaleString("vi-VN")} */}
                                                 </strong>
                                             </td>
                                         </tr>

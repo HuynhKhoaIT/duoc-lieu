@@ -46,9 +46,9 @@ export default function PaymentMethod({ open, toggle }) {
                                 <p className="ml-4 pl-2">
                                     Với nội dung: &quot;Số điện thoại của bạn&quot;
                                 </p>
-                                <p className="ml-4 pl-2">
+                                {/* <p className="ml-4 pl-2">
                                     Số tài khoản: 070075123459
-                                </p>
+                                </p> */}
                                 <p className="ml-4 pl-2">
                                     Ngân hàng: Sacombank
                                 </p>
