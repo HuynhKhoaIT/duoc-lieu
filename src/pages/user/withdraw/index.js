@@ -19,7 +19,7 @@ function WithDrawPage({ slideList }) {
 
     return (
         <RenderContext>
-            <Breadcrumb title={"Đặt Lênh Rút"} />
+            <Breadcrumb title={"Đặt Lệnh Rút"} />
             <WithdrawForm balanceData={balanceData} />
             <LogoCarousel slideList={slideList} />
         </RenderContext>
