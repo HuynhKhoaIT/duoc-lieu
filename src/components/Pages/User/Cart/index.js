@@ -301,11 +301,11 @@ export default function CartPage({ cartsData, isLoading }) {
                                                                 if (
                                                                     isAuthenticated &&
                                                                     totalPrice <
-                                                                        500000
+                                                                        120000
                                                                 ) {
                                                                     e.preventDefault();
                                                                     showAlert(
-                                                                        "CTV phải đặt đơn hàng có giá trị từ 500,000 trở lên, sẽ nhận Được giá sỉ và miễn phí giao hàng",
+                                                                        "CTV phải đặt đơn hàng có giá trị từ 120,000 trở lên, sẽ nhận Được giá sỉ và miễn phí giao hàng",
                                                                     );
                                                                 }
                                                             }}
